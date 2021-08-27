@@ -1,0 +1,316 @@
+//
+//  VCExtension.swift
+//  TypoGraphy Editor
+//
+//  Created by My Mac on 14/07/2021.
+//  Copyright © 2021 Digi Tech Solutions. All rights reserved.
+//
+
+import Foundation
+
+
+extension ViewController {
+    func showSavePopup(view: NSView){
+        mainPopover?.close()
+        let vc = SaveOptions.options()
+        vc.delegate = self
+        mainPopover = showPopover(viewController: vc, viewForBounds: view)
+    }
+    func showPopover(viewController: NSViewController, viewForBounds: NSView) -> NSPopover
+    {
+        let popover = NSPopover()
+        popover.contentViewController = viewController
+        popover.contentSize = viewController.view.frame.size
+        popover.behavior = .semitransient
+        
+        popover.show(relativeTo: viewForBounds.bounds, of: viewForBounds, preferredEdge: NSRectEdge.minX)
+        return popover
+    }
+    
+    func saveClicked(){
+        DispatchQueue.main.async {[weak self] in
+            guard let self = self else {return}
+            self.showHudbuyProd(){[weak self](isSaved) in
+                guard let self = self else {return}
+                self.saveImage(withHightRes: true){[weak self](isSaved) in
+                    guard let self = self else {return}
+                    
+                    if isSaved{
+                        self.hideHud()
+                    }else{
+                        self.hideHud()
+                    }
+                }
+            }
+        }
+    }
+    
+}
+extension ViewController: SaveProtocol {
+    func pngClicked() {
+        self.mainPopover?.close()
+        self.selectedExt = "png"
+        saveClicked()
+    }
+    func pdfClicked() {
+        self.mainPopover?.close()
+        self.selectedExt = "pdf"
+        self.createPdf()
+    }
+    func jpgClicked() {
+        self.mainPopover?.close()
+        self.selectedExt = "jpg"
+        saveClicked()
+    }
+}
+
+
+
+extension ViewController{
+    
+    func addBorder(_ borderWidth:CGFloat,borderColor:NSColor,sticker: ZDStickerView) {
+        guard  let textView = sticker.contentView as? ZdContentView else {
+            return
+        }
+       
+        textView.txtView.borderColor = borderColor
+        textView.txtView.borderWidth = borderWidth
+        if(borderWidth > 0.0) {
+            textView.txtView.isBorder = true
+        }else {
+            textView.txtView.isBorder = false
+        }
+    }
+    @objc func colorChanged(_ notification:Notification) -> Void {
+        
+        if let sticker = self.currentSelectedShape , let color = notification.object as? NSColor {
+            self.changeTextColor(color, sticker: sticker)
+        }
+    }
+    @objc func stickerColorChanged(_ notification:Notification) -> Void {
+        
+        
+        
+        if let color = notification.object as? NSColor {
+            applyColor(color: color)
+        }
+    }
+    @objc func bgColorChanged(_ notification:Notification) -> Void {
+        var angle = 0.0
+        if let dict = notification.object as? [String:Any] {
+            if let color = dict["color"] as? NSColor {
+                    for  sublayer in self.designView.layer!.sublayers! {
+                        if sublayer is CAGradientLayer{
+                            sublayer.removeFromSuperlayer()
+                        }
+                    }
+                    bgImageView.image = nil
+                    designView.bgColor = color
+            }
+            if let lcolor = dict["leftColor"] as? NSColor, let rcolor = dict["rightColor"] as? NSColor{
+                
+                if let gangle = dict["angle"] as? Float{
+                    angle = Double(gangle)
+                }
+                let gradient  = CAGradientLayer()
+                gradient.colors = [ lcolor.cgColor,rcolor.cgColor]
+                let x: Double! = Double(angle) / 360.0
+                let a = pow(sinf(Float(2.0 * Double.pi * ((x + 0.75) / 2.0))),2.0);
+                let b = pow(sinf(Float(2*Double.pi*((x+0.0)/2))),2);
+                let c = pow(sinf(Float(2*Double.pi*((x+0.25)/2))),2);
+                let d = pow(sinf(Float(2*Double.pi*((x+0.5)/2))),2);
+                
+                gradient.endPoint = CGPoint(x: CGFloat(c),y: CGFloat(d))
+                gradient.startPoint = CGPoint(x: CGFloat(a),y:CGFloat(b))
+                
+                gradient.locations = [ 0.0, 1.0]
+                    for  sublayer in self.designView.layer!.sublayers! {
+                        if sublayer is CAGradientLayer{
+                            sublayer.removeFromSuperlayer()
+                        }
+                    }
+                    bgImageView.image = nil
+                    self.designView.bgColor = NSColor.clear
+                    gradient.frame  = self.designView.bounds
+                    self.designView.layer?.insertSublayer(gradient, at: 0)
+                    self.designView.leftColor = lcolor
+                    self.designView.rightColor = rcolor
+                    self.designView.gradientAngle = Float(angle)
+            }
+        }
+    }
+    func changeTextColor(_ newColor: NSColor,sticker:ZDStickerView) {
+        guard  let textView = sticker.contentView as? ZdContentView else {
+            return
+        }
+        var oldColor:NSColor? = textView.txtView.textColor
+        if(oldColor == nil) {
+            oldColor = NSColor.black
+        }
+
+        if newColor.alphaComponent == 0.00{
+            textView.txtView.textColor = NSColor.clear
+        }else{
+            textView.txtView.textColor = newColor
+            textView.txtView.stringValue = textView.txtView.stringValue
+            textView.txtView.textAlign = textView.txtView.textAlign
+             NSColorPanel.shared.color = newColor
+        }
+    
+    }
+    
+    @objc func opacityChanged(_ notification:Notification) -> Void {
+        if let sticker = self.currentSelectedShape , let opacity = notification.object as? CGFloat {
+            self.opacityChanged(opacity, sticker: sticker)
+        }
+        
+    }
+    func opacityChanged(_ opacity:CGFloat,sticker: ZDStickerView) -> Void {
+        
+        sticker.contentView.alphaValue = opacity
+
+    }
+    @objc func stickerHeightChanged(_ notification:Notification) -> Void {
+        if let sticker = self.currentSelectedShape , let height = notification.object as? CGFloat {
+            var frame = sticker.frame
+            let nheight = frame.height + height
+            if nheight < self.designView.frame.height && nheight > 50 {
+                frame.size.height = nheight
+                sticker.resizeFrame(frame)
+            }
+            
+        }
+        
+    }
+    @objc func stickerWidthChanged(_ notification:Notification) -> Void {
+        if let sticker = self.currentSelectedShape , let height = notification.object as? CGFloat {
+            var frame = sticker.frame
+            let nheight = frame.width + height
+            if nheight < self.designView.frame.width  && nheight > 100{
+                frame.size.width = nheight
+                sticker.resizeFrame(frame)
+            }
+            
+        }
+        
+    }
+}
+
+
+extension ViewController{
+    
+    
+    func printBtnClicked(){
+        
+        var images = [NSImage]()
+        let scale:CGFloat = 1.588
+        if let snapshot = self.takeScreenShot(true, scale: scale){
+            images.append(snapshot)
+        }
+        if images.count > 1{
+            if let printView = self.convertImagesToSingleView(images, spaceMargin: 50){
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                    guard let self = self else {return}
+                    
+                    self.showPrintDialog(printView: printView)
+                }
+            }
+        }
+    }
+    
+    func convertImagesToSingleView( _ images: [NSImage],
+                                        spaceMargin: CGFloat = .zero,
+                                        useFlippedView: Bool = true) -> NSView?{
+            
+            var singleView: NSView?
+           
+            var imageViewsList: [NSImageView] = []
+            var totalHeight: CGFloat = .zero
+            var lastImgY: CGFloat = .zero
+            var isFirstImage: Bool = true
+            for img in images{
+                
+                var imgViewOrigin : CGPoint = .zero
+                if #available(OSX 10.12, *) {
+                    let imgView : NSImageView = .init(image: img)
+                    imgView.frame = .init(origin: imgViewOrigin,
+                                          size: img.size)
+                    if !isFirstImage{
+                        imgViewOrigin.y = lastImgY + spaceMargin
+                        imgView.frame.origin = imgViewOrigin
+                        totalHeight += spaceMargin
+                    }
+                    imageViewsList.append(imgView)
+                    lastImgY = imgView.frame.maxY
+                    isFirstImage = false
+                    totalHeight += imgView.bounds.height
+                } else {
+                    // Fallback on earlier versions
+                }
+                
+                
+            }
+            
+            if let firstImgViewWidth = imageViewsList.first?.bounds.width{
+                let printViewSize: NSSize = .init( width: firstImgViewWidth,
+                                                   height: totalHeight)
+                
+                if (useFlippedView){
+                    singleView = CustomFlippedView()
+                }
+                
+                let singleViewFrame: NSRect = .init( origin: .zero,
+                                                     size: printViewSize)
+                singleView?.frame = singleViewFrame
+                for imgView in imageViewsList{
+                    singleView?.addSubview(imgView)
+                }
+            }
+            return singleView
+        }
+    
+    func showPrintDialog(printView: NSView){
+            
+            var paperSize : CGSize = printView.frame.size
+            var verticalPaginationMode : NSPrintInfo.PaginationMode = .fit
+            
+//            switch templateType {
+//            case .BusinessCards:
+                if let singleSideSize = printView.subviews.first?.bounds.size{
+                    paperSize = .init(width: singleSideSize.width, height: singleSideSize.height + 150)
+                    verticalPaginationMode = .automatic
+                }
+//            default:
+//                paperSize = printView.frame.size
+//            }
+            
+            let printInfo = NSPrintInfo.shared
+            printInfo.isHorizontallyCentered = true
+            printInfo.isVerticallyCentered = true
+            printInfo.horizontalPagination = .fit
+            printInfo.verticalPagination = verticalPaginationMode
+            printInfo.paperSize = paperSize
+            
+            let printOperation = NSPrintOperation(view: printView, printInfo: printInfo)
+            printOperation.showsPrintPanel = true
+            printOperation.printPanel.options.insert(.showsScaling)
+            printOperation.printPanel.options.insert(.showsPaperSize)
+            
+            if let mainWindow = NSApp.mainWindow{
+                let selector = #selector( self.printOperationDidRun(
+                    printOperation:
+                    success:
+                    contextInfo:))
+                printOperation.runModal( for: mainWindow,
+                                         delegate: self,
+                                         didRun: selector,
+                                         contextInfo: nil)
+            }
+        }
+    @objc func printOperationDidRun( printOperation: NSPrintOperation,
+                                        success: Bool,
+                                        contextInfo: UnsafeMutableRawPointer?){
+            self.hideHud()
+       }
+}

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <collectionViewItem id="E9U-wD-JiA" customClass="ShapesCell" customModule="TypoGraphy_Editor" customModuleProvider="target">
+            <customView key="view" identifier="ShapesCell" misplaced="YES" id="Hz6-mo-xeY">
+                <rect key="frame" x="0.0" y="138" width="275" height="162"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                <subviews>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="d3j-xc-dqE">
+                        <rect key="frame" x="0.0" y="0.0" width="818" height="496"/>
+                        <subviews>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zgp-g5-6fX">
+                                <rect key="frame" x="5" y="5" width="808" height="486"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="card1" id="RBY-Nl-g1L"/>
+                            </imageView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="zgp-g5-6fX" secondAttribute="bottom" constant="5" id="DMP-MK-W6E"/>
+                            <constraint firstAttribute="trailing" secondItem="zgp-g5-6fX" secondAttribute="trailing" constant="5" id="FLr-5g-QZR"/>
+                            <constraint firstItem="zgp-g5-6fX" firstAttribute="leading" secondItem="d3j-xc-dqE" secondAttribute="leading" constant="5" id="Ict-lY-sdl"/>
+                            <constraint firstItem="zgp-g5-6fX" firstAttribute="top" secondItem="d3j-xc-dqE" secondAttribute="top" constant="5" id="nk7-gs-Rf8"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cRadius">
+                                <real key="value" value="10"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColour">
+                                <color key="value" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderW">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="bgColor">
+                                <color key="value" red="1" green="0.67450980390000004" blue="0.60392156860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </customView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="d3j-xc-dqE" secondAttribute="trailing" id="7cp-iK-ELt"/>
+                    <constraint firstItem="d3j-xc-dqE" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="aaS-im-Zpe"/>
+                    <constraint firstItem="d3j-xc-dqE" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="dZ1-8x-JPa"/>
+                    <constraint firstAttribute="bottom" secondItem="d3j-xc-dqE" secondAttribute="bottom" id="mPO-TU-X4c"/>
+                </constraints>
+            </customView>
+            <connections>
+                <outlet property="quoteImg" destination="zgp-g5-6fX" id="SYM-Wg-Day"/>
+            </connections>
+        </collectionViewItem>
+    </objects>
+    <resources>
+        <image name="card1" width="808" height="486"/>
+    </resources>
+</document>

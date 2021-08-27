@@ -1,0 +1,630 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1F1BB4D0269F33CB009260F7 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F1BB4CF269F33CB009260F7 /* MBProgressHUD.m */; };
+		1F1BB4D5269F3417009260F7 /* ZDTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1BB4D4269F3417009260F7 /* ZDTextView.swift */; };
+		1F1BB4E0269F3426009260F7 /* ZDStickerView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1F1BB4D9269F3426009260F7 /* ZDStickerView.bundle */; };
+		1F1BB4E1269F3426009260F7 /* ZDAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F1BB4DC269F3426009260F7 /* ZDAttributes.m */; };
+		1F1BB4E2269F3426009260F7 /* ZDStickerView-Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1BB4DD269F3426009260F7 /* ZDStickerView-Extentions.swift */; };
+		1F1BB4E3269F3426009260F7 /* ZDStickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F1BB4DE269F3426009260F7 /* ZDStickerView.m */; };
+		1F1BB4E4269F3426009260F7 /* SPGripViewBorderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F1BB4DF269F3426009260F7 /* SPGripViewBorderView.m */; };
+		1F1BB4E8269F3475009260F7 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1BB4E7269F3475009260F7 /* GlobalConstants.swift */; };
+		1F1BB4EF269F3628009260F7 /* TextVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1BB4EE269F3628009260F7 /* TextVC.swift */; };
+		1F1BB4F5269F3652009260F7 /* ShapesListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1BB4F3269F3652009260F7 /* ShapesListVC.swift */; };
+		1F1BB4FD269F3697009260F7 /* CardListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F1BB4F9269F3697009260F7 /* CardListCell.xib */; };
+		1F1BB4FE269F3697009260F7 /* ShapesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1BB4FA269F3697009260F7 /* ShapesCell.swift */; };
+		1F1BB4FF269F3697009260F7 /* ShapesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F1BB4FB269F3697009260F7 /* ShapesCell.xib */; };
+		1F1BB500269F3697009260F7 /* CardListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1BB4FC269F3697009260F7 /* CardListCell.swift */; };
+		1F1BB504269F36BD009260F7 /* CardsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1BB503269F36BD009260F7 /* CardsList.swift */; };
+		1F1BB508269F3712009260F7 /* VCExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1BB507269F3712009260F7 /* VCExtension.swift */; };
+		1F1BB50C269F3744009260F7 /* SaveExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1BB50B269F3744009260F7 /* SaveExtension.swift */; };
+		1F1BB50F269F37C0009260F7 /* SaveOptionsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1BB50E269F37C0009260F7 /* SaveOptionsVC.swift */; };
+		1F3B3B4A269E095200C0F15E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3B3B49269E095200C0F15E /* AppDelegate.swift */; };
+		1F3B3B4C269E095200C0F15E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3B3B4B269E095200C0F15E /* ViewController.swift */; };
+		1F3B3B4E269E095300C0F15E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F3B3B4D269E095300C0F15E /* Assets.xcassets */; };
+		1F3B3B51269E095300C0F15E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F3B3B4F269E095300C0F15E /* Main.storyboard */; };
+		1F3B3B80269E143000C0F15E /* CustomSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3B3B6C269E143000C0F15E /* CustomSliderCell.swift */; };
+		1F3B3B81269E143000C0F15E /* ZdContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F3B3B6E269E143000C0F15E /* ZdContentView.xib */; };
+		1F3B3B82269E143000C0F15E /* ImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3B3B6F269E143000C0F15E /* ImageViewExtension.swift */; };
+		1F3B3B89269E143000C0F15E /* DesignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3B3B7D269E143000C0F15E /* DesignView.swift */; };
+		1F3B3B8E269E14F100C0F15E /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3B3B8D269E14F100C0F15E /* ViewExtensions.swift */; };
+		89C9639B0FA509A6D45CABED /* Pods_TypoGraphy_Editor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30897C24486DA8C89AF05C33 /* Pods_TypoGraphy_Editor.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		03357810A5400EB4BD7DEAEB /* Pods-TypoGraphy Editor.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TypoGraphy Editor.release.xcconfig"; path = "Target Support Files/Pods-TypoGraphy Editor/Pods-TypoGraphy Editor.release.xcconfig"; sourceTree = "<group>"; };
+		1F1BB4CD269F33CB009260F7 /* TypoGraphy Editor-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TypoGraphy Editor-Bridging-Header.h"; sourceTree = "<group>"; };
+		1F1BB4CE269F33CB009260F7 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		1F1BB4CF269F33CB009260F7 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		1F1BB4D4269F3417009260F7 /* ZDTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZDTextView.swift; sourceTree = "<group>"; };
+		1F1BB4D8269F3426009260F7 /* ZDAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZDAttributes.h; sourceTree = "<group>"; };
+		1F1BB4D9269F3426009260F7 /* ZDStickerView.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ZDStickerView.bundle; sourceTree = "<group>"; };
+		1F1BB4DA269F3426009260F7 /* ZDStickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZDStickerView.h; sourceTree = "<group>"; };
+		1F1BB4DB269F3426009260F7 /* SPGripViewBorderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPGripViewBorderView.h; sourceTree = "<group>"; };
+		1F1BB4DC269F3426009260F7 /* ZDAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZDAttributes.m; sourceTree = "<group>"; };
+		1F1BB4DD269F3426009260F7 /* ZDStickerView-Extentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ZDStickerView-Extentions.swift"; sourceTree = "<group>"; };
+		1F1BB4DE269F3426009260F7 /* ZDStickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZDStickerView.m; sourceTree = "<group>"; };
+		1F1BB4DF269F3426009260F7 /* SPGripViewBorderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPGripViewBorderView.m; sourceTree = "<group>"; };
+		1F1BB4E7269F3475009260F7 /* GlobalConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConstants.swift; sourceTree = "<group>"; };
+		1F1BB4EE269F3628009260F7 /* TextVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextVC.swift; sourceTree = "<group>"; };
+		1F1BB4F3269F3652009260F7 /* ShapesListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapesListVC.swift; sourceTree = "<group>"; };
+		1F1BB4F9269F3697009260F7 /* CardListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardListCell.xib; sourceTree = "<group>"; };
+		1F1BB4FA269F3697009260F7 /* ShapesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShapesCell.swift; sourceTree = "<group>"; };
+		1F1BB4FB269F3697009260F7 /* ShapesCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShapesCell.xib; sourceTree = "<group>"; };
+		1F1BB4FC269F3697009260F7 /* CardListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardListCell.swift; sourceTree = "<group>"; };
+		1F1BB503269F36BD009260F7 /* CardsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsList.swift; sourceTree = "<group>"; };
+		1F1BB507269F3712009260F7 /* VCExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCExtension.swift; sourceTree = "<group>"; };
+		1F1BB50B269F3744009260F7 /* SaveExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveExtension.swift; sourceTree = "<group>"; };
+		1F1BB50E269F37C0009260F7 /* SaveOptionsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveOptionsVC.swift; sourceTree = "<group>"; };
+		1F3B3B46269E095200C0F15E /* TypoGraphy Editor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TypoGraphy Editor.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F3B3B49269E095200C0F15E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		1F3B3B4B269E095200C0F15E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1F3B3B4D269E095300C0F15E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1F3B3B50269E095300C0F15E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		1F3B3B52269E095300C0F15E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1F3B3B53269E095300C0F15E /* TypoGraphy_Editor.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TypoGraphy_Editor.entitlements; sourceTree = "<group>"; };
+		1F3B3B6C269E143000C0F15E /* CustomSliderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSliderCell.swift; sourceTree = "<group>"; };
+		1F3B3B6E269E143000C0F15E /* ZdContentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZdContentView.xib; sourceTree = "<group>"; };
+		1F3B3B6F269E143000C0F15E /* ImageViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewExtension.swift; sourceTree = "<group>"; };
+		1F3B3B7D269E143000C0F15E /* DesignView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignView.swift; sourceTree = "<group>"; };
+		1F3B3B8D269E14F100C0F15E /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
+		30897C24486DA8C89AF05C33 /* Pods_TypoGraphy_Editor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TypoGraphy_Editor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC7CF86DF4E9EE68D9984FC4 /* Pods-TypoGraphy Editor.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TypoGraphy Editor.debug.xcconfig"; path = "Target Support Files/Pods-TypoGraphy Editor/Pods-TypoGraphy Editor.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1F3B3B43269E095200C0F15E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				89C9639B0FA509A6D45CABED /* Pods_TypoGraphy_Editor.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		113A771487621D570060DF44 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				30897C24486DA8C89AF05C33 /* Pods_TypoGraphy_Editor.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1F1BB4D3269F3417009260F7 /* ZDTextView */ = {
+			isa = PBXGroup;
+			children = (
+				1F1BB4D4269F3417009260F7 /* ZDTextView.swift */,
+			);
+			path = ZDTextView;
+			sourceTree = "<group>";
+		};
+		1F1BB4D7269F3426009260F7 /* ZDview */ = {
+			isa = PBXGroup;
+			children = (
+				1F1BB4D8269F3426009260F7 /* ZDAttributes.h */,
+				1F1BB4D9269F3426009260F7 /* ZDStickerView.bundle */,
+				1F1BB4DA269F3426009260F7 /* ZDStickerView.h */,
+				1F1BB4DB269F3426009260F7 /* SPGripViewBorderView.h */,
+				1F1BB4DC269F3426009260F7 /* ZDAttributes.m */,
+				1F1BB4DD269F3426009260F7 /* ZDStickerView-Extentions.swift */,
+				1F1BB4DE269F3426009260F7 /* ZDStickerView.m */,
+				1F1BB4DF269F3426009260F7 /* SPGripViewBorderView.m */,
+			);
+			path = ZDview;
+			sourceTree = "<group>";
+		};
+		1F1BB4E6269F346C009260F7 /* GlobalConstants */ = {
+			isa = PBXGroup;
+			children = (
+				1F1BB4E7269F3475009260F7 /* GlobalConstants.swift */,
+			);
+			path = GlobalConstants;
+			sourceTree = "<group>";
+		};
+		1F1BB4EC269F357D009260F7 /* VC Controller */ = {
+			isa = PBXGroup;
+			children = (
+				1F1BB506269F3704009260F7 /* HomeVC */,
+				1F1BB4F2269F363D009260F7 /* Cells */,
+				1F3B3B4B269E095200C0F15E /* ViewController.swift */,
+				1F1BB4EE269F3628009260F7 /* TextVC.swift */,
+				1F1BB4F3269F3652009260F7 /* ShapesListVC.swift */,
+				1F1BB503269F36BD009260F7 /* CardsList.swift */,
+				1F1BB50E269F37C0009260F7 /* SaveOptionsVC.swift */,
+			);
+			path = "VC Controller";
+			sourceTree = "<group>";
+		};
+		1F1BB4ED269F358E009260F7 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				1F3B3B4D269E095300C0F15E /* Assets.xcassets */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		1F1BB4F2269F363D009260F7 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				1F1BB4FC269F3697009260F7 /* CardListCell.swift */,
+				1F1BB4F9269F3697009260F7 /* CardListCell.xib */,
+				1F1BB4FA269F3697009260F7 /* ShapesCell.swift */,
+				1F1BB4FB269F3697009260F7 /* ShapesCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		1F1BB506269F3704009260F7 /* HomeVC */ = {
+			isa = PBXGroup;
+			children = (
+				1F1BB507269F3712009260F7 /* VCExtension.swift */,
+				1F1BB50B269F3744009260F7 /* SaveExtension.swift */,
+			);
+			path = HomeVC;
+			sourceTree = "<group>";
+		};
+		1F3B3B3D269E095200C0F15E = {
+			isa = PBXGroup;
+			children = (
+				1F3B3B48269E095200C0F15E /* TypoGraphy Editor */,
+				1F3B3B47269E095200C0F15E /* Products */,
+				A757AD5D65CC2B6E017CDAFF /* Pods */,
+				113A771487621D570060DF44 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		1F3B3B47269E095200C0F15E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1F3B3B46269E095200C0F15E /* TypoGraphy Editor.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1F3B3B48269E095200C0F15E /* TypoGraphy Editor */ = {
+			isa = PBXGroup;
+			children = (
+				1F3B3B69269E11A800C0F15E /* Appdelegate */,
+				1F1BB4ED269F358E009260F7 /* Assets */,
+				1F1BB4E6269F346C009260F7 /* GlobalConstants */,
+				1F1BB4EC269F357D009260F7 /* VC Controller */,
+				1F3B3B8C269E14E100C0F15E /* ViewExtensions */,
+				1F3B3B6A269E11ED00C0F15E /* TextLibraries */,
+				1F3B3B4F269E095300C0F15E /* Main.storyboard */,
+				1F3B3B52269E095300C0F15E /* Info.plist */,
+				1F1BB4CD269F33CB009260F7 /* TypoGraphy Editor-Bridging-Header.h */,
+				1F3B3B53269E095300C0F15E /* TypoGraphy_Editor.entitlements */,
+			);
+			path = "TypoGraphy Editor";
+			sourceTree = "<group>";
+		};
+		1F3B3B69269E11A800C0F15E /* Appdelegate */ = {
+			isa = PBXGroup;
+			children = (
+				1F3B3B49269E095200C0F15E /* AppDelegate.swift */,
+			);
+			path = Appdelegate;
+			sourceTree = "<group>";
+		};
+		1F3B3B6A269E11ED00C0F15E /* TextLibraries */ = {
+			isa = PBXGroup;
+			children = (
+				1F1BB4D7269F3426009260F7 /* ZDview */,
+				1F1BB4D3269F3417009260F7 /* ZDTextView */,
+				1F3B3B6B269E143000C0F15E /* CustomSlider */,
+				1F3B3B7C269E143000C0F15E /* DesignView */,
+				1F3B3B6D269E143000C0F15E /* DraggingImageView */,
+				1F3B3B79269E143000C0F15E /* Loader View */,
+			);
+			path = TextLibraries;
+			sourceTree = "<group>";
+		};
+		1F3B3B6B269E143000C0F15E /* CustomSlider */ = {
+			isa = PBXGroup;
+			children = (
+				1F3B3B6C269E143000C0F15E /* CustomSliderCell.swift */,
+			);
+			path = CustomSlider;
+			sourceTree = "<group>";
+		};
+		1F3B3B6D269E143000C0F15E /* DraggingImageView */ = {
+			isa = PBXGroup;
+			children = (
+				1F3B3B6E269E143000C0F15E /* ZdContentView.xib */,
+				1F3B3B6F269E143000C0F15E /* ImageViewExtension.swift */,
+			);
+			path = DraggingImageView;
+			sourceTree = "<group>";
+		};
+		1F3B3B79269E143000C0F15E /* Loader View */ = {
+			isa = PBXGroup;
+			children = (
+				1F1BB4CE269F33CB009260F7 /* MBProgressHUD.h */,
+				1F1BB4CF269F33CB009260F7 /* MBProgressHUD.m */,
+			);
+			path = "Loader View";
+			sourceTree = "<group>";
+		};
+		1F3B3B7C269E143000C0F15E /* DesignView */ = {
+			isa = PBXGroup;
+			children = (
+				1F3B3B7D269E143000C0F15E /* DesignView.swift */,
+			);
+			path = DesignView;
+			sourceTree = "<group>";
+		};
+		1F3B3B8C269E14E100C0F15E /* ViewExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				1F3B3B8D269E14F100C0F15E /* ViewExtensions.swift */,
+			);
+			path = ViewExtensions;
+			sourceTree = "<group>";
+		};
+		A757AD5D65CC2B6E017CDAFF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CC7CF86DF4E9EE68D9984FC4 /* Pods-TypoGraphy Editor.debug.xcconfig */,
+				03357810A5400EB4BD7DEAEB /* Pods-TypoGraphy Editor.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1F3B3B45269E095200C0F15E /* TypoGraphy Editor */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1F3B3B56269E095300C0F15E /* Build configuration list for PBXNativeTarget "TypoGraphy Editor" */;
+			buildPhases = (
+				46E41AD264C10E27A9B1E208 /* [CP] Check Pods Manifest.lock */,
+				1F3B3B42269E095200C0F15E /* Sources */,
+				1F3B3B43269E095200C0F15E /* Frameworks */,
+				1F3B3B44269E095200C0F15E /* Resources */,
+				83BACB92BF7A42A55B9C933A /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "TypoGraphy Editor";
+			productName = "TypoGraphy Editor";
+			productReference = 1F3B3B46269E095200C0F15E /* TypoGraphy Editor.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1F3B3B3E269E095200C0F15E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1200;
+				LastUpgradeCheck = 1200;
+				ORGANIZATIONNAME = "Digi Tech Solutions";
+				TargetAttributes = {
+					1F3B3B45269E095200C0F15E = {
+						CreatedOnToolsVersion = 12.0;
+						LastSwiftMigration = 1200;
+					};
+				};
+			};
+			buildConfigurationList = 1F3B3B41269E095200C0F15E /* Build configuration list for PBXProject "TypoGraphy Editor" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1F3B3B3D269E095200C0F15E;
+			productRefGroup = 1F3B3B47269E095200C0F15E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1F3B3B45269E095200C0F15E /* TypoGraphy Editor */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1F3B3B44269E095200C0F15E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1F3B3B4E269E095300C0F15E /* Assets.xcassets in Resources */,
+				1F3B3B51269E095300C0F15E /* Main.storyboard in Resources */,
+				1F1BB4E0269F3426009260F7 /* ZDStickerView.bundle in Resources */,
+				1F1BB4FD269F3697009260F7 /* CardListCell.xib in Resources */,
+				1F1BB4FF269F3697009260F7 /* ShapesCell.xib in Resources */,
+				1F3B3B81269E143000C0F15E /* ZdContentView.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		46E41AD264C10E27A9B1E208 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TypoGraphy Editor-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		83BACB92BF7A42A55B9C933A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TypoGraphy Editor/Pods-TypoGraphy Editor-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TypoGraphy Editor/Pods-TypoGraphy Editor-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TypoGraphy Editor/Pods-TypoGraphy Editor-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1F3B3B42269E095200C0F15E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1F3B3B4C269E095200C0F15E /* ViewController.swift in Sources */,
+				1F1BB4E2269F3426009260F7 /* ZDStickerView-Extentions.swift in Sources */,
+				1F1BB50C269F3744009260F7 /* SaveExtension.swift in Sources */,
+				1F1BB4E4269F3426009260F7 /* SPGripViewBorderView.m in Sources */,
+				1F1BB4D5269F3417009260F7 /* ZDTextView.swift in Sources */,
+				1F3B3B89269E143000C0F15E /* DesignView.swift in Sources */,
+				1F1BB4EF269F3628009260F7 /* TextVC.swift in Sources */,
+				1F1BB4E8269F3475009260F7 /* GlobalConstants.swift in Sources */,
+				1F1BB508269F3712009260F7 /* VCExtension.swift in Sources */,
+				1F3B3B80269E143000C0F15E /* CustomSliderCell.swift in Sources */,
+				1F1BB50F269F37C0009260F7 /* SaveOptionsVC.swift in Sources */,
+				1F1BB4F5269F3652009260F7 /* ShapesListVC.swift in Sources */,
+				1F1BB500269F3697009260F7 /* CardListCell.swift in Sources */,
+				1F3B3B82269E143000C0F15E /* ImageViewExtension.swift in Sources */,
+				1F1BB4E3269F3426009260F7 /* ZDStickerView.m in Sources */,
+				1F1BB4E1269F3426009260F7 /* ZDAttributes.m in Sources */,
+				1F3B3B8E269E14F100C0F15E /* ViewExtensions.swift in Sources */,
+				1F3B3B4A269E095200C0F15E /* AppDelegate.swift in Sources */,
+				1F1BB4D0269F33CB009260F7 /* MBProgressHUD.m in Sources */,
+				1F1BB4FE269F3697009260F7 /* ShapesCell.swift in Sources */,
+				1F1BB504269F36BD009260F7 /* CardsList.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		1F3B3B4F269E095300C0F15E /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1F3B3B50269E095300C0F15E /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1F3B3B54269E095300C0F15E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		1F3B3B55269E095300C0F15E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		1F3B3B57269E095300C0F15E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CC7CF86DF4E9EE68D9984FC4 /* Pods-TypoGraphy Editor.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "TypoGraphy Editor/TypoGraphy_Editor.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1.0;
+				DEVELOPMENT_TEAM = 6LH927P5RT;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = "TypoGraphy Editor/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = com.myapps.typo.graphy.editor.text.editing;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "TypoGraphy Editor/TypoGraphy Editor-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		1F3B3B58269E095300C0F15E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 03357810A5400EB4BD7DEAEB /* Pods-TypoGraphy Editor.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "TypoGraphy Editor/TypoGraphy_Editor.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1.0;
+				DEVELOPMENT_TEAM = 6LH927P5RT;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = "TypoGraphy Editor/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = com.myapps.typo.graphy.editor.text.editing;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "TypoGraphy Editor/TypoGraphy Editor-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1F3B3B41269E095200C0F15E /* Build configuration list for PBXProject "TypoGraphy Editor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1F3B3B54269E095300C0F15E /* Debug */,
+				1F3B3B55269E095300C0F15E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1F3B3B56269E095300C0F15E /* Build configuration list for PBXNativeTarget "TypoGraphy Editor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1F3B3B57269E095300C0F15E /* Debug */,
+				1F3B3B58269E095300C0F15E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1F3B3B3E269E095200C0F15E /* Project object */;
+}

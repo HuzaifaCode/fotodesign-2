@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView identifier="ZdContentView" translatesAutoresizingMaskIntoConstraints="NO" id="BtF-5P-pFy" customClass="ZdContentView" customModule="iStudio_Business_Card_Maker" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="60"/>
+            <subviews>
+                <customView hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="se8-iA-gMx" userLabel="RightLine" customClass="borderLine" customModule="iStudio_Business_Card_Maker" customModuleProvider="target">
+                    <rect key="frame" x="299" y="0.0" width="1" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="1.5" id="4ag-56-b1K"/>
+                    </constraints>
+                </customView>
+                <customView hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6EK-qA-8O7" userLabel="LeftLine" customClass="borderLine" customModule="iStudio_Business_Card_Maker" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="2" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="1.5" id="mFM-Dj-0dj"/>
+                    </constraints>
+                </customView>
+                <customView hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ftr-Xm-9Di" userLabel="BottomLine" customClass="borderLine" customModule="iStudio_Business_Card_Maker" customModuleProvider="target">
+                    <rect key="frame" x="2" y="0.0" width="297" height="2"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1.5" id="DPw-Fc-ztW"/>
+                    </constraints>
+                </customView>
+                <customView hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dhB-5E-Goc" userLabel="TopLine" customClass="borderLine" customModule="iStudio_Business_Card_Maker" customModuleProvider="target">
+                    <rect key="frame" x="2" y="59" width="297" height="1"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1.5" id="3sB-wT-bVS"/>
+                    </constraints>
+                </customView>
+                <textField toolTip="Add text in Text Box" focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="9KX-Us-hkl" customClass="ZDTextView" customModule="iStudio_Business_Card_Maker" customModuleProvider="target">
+                    <rect key="frame" x="-2" y="0.0" width="304" height="60"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" focusRingType="none" placeholderString="Title" id="cU2-yT-JcY">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="placeholderTextColor">
+                            <color key="value" red="0.95686274509803915" green="0.95686274509803915" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </textField>
+                <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Tej-nG-lya">
+                    <rect key="frame" x="285" y="40" width="10" height="15"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="15" id="j6h-wL-k7R"/>
+                        <constraint firstAttribute="width" constant="10" id="xic-FU-Y71"/>
+                    </constraints>
+                    <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="black_cross" imagePosition="overlaps" alignment="center" controlSize="mini" imageScaling="proportionallyDown" inset="2" id="6JH-Co-fXm">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu" size="9"/>
+                    </buttonCell>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="layer.tint">
+                            <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="closeButtonActionWithSender:" target="BtF-5P-pFy" id="ahI-dC-h3a"/>
+                    </connections>
+                </button>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="Rtz-ns-ojH">
+                    <rect key="frame" x="7" y="45" width="10" height="10"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="10" id="NG2-Qc-840"/>
+                        <constraint firstAttribute="height" constant="10" id="XNK-d6-AUA"/>
+                    </constraints>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" controlSize="mini" imageScaling="proportionallyUpOrDown" inset="2" id="QZg-90-ZF4">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu" size="9"/>
+                    </buttonCell>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstItem="Rtz-ns-ojH" firstAttribute="top" secondItem="BtF-5P-pFy" secondAttribute="top" constant="5" id="8HG-DO-yZJ"/>
+                <constraint firstItem="6EK-qA-8O7" firstAttribute="top" secondItem="BtF-5P-pFy" secondAttribute="top" id="90Z-Eh-K5M"/>
+                <constraint firstAttribute="trailing" secondItem="9KX-Us-hkl" secondAttribute="trailing" id="Foc-wZ-wTU"/>
+                <constraint firstItem="Tej-nG-lya" firstAttribute="top" secondItem="BtF-5P-pFy" secondAttribute="top" constant="5" id="Fxj-nG-hGc"/>
+                <constraint firstItem="se8-iA-gMx" firstAttribute="top" secondItem="BtF-5P-pFy" secondAttribute="top" id="LLZ-eC-fgk"/>
+                <constraint firstAttribute="bottom" secondItem="9KX-Us-hkl" secondAttribute="bottom" id="QuK-JA-Gie"/>
+                <constraint firstAttribute="trailing" secondItem="Tej-nG-lya" secondAttribute="trailing" constant="5" id="RUY-fI-A03"/>
+                <constraint firstAttribute="trailing" secondItem="se8-iA-gMx" secondAttribute="trailing" id="SGQ-yb-Jug"/>
+                <constraint firstItem="Rtz-ns-ojH" firstAttribute="leading" secondItem="6EK-qA-8O7" secondAttribute="trailing" constant="5" id="UmU-hN-xH5"/>
+                <constraint firstAttribute="height" constant="60" id="VLO-DO-G3v"/>
+                <constraint firstAttribute="bottom" secondItem="ftr-Xm-9Di" secondAttribute="bottom" id="ZJu-dE-wa1"/>
+                <constraint firstItem="se8-iA-gMx" firstAttribute="leading" secondItem="dhB-5E-Goc" secondAttribute="trailing" id="a66-Wj-wMe"/>
+                <constraint firstItem="se8-iA-gMx" firstAttribute="leading" secondItem="ftr-Xm-9Di" secondAttribute="trailing" id="aaF-B7-ecC"/>
+                <constraint firstAttribute="bottom" secondItem="se8-iA-gMx" secondAttribute="bottom" id="dk1-1g-Y1o"/>
+                <constraint firstItem="ftr-Xm-9Di" firstAttribute="leading" secondItem="6EK-qA-8O7" secondAttribute="trailing" id="fvJ-Ia-reZ"/>
+                <constraint firstItem="dhB-5E-Goc" firstAttribute="top" secondItem="BtF-5P-pFy" secondAttribute="top" id="hfi-Qm-gcQ"/>
+                <constraint firstAttribute="bottom" secondItem="6EK-qA-8O7" secondAttribute="bottom" id="iQH-lZ-WQl"/>
+                <constraint firstItem="9KX-Us-hkl" firstAttribute="top" secondItem="BtF-5P-pFy" secondAttribute="top" id="kbO-5B-roe"/>
+                <constraint firstItem="6EK-qA-8O7" firstAttribute="leading" secondItem="BtF-5P-pFy" secondAttribute="leading" id="rgy-Vu-x9V"/>
+                <constraint firstItem="9KX-Us-hkl" firstAttribute="leading" secondItem="BtF-5P-pFy" secondAttribute="leading" id="sTP-Hu-afr"/>
+                <constraint firstItem="dhB-5E-Goc" firstAttribute="leading" secondItem="6EK-qA-8O7" secondAttribute="trailing" id="tLs-Uq-SC9"/>
+                <constraint firstAttribute="width" constant="300" id="tSZ-MG-6ah"/>
+            </constraints>
+            <connections>
+                <outlet property="closeButton" destination="Tej-nG-lya" id="EBV-Ef-y2f"/>
+                <outlet property="heightConstrain" destination="VLO-DO-G3v" id="sm7-Ni-cBl"/>
+                <outlet property="txtView" destination="9KX-Us-hkl" id="zmi-TJ-E0u"/>
+                <outlet property="widthConstrain" destination="tSZ-MG-6ah" id="aUl-yc-Gdn"/>
+            </connections>
+            <point key="canvasLocation" x="407" y="173"/>
+        </customView>
+    </objects>
+    <resources>
+        <image name="black_cross" width="25" height="25"/>
+    </resources>
+</document>
