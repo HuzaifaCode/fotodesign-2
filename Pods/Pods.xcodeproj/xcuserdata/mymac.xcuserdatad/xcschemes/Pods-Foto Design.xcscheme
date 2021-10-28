@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "519DC0DFA5645D9A0471DDECEB9D9FF5"
-               BuildableName = "Pods_TypoGraphy_Editor.framework"
-               BlueprintName = "Pods-TypoGraphy Editor"
+               BlueprintIdentifier = "92D51345EA1A5FD036826392E5047079"
+               BuildableName = "Pods_Foto_Design.framework"
+               BlueprintName = "Pods-Foto Design"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

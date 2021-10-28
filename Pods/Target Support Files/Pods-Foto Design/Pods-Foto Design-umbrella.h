@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_TypoGraphy_EditorVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_TypoGraphy_EditorVersionString[];
+FOUNDATION_EXPORT double Pods_Foto_DesignVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_Foto_DesignVersionString[];
 

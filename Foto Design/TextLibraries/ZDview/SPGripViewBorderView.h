@@ -7,7 +7,7 @@
 //  This file was modified from SPUserResizableView.
 
 #import <Cocoa/Cocoa.h>
-#import "Typography_Editor-Swift.h"
+#import "Foto_Design-Swift.h"
 
 @interface SPGripViewBorderView : NSView
 
