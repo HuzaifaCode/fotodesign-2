@@ -19,7 +19,7 @@ extension ViewController{
         
        // printBtnClicked()
         self.designView.isHidden = false
-        let scale:CGFloat = withHightRes == true ? 3 : 2
+        let scale:CGFloat = self.editorType.rawValue //withHightRes == true ? 3 : 2
         let snapshot = self.takeScreenShot(true, scale: scale)
  
         //let resieImg = snapshot?.resizeImage(image: <#T##NSImage#>, w: <#T##Int#>, h: <#T##Int#>)

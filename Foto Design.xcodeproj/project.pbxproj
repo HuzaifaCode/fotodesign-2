@@ -34,6 +34,7 @@
 		1F3B3B82269E143000C0F15E /* ImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3B3B6F269E143000C0F15E /* ImageViewExtension.swift */; };
 		1F3B3B89269E143000C0F15E /* DesignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3B3B7D269E143000C0F15E /* DesignView.swift */; };
 		1F3B3B8E269E14F100C0F15E /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3B3B8D269E14F100C0F15E /* ViewExtensions.swift */; };
+		1F5429B927FEF7C7006BFE50 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5429B827FEF7C7006BFE50 /* ApiManager.swift */; };
 		AC7B3AC70741FA4DAAE19698 /* Pods_Foto_Design.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0947F8B32933121B9A60AECF /* Pods_Foto_Design.framework */; };
 /* End PBXBuildFile section */
 
@@ -74,6 +75,7 @@
 		1F3B3B6F269E143000C0F15E /* ImageViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewExtension.swift; sourceTree = "<group>"; };
 		1F3B3B7D269E143000C0F15E /* DesignView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignView.swift; sourceTree = "<group>"; };
 		1F3B3B8D269E14F100C0F15E /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
+		1F5429B827FEF7C7006BFE50 /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		1FDF180F26D96DF900A707F5 /* Foto Design.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Foto Design.entitlements"; sourceTree = "<group>"; };
 		3858A4366D93D0C6FA909BEA /* Pods-Foto Design.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foto Design.release.xcconfig"; path = "Target Support Files/Pods-Foto Design/Pods-Foto Design.release.xcconfig"; sourceTree = "<group>"; };
 		CC7CF86DF4E9EE68D9984FC4 /* Pods-TypoGraphy Editor.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TypoGraphy Editor.debug.xcconfig"; path = "Target Support Files/Pods-TypoGraphy Editor/Pods-TypoGraphy Editor.debug.xcconfig"; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 		1F3B3B48269E095200C0F15E /* Foto Design */ = {
 			isa = PBXGroup;
 			children = (
+				1F5429B727FEF79E006BFE50 /* Manager */,
 				1FDF180F26D96DF900A707F5 /* Foto Design.entitlements */,
 				1F3B3B69269E11A800C0F15E /* Appdelegate */,
 				1F1BB4ED269F358E009260F7 /* Assets */,
@@ -269,6 +272,14 @@
 				1F3B3B8D269E14F100C0F15E /* ViewExtensions.swift */,
 			);
 			path = ViewExtensions;
+			sourceTree = "<group>";
+		};
+		1F5429B727FEF79E006BFE50 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				1F5429B827FEF7C7006BFE50 /* ApiManager.swift */,
+			);
+			path = Manager;
 			sourceTree = "<group>";
 		};
 		A757AD5D65CC2B6E017CDAFF /* Pods */ = {
@@ -407,6 +418,7 @@
 				1F1BB4E4269F3426009260F7 /* SPGripViewBorderView.m in Sources */,
 				1F1BB4D5269F3417009260F7 /* ZDTextView.swift in Sources */,
 				1F3B3B89269E143000C0F15E /* DesignView.swift in Sources */,
+				1F5429B927FEF7C7006BFE50 /* ApiManager.swift in Sources */,
 				1F1BB4EF269F3628009260F7 /* TextVC.swift in Sources */,
 				1F1BB4E8269F3475009260F7 /* GlobalConstants.swift in Sources */,
 				1F1BB508269F3712009260F7 /* VCExtension.swift in Sources */,

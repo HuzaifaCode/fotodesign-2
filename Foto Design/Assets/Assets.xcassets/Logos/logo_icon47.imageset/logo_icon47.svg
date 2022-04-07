@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="80.994" height="67.565" viewBox="0 0 80.994 67.565">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.304" y1="0.987" x2="0.814" y2="-0.307" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#f06922"/>
+      <stop offset="1" stop-color="#fded2c"/>
+    </linearGradient>
+  </defs>
+  <g id="Group_78" data-name="Group 78" transform="translate(-1508.978 -701.418)">
+    <path id="Path_584" data-name="Path 584" d="M1582.9,718.787a1.786,1.786,0,0,0-2.02-2.02H1562.3l-7.775-7.069h26.357q9.089,0,9.089,9.09V750.3q0,9.091-9.089,9.09H1563.11v3.535h10.3v6.06h-46.152v-6.06h9.8v-3.535h-18.986q-9.089,0-9.089-9.09v-31.51q0-9.088,9.089-9.09h19.188v-8.28l27.47,24.944-11.109,4.544,4.646,8.182-5.452,3.131-5.052-8.889-10.5,4.244V716.767h-19.187a1.787,1.787,0,0,0-2.022,2.02V750.3a1.787,1.787,0,0,0,2.021,2.02h62.815a1.785,1.785,0,0,0,2.02-2.02Z" fill-rule="evenodd" fill="url(#linear-gradient)"/>
+    <path id="Path_585" data-name="Path 585" d="M1558.261,739.088l-4.646-8.182,11.11-4.544-27.47-24.944,17.989,39.4Z" fill="#d65e27" opacity="0.4"/>
+  </g>
+</svg>

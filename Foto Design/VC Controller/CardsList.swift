@@ -52,8 +52,25 @@ class CardsListVC: NSViewController {
         isGradientSelected = false
         
         NOTIFICATION_CENTER.addObserver(self, selector: #selector(selectionChanged(_:)), name: NSNotification.Name(rawValue: NotificationKey.cardSideSeleceted.rawValue),object: nil)
+        
+        loadData()
     }
     
+    func loadData(){
+        ApiManager.getImages(type: "poster", completion: {[weak self](result,abc) in
+             guard let self = self else {return}
+            
+            if let id = result?.total{
+                print(id)
+            }
+           
+            
+            
+        }, progress: {[weak self](progress) in
+            guard let self = self else {return}
+           print(progress)
+        })
+    }
     @objc func selectionChanged(_ notification:Notification) -> Void {
         if let dict = notification.object as? [String:Any] {
             if let lcolor = dict["leftColor"] as? NSColor {

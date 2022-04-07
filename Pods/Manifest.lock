@@ -1,4 +1,5 @@
 PODS:
+  - Alamofire (5.4.2)
   - Firebase/CoreOnly (7.10.0):
     - FirebaseCore (= 7.10.0)
   - Firebase/Storage (7.10.0):
@@ -35,12 +36,14 @@ PODS:
   - Zip (2.1.1)
 
 DEPENDENCIES:
+  - Alamofire
   - Firebase/Storage
   - PocketSVG
   - Zip
 
 SPEC REPOS:
   trunk:
+    - Alamofire
     - Firebase
     - FirebaseCore
     - FirebaseCoreDiagnostics
@@ -54,6 +57,7 @@ SPEC REPOS:
     - Zip
 
 SPEC CHECKSUMS:
+  Alamofire: bfbc4c2fe5909b1d94fb4ef2277c6b3727ef5dae
   Firebase: fffddd0bab8677d07376538365faa93ff3889b39
   FirebaseCore: ec566d917b2195fc2610aeb148dae99f57a788f9
   FirebaseCoreDiagnostics: 5662a3823ffcc0acbaa9a21ba5ed302fac634705
@@ -66,6 +70,6 @@ SPEC CHECKSUMS:
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   Zip: 414f59909701fda9a84ab774ebe0f5449b1082cc
 
-PODFILE CHECKSUM: 0cda49bd0163f7d9c115501418ca5c5180a2c505
+PODFILE CHECKSUM: 4df71dc7f404cf6c8a3665cd29edf5b6274a0519
 
 COCOAPODS: 1.10.1

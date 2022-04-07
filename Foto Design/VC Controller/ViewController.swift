@@ -17,6 +17,11 @@ class ViewController: NSViewController {
     @IBOutlet weak var TextView: NSView!
     @IBOutlet weak var bgImageView: NSImageView!
 
+    @IBOutlet weak var socialView: NSView!
+    @IBOutlet weak var fbImageView: NSImageView!
+    @IBOutlet weak var instaImageView: NSImageView!
+    
+    
     @IBOutlet weak var cardslistView: NSView!
     @IBOutlet weak var shapeslistView: NSView!
     @IBOutlet weak var hudView: NSView!
@@ -45,6 +50,59 @@ class ViewController: NSViewController {
     var isSavePanelOpen:Bool = false
     var stickerLayers:[NSView] = [NSView]()
     
+    var mainSelectionViiew:MainSelectionType = .none {
+        didSet{
+            
+            self.editingView.isHidden = true
+            self.cardSelectionView.isHidden = true
+            if mainSelectionViiew == .layoutSelection {
+                self.cardSelectionView.isHidden = false
+            }else if mainSelectionViiew == .editing {
+                self.editingView.isHidden = false
+            }
+        }
+    }
+    var editorType:DesignViewType = .none {
+        didSet{
+            
+            designViewHeightConstraint.constant = 500
+            self.mainSelectionViiew = .editing
+            if editorType == .poster {
+                designViewHeightConstraint.constant = 500
+                setDesignViewSize(aspectRatio: (0.7072/1))
+            }else if editorType == .flyer {
+                setDesignViewSize(aspectRatio: (0.7072/1))
+            }else if editorType == .invitation {
+                setDesignViewSize(aspectRatio: (0.7072/1))
+            }else if editorType == .logo {
+                setDesignViewSize(aspectRatio: (1/1))
+            }else if editorType == .ytChannelArt {
+                designViewHeightConstraint.constant = 350
+                setDesignViewSize(aspectRatio: (1.7777/1))
+            }else if editorType == .fbCover {
+                designViewHeightConstraint.constant = 200
+                setDesignViewSize(aspectRatio: (2.701/1))
+            }else if editorType == .ytThumbnail {
+                designViewHeightConstraint.constant = 350
+                setDesignViewSize(aspectRatio: (1.7777/1))
+            }else if editorType == .googleCover {
+                designViewHeightConstraint.constant = 350
+                setDesignViewSize(aspectRatio: (1.7714/1))
+            }else if editorType == .fbPost {
+                designViewHeightConstraint.constant = 450
+                setDesignViewSize(aspectRatio: (1.1928/1))
+            }else if editorType == .instaPost {
+                designViewHeightConstraint.constant = 500
+                setDesignViewSize(aspectRatio: (1/1))
+            }else if editorType == .pintrastGraphic {
+                designViewHeightConstraint.constant = 500
+                setDesignViewSize(aspectRatio: (0.6669/1))
+            }else if editorType == .fbAd {
+                designViewHeightConstraint.constant = 300
+                setDesignViewSize(aspectRatio: (1.9108/1))
+            }
+        }
+    }
     var currentEditOption: EditOption = .importBg {
         didSet {
             
@@ -72,7 +130,7 @@ class ViewController: NSViewController {
 //                    self.cardslistView.alphaValue = 1
 //                }
                 //manageSideMenu()
-                isInvitaion = true
+               // isInvitaion = true
                 setDesignViewSize()
                 shapesBtn.bgColor = NSColor.init(hex: "A80C62")
             }else if currentEditOption == .backgrounds {
@@ -93,6 +151,9 @@ class ViewController: NSViewController {
             }
         }
     }
+    
+   
+    
     var currentSelectedShape:ZDStickerView? = nil {
         didSet {
             //removeAllHighlights()
@@ -132,12 +193,13 @@ class ViewController: NSViewController {
             }
         }
     }
-    var isInvitaion:Bool = false
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        //self.cardSelectionView.isHidden = true
+        //self.editingView.isHidden = true
+        self.mainSelectionViiew = .layoutSelection
         currentEditOption = .backgrounds
         // Do any additional setup after loading the view.
        
@@ -148,10 +210,14 @@ class ViewController: NSViewController {
         
      
         
-        bgImageView.imageScaling = .NSScaleToFit
         
        
         
+        let fbTap = NSGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+        //let instaTap = NSGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+        
+        socialView.addGestureRecognizer(fbTap)
+        //instaImageView.addGestureRecognizer(instaTap)
         
     }
 
@@ -160,10 +226,93 @@ class ViewController: NSViewController {
         setDesignViewSize()
     }
     
-    func setDesignViewSize(){
-        let multiplier:CGFloat = isInvitaion ? (1/1) : (0.7072/1)
-        NSLayoutConstraint.setMultiplier(multiplier, of: &designViewAspectConstraint)
-        view.layoutSubtreeIfNeeded()
+    @IBAction func layoutBtnClicked(_ sender: Any) {
+        cardSelectionView.isHidden = false
+        editingView.isHidden = true
+    }
+    @IBAction func socialPostClicked(_ sender: Any) {
+        if let button = sender as? NSButton{
+            if button.tag == 0 {
+                editorType = .fbPost
+                
+            }else if button.tag == 1 {
+                editorType = .instaPost
+            }else if button.tag == 2 {
+                editorType = .pintrastGraphic
+            }else if button.tag == 3 {
+                editorType = .fbAd
+            }
+        }
+    }
+    
+    
+    
+    
+    @IBAction func socialHeaderClicked(_ sender: Any) {
+        if let button = sender as? NSButton{
+            if button.tag == 0 {
+                editorType = .ytChannelArt
+            }else if button.tag == 1 {
+                editorType = .fbCover
+            }else if button.tag == 2 {
+                editorType = .ytThumbnail
+            }else if button.tag == 3 {
+                editorType = .googleCover
+            }
+        }
+    }
+    @IBAction func marketingClicked(_ sender: Any) {
+        if let button = sender as? NSButton{
+            if button.tag == 0 {
+                editorType = .poster
+            }else if button.tag == 1 {
+                editorType = .flyer
+            }else if button.tag == 2 {
+                editorType = .invitation
+            }else if button.tag == 3 {
+                editorType = .logo
+            }else if button.tag == 4 {
+                
+            }
+        }
+    }
+    @IBAction func fbBtnClicked(_ sender: Any) {
+        cardSelectionView.isHidden = true
+        editingView.isHidden = false
+        setDesignViewSize()
+    }
+    @IBAction func instaBtnClicked(_ sender: Any) {
+        cardSelectionView.isHidden = true
+        editingView.isHidden = false
+        setDesignViewSize()
+    }
+    @IBAction func invitaitonBtnClicked(_ sender: Any) {
+        cardSelectionView.isHidden = true
+        editingView.isHidden = false
+        setDesignViewSize()
+    }
+    @IBAction func posterBtnClicked(_ sender: Any) {
+        cardSelectionView.isHidden = true
+        editingView.isHidden = false
+        setDesignViewSize()
+    }
+    @objc func handleTap(_ sender: NSGestureRecognizer? = nil) {
+        // handling code.
+        cardSelectionView.isHidden = true
+    }
+    
+    
+    func setDesignViewSize(aspectRatio:CGFloat? = nil){
+        if let ratio = aspectRatio {
+            let multiplier:CGFloat = ratio//isInvitaion ? (0.7072/1) : (1/1)
+            NSLayoutConstraint.setMultiplier(multiplier, of: &designViewAspectConstraint)
+            view.layoutSubtreeIfNeeded()
+        }else{
+//            let multiplier:CGFloat = isInvitaion ? (0.7072/1) : (1/1)
+//            NSLayoutConstraint.setMultiplier(multiplier, of: &designViewAspectConstraint)
+//            view.layoutSubtreeIfNeeded()
+        }
+        
     }
     func addObservers(){
         let notificationCenter = NotificationCenter.default
@@ -230,6 +379,7 @@ class ViewController: NSViewController {
                     DispatchQueue.main.async {[weak self] in
                         guard let self = self else {return}
                         self.bgImageView.image = img
+                        self.bgImageView.imageScaling = .scaleNone
                        
                     }
                         
@@ -344,8 +494,9 @@ class ViewController: NSViewController {
         if let userInfo = notification.userInfo{
             if let index = userInfo["index"] as? Int{
                 
-                if let img = loadImageNamed(name: "typo" + String(index)) {
-                    self.addImageSticker(image: img)
+                if let img = loadImageNamed(name: "logo_icon" + String(index)) {
+                    let imgae = img.resizeImage()
+                    self.addImageSticker(image: imgae)
                     
                 }
                 

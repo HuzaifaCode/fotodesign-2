@@ -72,6 +72,13 @@ enum EditOption : Int {
     case importBg = 1, shape = 2, backgrounds = 3, text = 4
 }
 
+enum DesignViewType : CGFloat {
+    case poster = 1.0, flyer = 2.0, invitation = 2.2, logo = 2.1, ytChannelArt = 2.3, fbCover = 2.4, ytThumbnail = 2.5, googleCover = 2.6, fbPost = 2.7, instaPost = 2.8, pintrastGraphic = 2.9, fbAd = 3.0, none = 0.0
+}
+
+enum MainSelectionType : Int {
+    case none = 1, editing = 2, layoutSelection = 3
+}
 enum SideMenu : Int {
     case front = 1, back = 2, none = 3, ipad = 4
 }

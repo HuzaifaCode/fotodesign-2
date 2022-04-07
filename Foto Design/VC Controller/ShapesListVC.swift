@@ -32,7 +32,7 @@ class ShapesListVC: NSViewController {
 extension ShapesListVC:NSCollectionViewDelegate,NSCollectionViewDataSource,NSCollectionViewDelegateFlowLayout{
 
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 108
+        return 100
     }
     
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
@@ -40,16 +40,16 @@ extension ShapesListVC:NSCollectionViewDelegate,NSCollectionViewDataSource,NSCol
             fatalError("The dequeued cell is not an instance of DetailCell.")
         }
         
-        if let img = loadImageNamed(name: "typo" + String(indexPath.item)){
+        if let img = loadImageNamed(name: "logo_icon" + String(indexPath.item)){
             cell.quoteImg.image = img
         }
         return cell
     }
     func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
-
+        let width = (collectionView.frame.size.width / 3 ) - 5
        // return NSSize(width:115, height:60)
         
-        return NSSize(width:130, height:125)
+        return NSSize(width:width, height:width)
     }
     func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
         guard let indexPath = indexPaths.first else {return}

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="85.513" height="63.528" viewBox="0 0 85.513 63.528">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.244" y1="1.096" x2="0.737" y2="-0.542" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#f15c27"/>
+      <stop offset="1" stop-color="#fde963"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="0.307" y1="0.895" x2="0.87" y2="-1.061" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient-3" x1="0.423" y1="0.931" x2="0.626" y2="-0.192" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#5d3661"/>
+      <stop offset="1" stop-color="#9b56a2"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-4" x1="0.239" y1="1.23" x2="0.625" y2="-0.203" xlink:href="#linear-gradient-3"/>
+  </defs>
+  <g id="Group_109" data-name="Group 109" transform="translate(-479.469 -1078.559)">
+    <g id="Group_107" data-name="Group 107">
+      <path id="Path_661" data-name="Path 661" d="M526.624,1078.559l38.358,17.253q-18.223,14.515-24.335,30.515,4.4-19.037,15.652-29.221l-28-13.378-1.3,2.737-3.67-1.788Z" fill-rule="evenodd" fill="url(#linear-gradient)"/>
+      <path id="Path_662" data-name="Path 662" d="M495.481,1087.907l35.832,15.466q-5.3,8.741-7.012,24.549a17.562,17.562,0,0,0-2.283-1.024q-1.305-6.233,2.609-21.472l-26.416-11.893a138.005,138.005,0,0,0-.53,15.085q-1.468-1.6-2.608-3a96.214,96.214,0,0,1,.408-17.71Z" fill-rule="evenodd" fill="url(#linear-gradient-2)"/>
+    </g>
+    <g id="Group_108" data-name="Group 108">
+      <path id="Path_663" data-name="Path 663" d="M504.063,1121.014c23.105,18.942,56.618,22.879,45.044-3.895,13.975,26.881-11.04,25.861-19.567,24.316s-21.663-8.173-31.432-15.98-19.06-21.012-18.625-30.825,8.268-13.344,22.739-10.91C479.955,1081.2,480.96,1102.073,504.063,1121.014Z" fill-rule="evenodd" fill="url(#linear-gradient-3)"/>
+      <path id="Path_664" data-name="Path 664" d="M512.275,1092.278,508,1090.3l3.342-7.753,35.587,16.493q-9.783,10.109-14.43,29.829a4.9,4.9,0,0,0-.774-.188q1.263-17.254,7.377-27.741l-24.947-12.387Z" fill-rule="evenodd" fill="url(#linear-gradient-4)"/>
+    </g>
+  </g>
+</svg>

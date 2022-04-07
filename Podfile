@@ -9,7 +9,7 @@ target 'Foto Design' do
   pod 'PocketSVG'
   pod 'Zip'
   pod 'Firebase/Storage'
-  
+  pod 'Alamofire'
   # Pods for TypoGraphy Editor
 
 end
