@@ -2311,13 +2311,13 @@
                                         </userDefinedRuntimeAttributes>
                                     </customView>
                                     <scrollView wantsLayer="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZIs-MH-7YS">
-                                        <rect key="frame" x="25" y="0.0" width="206" height="296"/>
+                                        <rect key="frame" x="25" y="0.0" width="206" height="266"/>
                                         <clipView key="contentView" drawsBackground="NO" id="e12-HO-JNk">
-                                            <rect key="frame" x="0.0" y="0.0" width="206" height="296"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="206" height="266"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <collectionView selectable="YES" id="sIB-1k-bZQ">
-                                                    <rect key="frame" x="0.0" y="0.0" width="206" height="296"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="206" height="266"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                                     <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="5" minimumLineSpacing="5" id="PWl-MC-0Vo">
                                                         <size key="itemSize" width="50" height="50"/>
@@ -2336,7 +2336,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="SB3-IL-L6E">
-                                            <rect key="frame" x="189" y="1" width="16" height="294"/>
+                                            <rect key="frame" x="190" y="0.0" width="16" height="266"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <userDefinedRuntimeAttributes>
@@ -2389,7 +2389,7 @@
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="REI-IX-bOG" secondAttribute="trailing" constant="20" id="3EO-mz-KcZ"/>
                                     <constraint firstAttribute="trailing" secondItem="bOK-Uz-A6R" secondAttribute="trailing" constant="20" id="4Vx-Hb-iV7"/>
-                                    <constraint firstItem="ZIs-MH-7YS" firstAttribute="top" secondItem="F7f-Ts-AZQ" secondAttribute="top" constant="125" id="EX3-sT-wfo"/>
+                                    <constraint firstItem="ZIs-MH-7YS" firstAttribute="top" secondItem="F7f-Ts-AZQ" secondAttribute="top" constant="155" id="EX3-sT-wfo"/>
                                     <constraint firstItem="REI-IX-bOG" firstAttribute="top" secondItem="gJo-9S-WZ7" secondAttribute="bottom" constant="30" id="NeM-TL-7YX"/>
                                     <constraint firstItem="gJo-9S-WZ7" firstAttribute="top" secondItem="F7f-Ts-AZQ" secondAttribute="top" constant="7" id="QCb-gW-CGj"/>
                                     <constraint firstItem="dSk-5q-5dC" firstAttribute="leading" secondItem="REI-IX-bOG" secondAttribute="leading" constant="5" id="UE1-aR-Ghh"/>
@@ -2426,11 +2426,12 @@
                     </view>
                     <connections>
                         <outlet property="colorPicker" destination="REI-IX-bOG" id="Ql4-im-3IV"/>
+                        <outlet property="stickerCollectionView" destination="sIB-1k-bZQ" id="kwQ-gp-x8U"/>
                     </connections>
                 </viewController>
                 <customObject id="eDE-X8-xYb" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-642" y="1852"/>
+            <point key="canvasLocation" x="-610" y="2019"/>
         </scene>
         <!--Cards ListVC-->
         <scene sceneID="Pvb-3N-zgY">

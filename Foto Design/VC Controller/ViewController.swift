@@ -9,7 +9,7 @@
 
 import Cocoa
 import StoreKit
-
+import SDWebImage
 
 class ViewController: NSViewController {
 
@@ -87,7 +87,7 @@ class ViewController: NSViewController {
                 designViewHeightConstraint.constant = 350
                 setDesignViewSize(aspectRatio: (1.7777/1))
             }else if editorType == .googleCover {
-                designViewHeightConstraint.constant = 350
+                designViewHeightConstraint.constant = 360
                 setDesignViewSize(aspectRatio: (1.7714/1))
             }else if editorType == .fbPost {
                 designViewHeightConstraint.constant = 450
@@ -375,17 +375,55 @@ class ViewController: NSViewController {
                 bgImageView.bgColor = NSColor.clear
                 designView.bgColor = NSColor.clear
                
-                if let img = loadImageNamed(name: "postsBg" + String(index)) {
-                    
-                    DispatchQueue.main.async {[weak self] in
-                        guard let self = self else {return}
-                        self.bgImageView.image = img
-                        self.bgImageView.imageScaling = .scaleNone
-                       
-                    }
+//                if editorType == .poster {
+//
+//                }else if editorType == .logo {
+//
+//
+//                } else{
+                    if let img = loadImageNamed(name: "postsBg" + String(index)) {
                         
-                }
+                        DispatchQueue.main.async {[weak self] in
+                            guard let self = self else {return}
+                            self.bgImageView.image = img
+                            self.bgImageView.imageScaling = .scaleNone
+                           
+                        }
+                            
+                    }
+                //}
+                
+                
                 importBgView.isHidden = true
+            }
+            if let bgUrl = userInfo["url"] as? String{
+//                self.bgImageView.sd_setImage(with: URL.init(string:bgUrl),placeholderImage: NSImage(named: "postsBg0"), options: .highPriority, progress: nil, completed: { (image, error, type, url) in
+//                })
+                ApiManager.downloadFile(url: bgUrl, completion: {[weak self](url,error) in
+                  guard let self = self else {return}
+                    if error != nil {
+                        print(error)
+                        //self.downloadReq(url: outPut.url)
+                    }else{
+                       //
+                        let img = NSImage.init(contentsOfFile: (url?.path)!)
+                        if img != nil {
+                            //if (img?.size.width ?? 0) > 1500 &  (img?.size.height ?? 0) > 1500 {
+                                let newImg = img?.resizeBGImage()
+                            self.bgImageView.imageScaling = .scaleAxesIndependently
+                                self.bgImageView.image = newImg
+                            //}
+                        }
+                        
+                        
+                    }
+                }, progress: {[weak self](progress) in
+                    guard let self = self else {return}
+                    print(progress)
+                })
+                
+                //self.bgImageView.image = img
+                self.bgImageView.imageScaling = .scaleNone
             }
         }
     }
@@ -495,10 +533,19 @@ class ViewController: NSViewController {
         if let userInfo = notification.userInfo{
             if let index = userInfo["index"] as? Int{
                 
-                if let img = loadImageNamed(name: "typo" + String(index)) {
-                    let imgae = img.resizeImage()
-                    self.addImageSticker(image: imgae)
-                    
+                
+                if editorType == .logo {
+                    if let img = loadImageNamed(name: "logo_icon" + String(index)) {
+                        let imgae = img.resizeImage()
+                        self.addImageSticker(image: imgae)
+                        
+                    }
+                }else{
+                    if let img = loadImageNamed(name: "social_icon" + String(index)) {
+                        let imgae = img.resizeImage()
+                        self.addImageSticker(image: imgae)
+                        
+                    }
                 }
                 
             }

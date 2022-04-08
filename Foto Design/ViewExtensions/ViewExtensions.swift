@@ -474,6 +474,17 @@ extension NSImage {
         newImage.size = destSize
         return NSImage(data: newImage.tiffRepresentation!)!
     }
+    func resizeBGImage() -> NSImage {
+        let destSize = NSMakeSize(CGFloat(1500), CGFloat(1500))
+        let newImage = NSImage(size: destSize)
+        newImage.lockFocus()
+        self.draw(in: NSMakeRect(0, 0, destSize.width, destSize.height), from: NSMakeRect(0, 0, self.size.width, self.size.height), operation: NSCompositingOperation.copy, fraction: CGFloat(1))
+        newImage.unlockFocus()
+        newImage.size = destSize
+        return NSImage(data: newImage.tiffRepresentation!)!
+    }
+    
+    
     var pngData: Data? {
         guard let tiffRepresentation = tiffRepresentation, let bitmapImage = NSBitmapImageRep(data: tiffRepresentation) else { return nil }
         return bitmapImage.representation(using: .png, properties: [:])

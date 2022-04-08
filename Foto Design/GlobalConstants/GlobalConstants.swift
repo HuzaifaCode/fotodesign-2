@@ -74,7 +74,7 @@ enum EditOption : Int {
 }
 
 enum DesignViewType : CGFloat {
-    case poster = 1.0, flyer = 2.0, invitation = 2.2, logo = 2.1, ytChannelArt = 2.3, fbCover = 2.4, ytThumbnail = 2.5, googleCover = 2.6, fbPost = 2.7, instaPost = 2.8, pintrastGraphic = 2.9, fbAd = 3.0, none = 0.0
+    case poster = 4.45, flyer = 1.586, invitation = 2.828, logo = 2.0, ytChannelArt = 7.3145, fbCover = 4.255, ytThumbnail = 2.0572, googleCover = 1.945, fbPost = 1.7512, instaPost = 2.16, pintrastGraphic = 2.204, fbAd = 2.0934, none = 0.0
 }
 
 enum MainSelectionType : Int {

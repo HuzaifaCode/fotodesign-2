@@ -10,15 +10,26 @@ import Cocoa
 
 class ShapesListVC: NSViewController {
 
-    
+    @IBOutlet weak var stickerCollectionView: NSCollectionView!
     @IBOutlet weak var colorPicker: NSColorWell!
     
+    var editorType:DesignViewType = .none
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
+        NotificationCenter.default.addObserver(self,selector: #selector(loadStickers(_:)),name: NSNotification.Name(rawValue: NotificationKey.DesignTypeSelected.rawValue),
+                                                      object: nil)
     }
-    
+    @objc func loadStickers(_ notification:NSNotification) -> Void {
+        if let type = notification.object as? DesignViewType {
+            self.editorType = type
+            self.stickerCollectionView.reloadData()
+            
+        }else {
+           // self.currentTextView =  nil
+        }
+    }
     @IBAction func importBtnClicked(_ sender: Any) {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.importImageSticker.rawValue), object: nil, userInfo: nil)
     }
@@ -32,17 +43,26 @@ class ShapesListVC: NSViewController {
 extension ShapesListVC:NSCollectionViewDelegate,NSCollectionViewDataSource,NSCollectionViewDelegateFlowLayout{
 
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 110
+        if editorType == .logo {
+            return 110
+        }
+        return 154
     }
     
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
         guard let cell =   collectionView.makeItem(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "ShapesCell"), for: indexPath) as? ShapesCell else {
             fatalError("The dequeued cell is not an instance of DetailCell.")
         }
-        
-        if let img = loadImageNamed(name: "typo" + String(indexPath.item)){
-            cell.quoteImg.image = img
+        if editorType == .logo {
+            if let img = loadImageNamed(name: "logo_icon" + String(indexPath.item)){
+                cell.quoteImg.image = img
+            }
+        }else{
+            if let img = loadImageNamed(name: "social_icon" + String(indexPath.item)){
+                cell.quoteImg.image = img
+            }
         }
+        
         return cell
     }
     func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {

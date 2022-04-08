@@ -81,7 +81,7 @@ enum ProcessType: String {
 }
 class ApiManager {
     static func getImages(type: String,completion: @escaping (ResponceData?,String?) -> Void,progress: @escaping (Int) -> Void) {
-        let baseURL = "https://pixabay.com/api/?key=26554571-94879eb7c8fe53c76c3e66b28&image_type=photo&orientation=vertical&category=backgrounds&q=posters"
+        let baseURL = "https://pixabay.com/api/?key=26554571-94879eb7c8fe53c76c3e66b28&image_type=photo&q=" + type + "&orientation=vertical&per_page=100&min_height=500&min_width=500"
         
         var req = URLRequest(url: URL(string: baseURL)!)
         req.httpMethod = HTTPMethod.post.rawValue
@@ -178,7 +178,6 @@ class ApiManager {
             case .failure(_):
                 completion(nil,res.error?.localizedDescription)
             }
-            //completion(res.fileURL,res.error?.localizedDescription)
         }
     }
     

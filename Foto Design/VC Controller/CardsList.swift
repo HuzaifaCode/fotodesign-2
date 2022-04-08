@@ -69,9 +69,9 @@ class CardsListVC: NSViewController {
         if let type = notification.object as? DesignViewType {
             //self.currentTextView = zdView
             //self.currentSelectedFontFamily = dView.txtView.familyName
-            if type == .poster {
-                loadData(search: "poster")
-            }
+           // if type == .poster {
+                loadData(search: "wallpaper")
+            //}
         }else {
            // self.currentTextView =  nil
         }
@@ -181,7 +181,7 @@ extension CardsListVC:NSCollectionViewDelegate,NSCollectionViewDataSource,NSColl
             }
         }
         
-        cell.quoteImg.imageScaling = .NSScaleToFit
+        cell.quoteImg.imageScaling = .scaleProportionallyUpOrDown
         
         return cell
     }
@@ -194,9 +194,13 @@ extension CardsListVC:NSCollectionViewDelegate,NSCollectionViewDataSource,NSColl
     func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
         guard let indexPath = indexPaths.first else {return}
         
+        if let bg = backgroundsArray?[indexPath.item].largeImageURL{
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.BusinessCardSelected.rawValue), object: nil, userInfo: ["url":bg])
+        }else{
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.BusinessCardSelected.rawValue), object: nil, userInfo: ["index":indexPath.item])
+        }
         
         
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.BusinessCardSelected.rawValue), object: nil, userInfo: ["index":indexPath.item])
         
         
         collectionView.deselectItems(at: indexPaths)
