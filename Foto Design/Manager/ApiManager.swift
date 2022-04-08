@@ -86,25 +86,25 @@ class ApiManager {
         var req = URLRequest(url: URL(string: baseURL)!)
         req.httpMethod = HTTPMethod.post.rawValue
 
-//        let parameters: [String: Any] = [
-//            "key": "26554571-94879eb7c8fe53c76c3e66b28",
-//            "image_type": "photo",
-//            "orientation": "vertical",
-//            "category": "backgrounds",
-//            "q": "posters"
-//        ]
+        let parameters: [String: Any] = [
+            "key": "26554571-94879eb7c8fe53c76c3e66b28"
+        ]
 
-//        guard let josnData = try? JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted) else {
-//            completion(nil,nil)
-//            return
-//
-//        }
+        guard let josnData = try? JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted) else {
+            completion(nil,nil)
+            return
+
+        }
+       // let url = "http://api.convertio.co/convert/\(id)/status"
 
 
-        AF.request(req).responseDecodable { (res: DataResponse<Responce, AFError>) in
+        AF.upload(josnData, with: req).uploadProgress { (progressV) in
+            let value = Int(progressV.fractionCompleted*100.0)
+            progress(value)
+        }.responseDecodable { (res: DataResponse<ResponceData, AFError>) in
             switch res.result {
                 case .success(let result):
-                    completion(result.data,result.error)
+                    completion(result,nil)
                     break
                 case .failure(let error):
                     completion(nil,error.localizedDescription)
@@ -193,7 +193,7 @@ class ApiManager {
 }
 
 // MARK: - Mdata
-struct Responce: Codable {
+struct Responce: Decodable {
     let code: Int?
     let status: String?
     let data: ResponceData?
@@ -201,10 +201,10 @@ struct Responce: Codable {
 }
 
 
-struct ResponceData: Codable {
+struct ResponceData: Decodable {
     let total: Int
     let totalHits: Int?
-   // let hits: [PhotoObject]?
+    let hits: [PhotoObject]?
 }
 struct PhotoObject: Codable {
     let previewURL: String

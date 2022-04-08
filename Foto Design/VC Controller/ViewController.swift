@@ -58,6 +58,7 @@ class ViewController: NSViewController {
             if mainSelectionViiew == .layoutSelection {
                 self.cardSelectionView.isHidden = false
             }else if mainSelectionViiew == .editing {
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.DesignTypeSelected.rawValue), object: self.editorType)
                 self.editingView.isHidden = false
             }
         }
@@ -494,7 +495,7 @@ class ViewController: NSViewController {
         if let userInfo = notification.userInfo{
             if let index = userInfo["index"] as? Int{
                 
-                if let img = loadImageNamed(name: "logo_icon" + String(index)) {
+                if let img = loadImageNamed(name: "typo" + String(index)) {
                     let imgae = img.resizeImage()
                     self.addImageSticker(image: imgae)
                     

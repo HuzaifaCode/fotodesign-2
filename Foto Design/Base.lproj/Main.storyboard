@@ -1139,13 +1139,13 @@
                                                             <rect key="frame" x="0.0" y="-385" width="1200" height="935"/>
                                                             <subviews>
                                                                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="BGG-Bg-Q1P">
-                                                                    <rect key="frame" x="150" y="20" width="900" height="900"/>
+                                                                    <rect key="frame" x="200" y="20" width="800" height="900"/>
                                                                     <subviews>
                                                                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="MYl-Rr-gX2">
-                                                                            <rect key="frame" x="10" y="660" width="870" height="220"/>
+                                                                            <rect key="frame" x="10" y="650" width="770" height="230"/>
                                                                             <subviews>
                                                                                 <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QMb-kL-TQm">
-                                                                                    <rect key="frame" x="10" y="12" width="150" height="150"/>
+                                                                                    <rect key="frame" x="40" y="15" width="150" height="150"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="width" constant="150" id="UjS-vE-AIf"/>
                                                                                         <constraint firstAttribute="height" constant="150" id="fP3-Of-q7b"/>
@@ -1153,7 +1153,7 @@
                                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="facebook_post" id="wKe-IP-fcu"/>
                                                                                 </imageView>
                                                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cSY-P5-hOM">
-                                                                                    <rect key="frame" x="10" y="12" width="150" height="150"/>
+                                                                                    <rect key="frame" x="40" y="15" width="150" height="150"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="height" constant="150" id="PzY-E4-T3J"/>
                                                                                         <constraint firstAttribute="width" constant="150" id="eIV-zb-0ut"/>
@@ -1167,7 +1167,7 @@
                                                                                     </connections>
                                                                                 </button>
                                                                                 <button verticalHuggingPriority="750" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="0KM-p8-k2Y">
-                                                                                    <rect key="frame" x="180" y="12" width="150" height="150"/>
+                                                                                    <rect key="frame" x="210" y="15" width="150" height="150"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="height" constant="150" id="LfC-C8-xwo"/>
                                                                                         <constraint firstAttribute="width" constant="150" id="b2D-Cy-tu2"/>
@@ -1181,7 +1181,7 @@
                                                                                     </connections>
                                                                                 </button>
                                                                                 <button verticalHuggingPriority="750" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="ZtA-7Q-1ke">
-                                                                                    <rect key="frame" x="350" y="12" width="150" height="150"/>
+                                                                                    <rect key="frame" x="380" y="15" width="150" height="150"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="height" constant="150" id="afx-dy-JMY"/>
                                                                                         <constraint firstAttribute="width" constant="150" id="zVP-Q9-Rcy"/>
@@ -1195,7 +1195,7 @@
                                                                                     </connections>
                                                                                 </button>
                                                                                 <button verticalHuggingPriority="750" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="P6x-se-Ljd">
-                                                                                    <rect key="frame" x="520" y="12" width="150" height="150"/>
+                                                                                    <rect key="frame" x="550" y="15" width="150" height="150"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="width" constant="150" id="Jx6-30-kgE"/>
                                                                                         <constraint firstAttribute="height" constant="150" id="dvL-8c-nsT"/>
@@ -1209,17 +1209,17 @@
                                                                                     </connections>
                                                                                 </button>
                                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="UBV-R3-kFH">
-                                                                                    <rect key="frame" x="18" y="188" width="834" height="22"/>
+                                                                                    <rect key="frame" x="38" y="194" width="714" height="26"/>
                                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Marketing" id="OgT-na-a6x">
-                                                                                        <font key="font" size="16" name="AvenirNext-DemiBold"/>
+                                                                                        <font key="font" size="19" name="AvenirNext-DemiBold"/>
                                                                                         <color key="textColor" red="0.26666666666666666" green="0.42352941176470588" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                     </textFieldCell>
                                                                                 </textField>
                                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="O3g-hH-HCA">
-                                                                                    <rect key="frame" x="18" y="172" width="834" height="16"/>
+                                                                                    <rect key="frame" x="38" y="175" width="714" height="19"/>
                                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="What would you like to do?" id="Bpg-v0-aGM">
-                                                                                        <font key="font" size="12" name="AvenirNext-Medium"/>
+                                                                                        <font key="font" size="14" name="AvenirNext-Medium"/>
                                                                                         <color key="textColor" red="0.36078431370000003" green="0.36078431370000003" blue="0.36078431370000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                     </textFieldCell>
@@ -1228,7 +1228,7 @@
                                                                             <constraints>
                                                                                 <constraint firstItem="P6x-se-Ljd" firstAttribute="leading" secondItem="ZtA-7Q-1ke" secondAttribute="trailing" constant="20" id="9T3-a6-uyN"/>
                                                                                 <constraint firstItem="O3g-hH-HCA" firstAttribute="leading" secondItem="UBV-R3-kFH" secondAttribute="leading" id="Hbc-Fw-VUc"/>
-                                                                                <constraint firstAttribute="height" constant="220" id="Hri-uM-2jI"/>
+                                                                                <constraint firstAttribute="height" constant="230" id="Hri-uM-2jI"/>
                                                                                 <constraint firstItem="cSY-P5-hOM" firstAttribute="leading" secondItem="QMb-kL-TQm" secondAttribute="leading" id="LOx-fl-UTC"/>
                                                                                 <constraint firstItem="O3g-hH-HCA" firstAttribute="trailing" secondItem="UBV-R3-kFH" secondAttribute="trailing" id="LnH-IH-myt"/>
                                                                                 <constraint firstItem="cSY-P5-hOM" firstAttribute="top" secondItem="QMb-kL-TQm" secondAttribute="top" id="Rdy-OQ-4Ea"/>
@@ -1237,41 +1237,41 @@
                                                                                 <constraint firstItem="QMb-kL-TQm" firstAttribute="top" secondItem="O3g-hH-HCA" secondAttribute="bottom" constant="10" id="YRp-FC-lkF"/>
                                                                                 <constraint firstItem="ZtA-7Q-1ke" firstAttribute="centerY" secondItem="0KM-p8-k2Y" secondAttribute="centerY" id="c29-Da-Xgk"/>
                                                                                 <constraint firstItem="O3g-hH-HCA" firstAttribute="top" secondItem="UBV-R3-kFH" secondAttribute="bottom" id="gz7-3s-cgw"/>
-                                                                                <constraint firstItem="QMb-kL-TQm" firstAttribute="leading" secondItem="MYl-Rr-gX2" secondAttribute="leading" constant="10" id="kCm-Vi-wkQ"/>
+                                                                                <constraint firstItem="QMb-kL-TQm" firstAttribute="leading" secondItem="MYl-Rr-gX2" secondAttribute="leading" constant="40" id="kCm-Vi-wkQ"/>
                                                                                 <constraint firstItem="0KM-p8-k2Y" firstAttribute="centerY" secondItem="cSY-P5-hOM" secondAttribute="centerY" id="qzM-2X-Quf"/>
                                                                                 <constraint firstItem="0KM-p8-k2Y" firstAttribute="leading" secondItem="QMb-kL-TQm" secondAttribute="trailing" constant="20" id="rkC-Yt-22H"/>
                                                                                 <constraint firstItem="ZtA-7Q-1ke" firstAttribute="leading" secondItem="0KM-p8-k2Y" secondAttribute="trailing" constant="20" id="scE-23-7VK"/>
                                                                                 <constraint firstAttribute="trailing" secondItem="UBV-R3-kFH" secondAttribute="trailing" constant="20" id="tOV-bF-9Nt"/>
-                                                                                <constraint firstItem="UBV-R3-kFH" firstAttribute="leading" secondItem="MYl-Rr-gX2" secondAttribute="leading" constant="20" id="ttH-KM-Ivz"/>
+                                                                                <constraint firstItem="UBV-R3-kFH" firstAttribute="leading" secondItem="MYl-Rr-gX2" secondAttribute="leading" constant="40" id="ttH-KM-Ivz"/>
                                                                             </constraints>
                                                                         </customView>
                                                                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="5GC-sb-s1w">
-                                                                            <rect key="frame" x="10" y="140" width="870" height="500"/>
+                                                                            <rect key="frame" x="10" y="140" width="770" height="500"/>
                                                                             <subviews>
                                                                                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="vkw-Ez-lmg">
-                                                                                    <rect key="frame" x="0.0" y="240" width="870" height="250"/>
+                                                                                    <rect key="frame" x="20" y="240" width="750" height="250"/>
                                                                                     <subviews>
                                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="oso-aO-BnT">
-                                                                                            <rect key="frame" x="13" y="218" width="844" height="22"/>
+                                                                                            <rect key="frame" x="13" y="214" width="724" height="26"/>
                                                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Social Media Header" id="gcA-It-p32">
-                                                                                                <font key="font" size="16" name="AvenirNext-DemiBold"/>
+                                                                                                <font key="font" size="19" name="AvenirNext-DemiBold"/>
                                                                                                 <color key="textColor" red="0.2666666667" green="0.42352941179999998" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                             </textFieldCell>
                                                                                         </textField>
                                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="ITJ-K6-zYn">
-                                                                                            <rect key="frame" x="13" y="202" width="844" height="16"/>
+                                                                                            <rect key="frame" x="13" y="195" width="724" height="19"/>
                                                                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="justified" title="Create or convert your designs into stunning Graphics easily." id="OhQ-rL-oEJ">
-                                                                                                <font key="font" size="12" name="AvenirNext-Medium"/>
+                                                                                                <font key="font" size="14" name="AvenirNext-Medium"/>
                                                                                                 <color key="textColor" red="0.36078431370000003" green="0.36078431370000003" blue="0.36078431370000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                             </textFieldCell>
                                                                                         </textField>
                                                                                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="k7W-nN-zlK">
-                                                                                            <rect key="frame" x="0.0" y="0.0" width="870" height="202"/>
+                                                                                            <rect key="frame" x="0.0" y="0.0" width="750" height="195"/>
                                                                                             <subviews>
                                                                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GSZ-Zl-AGE">
-                                                                                                    <rect key="frame" x="10" y="42" width="150" height="150"/>
+                                                                                                    <rect key="frame" x="10" y="35" width="150" height="150"/>
                                                                                                     <constraints>
                                                                                                         <constraint firstAttribute="height" constant="150" id="Oo6-fo-Lak"/>
                                                                                                         <constraint firstAttribute="width" constant="150" id="w1E-F7-9Dt"/>
@@ -1285,7 +1285,7 @@
                                                                                                     </connections>
                                                                                                 </button>
                                                                                                 <button verticalHuggingPriority="750" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="4bx-zM-hhL">
-                                                                                                    <rect key="frame" x="180" y="42" width="150" height="150"/>
+                                                                                                    <rect key="frame" x="180" y="35" width="150" height="150"/>
                                                                                                     <constraints>
                                                                                                         <constraint firstAttribute="width" constant="150" id="F0c-yP-ZcY"/>
                                                                                                         <constraint firstAttribute="height" constant="150" id="baw-Gk-ojq"/>
@@ -1299,7 +1299,7 @@
                                                                                                     </connections>
                                                                                                 </button>
                                                                                                 <button verticalHuggingPriority="750" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="pMh-zy-t2e">
-                                                                                                    <rect key="frame" x="350" y="42" width="150" height="150"/>
+                                                                                                    <rect key="frame" x="350" y="35" width="150" height="150"/>
                                                                                                     <constraints>
                                                                                                         <constraint firstAttribute="width" constant="150" id="fll-uX-c5n"/>
                                                                                                         <constraint firstAttribute="height" constant="150" id="wBt-80-zCK"/>
@@ -1313,7 +1313,7 @@
                                                                                                     </connections>
                                                                                                 </button>
                                                                                                 <button verticalHuggingPriority="750" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="pwZ-iK-xnv">
-                                                                                                    <rect key="frame" x="520" y="42" width="150" height="150"/>
+                                                                                                    <rect key="frame" x="520" y="35" width="150" height="150"/>
                                                                                                     <constraints>
                                                                                                         <constraint firstAttribute="height" constant="150" id="eWT-YE-rsC"/>
                                                                                                         <constraint firstAttribute="width" constant="150" id="lJX-Ji-j3M"/>
@@ -1354,29 +1354,29 @@
                                                                                     </constraints>
                                                                                 </customView>
                                                                                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="VGC-T1-vX4">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="870" height="240"/>
+                                                                                    <rect key="frame" x="20" y="0.0" width="750" height="240"/>
                                                                                     <subviews>
                                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="ulP-zj-c6I">
-                                                                                            <rect key="frame" x="13" y="208" width="844" height="22"/>
+                                                                                            <rect key="frame" x="13" y="204" width="724" height="26"/>
                                                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Social Media Post" id="loP-ko-vkj">
-                                                                                                <font key="font" size="16" name="AvenirNext-DemiBold"/>
+                                                                                                <font key="font" size="19" name="AvenirNext-DemiBold"/>
                                                                                                 <color key="textColor" red="0.2666666667" green="0.42352941179999998" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                             </textFieldCell>
                                                                                         </textField>
                                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="M3p-ha-MzH">
-                                                                                            <rect key="frame" x="13" y="192" width="844" height="16"/>
+                                                                                            <rect key="frame" x="13" y="185" width="724" height="19"/>
                                                                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="justified" title="Take your designs to the next level." id="maf-1D-QPv">
-                                                                                                <font key="font" size="12" name="AvenirNext-Medium"/>
+                                                                                                <font key="font" size="14" name="AvenirNext-Medium"/>
                                                                                                 <color key="textColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                             </textFieldCell>
                                                                                         </textField>
                                                                                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="v9l-lF-pnB">
-                                                                                            <rect key="frame" x="0.0" y="0.0" width="870" height="182"/>
+                                                                                            <rect key="frame" x="0.0" y="0.0" width="750" height="175"/>
                                                                                             <subviews>
                                                                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="p60-Cz-vuL">
-                                                                                                    <rect key="frame" x="10" y="22" width="150" height="150"/>
+                                                                                                    <rect key="frame" x="10" y="15" width="150" height="150"/>
                                                                                                     <constraints>
                                                                                                         <constraint firstAttribute="width" constant="150" id="55C-0U-cCo"/>
                                                                                                         <constraint firstAttribute="height" constant="150" id="See-Qa-c1e"/>
@@ -1390,7 +1390,7 @@
                                                                                                     </connections>
                                                                                                 </button>
                                                                                                 <button verticalHuggingPriority="750" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="cSn-JZ-LWa">
-                                                                                                    <rect key="frame" x="180" y="22" width="150" height="150"/>
+                                                                                                    <rect key="frame" x="180" y="15" width="150" height="150"/>
                                                                                                     <constraints>
                                                                                                         <constraint firstAttribute="width" constant="150" id="Kst-Lk-Vhz"/>
                                                                                                         <constraint firstAttribute="height" constant="150" id="khs-RW-XZ7"/>
@@ -1404,7 +1404,7 @@
                                                                                                     </connections>
                                                                                                 </button>
                                                                                                 <button verticalHuggingPriority="750" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="gdc-pC-Ora">
-                                                                                                    <rect key="frame" x="350" y="22" width="150" height="150"/>
+                                                                                                    <rect key="frame" x="350" y="15" width="150" height="150"/>
                                                                                                     <constraints>
                                                                                                         <constraint firstAttribute="width" constant="150" id="K68-xk-zM7"/>
                                                                                                         <constraint firstAttribute="height" constant="150" id="nbH-IX-Cr8"/>
@@ -1418,7 +1418,7 @@
                                                                                                     </connections>
                                                                                                 </button>
                                                                                                 <button verticalHuggingPriority="750" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="iH7-ry-K5g">
-                                                                                                    <rect key="frame" x="520" y="22" width="150" height="150"/>
+                                                                                                    <rect key="frame" x="520" y="15" width="150" height="150"/>
                                                                                                     <constraints>
                                                                                                         <constraint firstAttribute="height" constant="150" id="NoW-D2-UHx"/>
                                                                                                         <constraint firstAttribute="width" constant="150" id="Xpb-l1-PfJ"/>
@@ -1460,10 +1460,10 @@
                                                                             </subviews>
                                                                             <constraints>
                                                                                 <constraint firstItem="vkw-Ez-lmg" firstAttribute="top" secondItem="5GC-sb-s1w" secondAttribute="top" constant="10" id="03Z-tb-ilV"/>
-                                                                                <constraint firstItem="VGC-T1-vX4" firstAttribute="leading" secondItem="5GC-sb-s1w" secondAttribute="leading" id="0oe-me-Um4"/>
+                                                                                <constraint firstItem="VGC-T1-vX4" firstAttribute="leading" secondItem="5GC-sb-s1w" secondAttribute="leading" constant="20" id="0oe-me-Um4"/>
                                                                                 <constraint firstItem="VGC-T1-vX4" firstAttribute="top" secondItem="vkw-Ez-lmg" secondAttribute="bottom" id="7HE-h7-qYq"/>
                                                                                 <constraint firstAttribute="trailing" secondItem="VGC-T1-vX4" secondAttribute="trailing" id="Zq3-s5-nNi"/>
-                                                                                <constraint firstItem="vkw-Ez-lmg" firstAttribute="leading" secondItem="5GC-sb-s1w" secondAttribute="leading" id="jMW-kT-6vB"/>
+                                                                                <constraint firstItem="vkw-Ez-lmg" firstAttribute="leading" secondItem="5GC-sb-s1w" secondAttribute="leading" constant="20" id="jMW-kT-6vB"/>
                                                                                 <constraint firstAttribute="bottom" secondItem="VGC-T1-vX4" secondAttribute="bottom" id="obH-N5-oLh"/>
                                                                                 <constraint firstAttribute="height" constant="500" id="pOo-mN-L1u"/>
                                                                                 <constraint firstAttribute="trailing" secondItem="vkw-Ez-lmg" secondAttribute="trailing" id="skZ-7F-UeW"/>
@@ -1472,12 +1472,12 @@
                                                                     </subviews>
                                                                     <constraints>
                                                                         <constraint firstItem="5GC-sb-s1w" firstAttribute="centerX" secondItem="MYl-Rr-gX2" secondAttribute="centerX" id="FQW-IY-YQu"/>
-                                                                        <constraint firstItem="5GC-sb-s1w" firstAttribute="top" secondItem="MYl-Rr-gX2" secondAttribute="bottom" constant="20" id="Znp-Kp-jvN"/>
+                                                                        <constraint firstItem="5GC-sb-s1w" firstAttribute="top" secondItem="MYl-Rr-gX2" secondAttribute="bottom" constant="10" id="Znp-Kp-jvN"/>
                                                                         <constraint firstAttribute="trailing" secondItem="MYl-Rr-gX2" secondAttribute="trailing" constant="20" id="e1D-0f-v2m"/>
                                                                         <constraint firstItem="5GC-sb-s1w" firstAttribute="width" secondItem="MYl-Rr-gX2" secondAttribute="width" id="gBd-U9-Mdu"/>
                                                                         <constraint firstItem="MYl-Rr-gX2" firstAttribute="leading" secondItem="BGG-Bg-Q1P" secondAttribute="leading" constant="10" id="miS-ve-B3L"/>
                                                                         <constraint firstItem="MYl-Rr-gX2" firstAttribute="top" secondItem="BGG-Bg-Q1P" secondAttribute="top" constant="20" id="sEf-rO-24u"/>
-                                                                        <constraint firstAttribute="width" constant="900" id="sYn-iu-Efs"/>
+                                                                        <constraint firstAttribute="width" constant="800" id="sYn-iu-Efs"/>
                                                                         <constraint firstAttribute="height" constant="900" id="y47-OW-QaK"/>
                                                                     </constraints>
                                                                     <userDefinedRuntimeAttributes>
@@ -1511,6 +1511,7 @@
                                                         <constraint firstItem="62m-7B-azq" firstAttribute="leading" secondItem="egJ-1t-ipf" secondAttribute="leading" id="iyX-Da-eV8"/>
                                                         <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="62m-7B-azq" secondAttribute="trailing" priority="510" id="rSc-VO-1CV"/>
                                                     </constraints>
+                                                    <color key="backgroundColor" red="0.94117647058823528" green="0.94509803921568625" blue="0.94901960784313721" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </clipView>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="1200" id="Aem-OR-pci"/>
@@ -2676,6 +2677,7 @@
                     </view>
                     <connections>
                         <outlet property="angleSlider" destination="WDA-GW-Uzy" id="PnS-Fj-LPt"/>
+                        <outlet property="bgCollectionView" destination="NNf-zo-4jG" id="JxD-q4-ujD"/>
                         <outlet property="colorBtn" destination="KoF-rn-vrp" id="rgi-M3-jSs"/>
                         <outlet property="colorPicker" destination="IM4-xh-TLD" id="q5j-Hc-uea"/>
                         <outlet property="colorView" destination="3Tx-Ng-8eg" id="n3P-nZ-bgC"/>
@@ -2692,22 +2694,22 @@
     </scenes>
     <resources>
         <image name="centerAlign" width="23" height="18"/>
-        <image name="design_flyer" width="353" height="500"/>
-        <image name="design_invitation" width="353" height="500"/>
+        <image name="design_flyer" width="500" height="500"/>
+        <image name="design_invitation" width="500" height="500"/>
         <image name="design_logo" width="500" height="500"/>
-        <image name="design_poster" width="353" height="500"/>
-        <image name="facebook_ad" width="500" height="261"/>
-        <image name="facebook_post" width="500" height="419"/>
-        <image name="fb_cover" width="500" height="185"/>
-        <image name="googleplus" width="500" height="282"/>
+        <image name="design_poster" width="500" height="501"/>
+        <image name="facebook_ad" width="500" height="500"/>
+        <image name="facebook_post" width="500" height="500"/>
+        <image name="fb_cover" width="500" height="500"/>
+        <image name="googleplus" width="500" height="500"/>
         <image name="instagram_post" width="500" height="500"/>
         <image name="leftAlign" width="23" height="18"/>
-        <image name="pintrast_graphic" width="333" height="500"/>
+        <image name="pintrast_graphic" width="500" height="500"/>
         <image name="rightAlign" width="23" height="18"/>
-        <image name="yt_channel_art" width="500" height="355"/>
-        <image name="yt_thumbnail" width="500" height="318"/>
+        <image name="yt_channel_art" width="500" height="500"/>
+        <image name="yt_thumbnail" width="500" height="500"/>
         <namedColor name="Bg_Color">
-            <color red="0.16862745098039217" green="0.17254901960784313" blue="0.18431372549019609" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.16899999976158142" green="0.17299999296665192" blue="0.18400000035762787" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Gray_Theme">
             <color red="0.32899999618530273" green="0.32400000095367432" blue="0.4779999852180481" alpha="0.33000001311302185" colorSpace="custom" customColorSpace="sRGB"/>

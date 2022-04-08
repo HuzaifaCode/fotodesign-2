@@ -9,9 +9,14 @@
 
 import Foundation
 import Cocoa
+import SDWebImage
+
 
 class CardsListVC: NSViewController {
 
+    @IBOutlet weak var bgCollectionView: NSCollectionView!
+    
+    
     @IBOutlet weak var colorPicker: NSColorWell!
     @IBOutlet weak var lColorPicker: NSColorWell!
     @IBOutlet weak var rColorPicker: NSColorWell!
@@ -21,6 +26,8 @@ class CardsListVC: NSViewController {
     @IBOutlet weak var colorView: NSView!
     @IBOutlet weak var gredientView: NSView!
     @IBOutlet weak var angleSlider: NSSlider!
+    
+    var backgroundsArray:[PhotoObject]?
     
     var isGradientSelected:Bool = false{
         didSet{
@@ -52,16 +59,33 @@ class CardsListVC: NSViewController {
         isGradientSelected = false
         
         NOTIFICATION_CENTER.addObserver(self, selector: #selector(selectionChanged(_:)), name: NSNotification.Name(rawValue: NotificationKey.cardSideSeleceted.rawValue),object: nil)
+        NotificationCenter.default.addObserver(self,selector: #selector(loadBackgrounds(_:)),name: NSNotification.Name(rawValue: NotificationKey.DesignTypeSelected.rawValue),
+                                                      object: nil)
         
-        loadData()
+       // loadData()
     }
     
-    func loadData(){
-        ApiManager.getImages(type: "poster", completion: {[weak self](result,abc) in
+    @objc func loadBackgrounds(_ notification:NSNotification) -> Void {
+        if let type = notification.object as? DesignViewType {
+            //self.currentTextView = zdView
+            //self.currentSelectedFontFamily = dView.txtView.familyName
+            if type == .poster {
+                loadData(search: "poster")
+            }
+        }else {
+           // self.currentTextView =  nil
+        }
+    }
+    
+    
+    func loadData(search:String){
+        ApiManager.getImages(type: search, completion: {[weak self](result,abc) in
              guard let self = self else {return}
             
-            if let id = result?.total{
-                print(id)
+            if let imgArray = result?.hits{
+                print(imgArray)
+                self.backgroundsArray = imgArray
+                self.bgCollectionView.reloadData()
             }
            
             
@@ -137,6 +161,9 @@ class CardsListVC: NSViewController {
 extension CardsListVC:NSCollectionViewDelegate,NSCollectionViewDataSource,NSCollectionViewDelegateFlowLayout{
 
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
+        if let count = backgroundsArray?.count {
+            return count
+        }
         return 62
     }
     
@@ -144,10 +171,16 @@ extension CardsListVC:NSCollectionViewDelegate,NSCollectionViewDataSource,NSColl
         guard let cell =   collectionView.makeItem(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "CardListCell"), for: indexPath) as? CardListCell else {
             fatalError("The dequeued cell is not an instance of DetailCell.")
         }
-        
-        if let img = loadImageNamed(name: "postsBg" + String(indexPath.item)) {
-            cell.quoteImg.image = img
+        if let bg = backgroundsArray?[indexPath.item]{
+            
+            cell.quoteImg.sd_setImage(with: URL.init(string:bg.previewURL),placeholderImage: NSImage(named: "postsBg0"), options: .highPriority, progress: nil, completed: { (image, error, type, url) in
+            })
+        }else{
+            if let img = loadImageNamed(name: "postsBg" + String(indexPath.item)) {
+                cell.quoteImg.image = img
+            }
         }
+        
         cell.quoteImg.imageScaling = .NSScaleToFit
         
         return cell

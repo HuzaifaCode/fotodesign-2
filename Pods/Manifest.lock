@@ -1,5 +1,13 @@
 PODS:
   - Alamofire (5.4.2)
+  - AppCenter (4.2.0):
+    - AppCenter/Analytics (= 4.2.0)
+    - AppCenter/Crashes (= 4.2.0)
+  - AppCenter/Analytics (4.2.0):
+    - AppCenter/Core
+  - AppCenter/Core (4.2.0)
+  - AppCenter/Crashes (4.2.0):
+    - AppCenter/Core
   - Firebase/CoreOnly (7.10.0):
     - FirebaseCore (= 7.10.0)
   - Firebase/Storage (7.10.0):
@@ -33,17 +41,23 @@ PODS:
   - nanopb/encode (2.30908.0)
   - PocketSVG (2.7.0)
   - PromisesObjC (1.2.12)
+  - SDWebImage (5.11.1):
+    - SDWebImage/Core (= 5.11.1)
+  - SDWebImage/Core (5.11.1)
   - Zip (2.1.1)
 
 DEPENDENCIES:
   - Alamofire
+  - AppCenter
   - Firebase/Storage
   - PocketSVG
+  - SDWebImage
   - Zip
 
 SPEC REPOS:
   trunk:
     - Alamofire
+    - AppCenter
     - Firebase
     - FirebaseCore
     - FirebaseCoreDiagnostics
@@ -54,10 +68,12 @@ SPEC REPOS:
     - nanopb
     - PocketSVG
     - PromisesObjC
+    - SDWebImage
     - Zip
 
 SPEC CHECKSUMS:
   Alamofire: bfbc4c2fe5909b1d94fb4ef2277c6b3727ef5dae
+  AppCenter: 87ef6eefd8ade4df59e88951288587429f3dd2a5
   Firebase: fffddd0bab8677d07376538365faa93ff3889b39
   FirebaseCore: ec566d917b2195fc2610aeb148dae99f57a788f9
   FirebaseCoreDiagnostics: 5662a3823ffcc0acbaa9a21ba5ed302fac634705
@@ -68,8 +84,9 @@ SPEC CHECKSUMS:
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   PocketSVG: 5e0ff20c8a661586b2f2c295cd18b3e8f06de552
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
+  SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   Zip: 414f59909701fda9a84ab774ebe0f5449b1082cc
 
-PODFILE CHECKSUM: 4df71dc7f404cf6c8a3665cd29edf5b6274a0519
+PODFILE CHECKSUM: aadf972cfce567fa8d42a12c9e2d5c41307b62f3
 
 COCOAPODS: 1.10.1

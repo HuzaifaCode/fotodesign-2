@@ -46,6 +46,7 @@ enum NotificationKey: String
     case importImageSticker = "importImageSticker"
     case importBackgroundSticker = "importBackgroundSticker"
     case cardSideSeleceted = "cardSideSeleceted"
+    case DesignTypeSelected = "DesignTypeSelected"
 }
 
 func loadImageNamed(name: String) -> NSImage? {

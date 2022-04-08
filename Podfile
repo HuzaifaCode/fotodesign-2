@@ -10,6 +10,8 @@ target 'Foto Design' do
   pod 'Zip'
   pod 'Firebase/Storage'
   pod 'Alamofire'
+  pod 'SDWebImage'
+  pod 'AppCenter'
   # Pods for TypoGraphy Editor
 
 end
