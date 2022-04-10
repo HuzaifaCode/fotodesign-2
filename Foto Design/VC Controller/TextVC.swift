@@ -105,12 +105,12 @@ class TextVC: NSViewController {
         if(self.currentTextView != nil) {
             let alignment = self.currentTextView?.txtView.textAlign
             if(alignment == .right) {
-                self.rightAlignBtn.bgColor = NSColor.init(hex: "A80C62")
+                self.rightAlignBtn.bgColor = NSColor.init(hex: MAIN_COLOR)
             }else if(alignment == .left) {
-               self.leftAllignBtn.bgColor = NSColor.init(hex: "A80C62")
+               self.leftAllignBtn.bgColor = NSColor.init(hex: MAIN_COLOR)
 
             }else if(alignment == .center) {
-                self.centerAllignBtn.bgColor = NSColor.init(hex: "A80C62")
+                self.centerAllignBtn.bgColor = NSColor.init(hex: MAIN_COLOR)
             }
         }
     }

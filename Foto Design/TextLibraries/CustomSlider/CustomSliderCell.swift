@@ -48,7 +48,7 @@ class CustomSliderCell: NSSliderCell {
     }
     override func drawKnob(_ knobRect: NSRect) {
         let rect = knobRect
-        var newRect = CGRect(x: 0, y: 0, width: rect.width - 3, height: rect.height - 3)
+        var newRect = CGRect(x: 0, y: 0, width: 20, height: 20)
         newRect.center = rect.center
         let knob = NSBezierPath(roundedRect: newRect, cornerRadius: rect.width/2)
         if isDisabeled{

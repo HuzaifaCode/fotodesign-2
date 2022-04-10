@@ -10,6 +10,12 @@
 import Cocoa
 import StoreKit
 import SDWebImage
+import FirebaseStorage
+import Firebase
+
+import AppCenter
+import AppCenterAnalytics
+import AppCenterCrashes
 
 class ViewController: NSViewController {
 
@@ -41,6 +47,7 @@ class ViewController: NSViewController {
     
     @IBOutlet weak var cardSelectionView: NSView!
     
+    @IBOutlet weak var updateView: NSView!
     
     @IBOutlet weak var editingView: NSView!
     
@@ -69,36 +76,48 @@ class ViewController: NSViewController {
             designViewHeightConstraint.constant = 500
             self.mainSelectionViiew = .editing
             if editorType == .poster {
+                FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "Poster"])
                 designViewHeightConstraint.constant = 500
                 setDesignViewSize(aspectRatio: (0.7072/1))
             }else if editorType == .flyer {
+                FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "Flyer"])
                 setDesignViewSize(aspectRatio: (0.7072/1))
             }else if editorType == .invitation {
+                FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "Inviation"])
                 setDesignViewSize(aspectRatio: (0.7072/1))
             }else if editorType == .logo {
+                FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "Logo"])
                 setDesignViewSize(aspectRatio: (1/1))
             }else if editorType == .ytChannelArt {
+                FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "Channel Art"])
                 designViewHeightConstraint.constant = 350
                 setDesignViewSize(aspectRatio: (1.7777/1))
             }else if editorType == .fbCover {
+                FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "FB Cover"])
                 designViewHeightConstraint.constant = 200
                 setDesignViewSize(aspectRatio: (2.701/1))
             }else if editorType == .ytThumbnail {
+                FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "YT Thumbnail"])
                 designViewHeightConstraint.constant = 350
                 setDesignViewSize(aspectRatio: (1.7777/1))
             }else if editorType == .googleCover {
+                FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "Google Cover"])
                 designViewHeightConstraint.constant = 360
                 setDesignViewSize(aspectRatio: (1.7714/1))
             }else if editorType == .fbPost {
+                FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "FB Post"])
                 designViewHeightConstraint.constant = 450
                 setDesignViewSize(aspectRatio: (1.1928/1))
             }else if editorType == .instaPost {
+                FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "Insta Post"])
                 designViewHeightConstraint.constant = 500
                 setDesignViewSize(aspectRatio: (1/1))
             }else if editorType == .pintrastGraphic {
+                FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "Pintrast"])
                 designViewHeightConstraint.constant = 500
                 setDesignViewSize(aspectRatio: (0.6669/1))
             }else if editorType == .fbAd {
+                FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "FB Add"])
                 designViewHeightConstraint.constant = 300
                 setDesignViewSize(aspectRatio: (1.9108/1))
             }
@@ -113,9 +132,9 @@ class ViewController: NSViewController {
             templatesBtn.bgColor = NSColor.init(hex: "ffffff")
            // self.bgViewWidthConstraint.constant = 0
             if #available(OSX 10.14, *) {
-                shapesBtn.contentTintColor = NSColor.init(hex: "A80C62")
-                backgroundBtn.contentTintColor = NSColor.init(hex: "A80C62")
-                templatesBtn.contentTintColor = NSColor.init(hex: "A80C62")
+                shapesBtn.contentTintColor = NSColor.init(hex: MAIN_COLOR)
+                backgroundBtn.contentTintColor = NSColor.init(hex: MAIN_COLOR)
+                templatesBtn.contentTintColor = NSColor.init(hex: MAIN_COLOR)
             }
             
             
@@ -133,14 +152,14 @@ class ViewController: NSViewController {
                 //manageSideMenu()
                // isInvitaion = true
                 setDesignViewSize()
-                shapesBtn.bgColor = NSColor.init(hex: "A80C62")
+                shapesBtn.bgColor = NSColor.init(hex: MAIN_COLOR)
             }else if currentEditOption == .backgrounds {
                 if #available(OSX 10.14, *) {
                     backgroundBtn.contentTintColor = NSColor.init(hex: "ffffff")
                 }
                 manageSideMenu()
                
-                backgroundBtn.bgColor = NSColor.init(hex: "A80C62")
+                backgroundBtn.bgColor = NSColor.init(hex: MAIN_COLOR)
                 
                 
             }else if currentEditOption == .text {
@@ -148,7 +167,7 @@ class ViewController: NSViewController {
                     templatesBtn.contentTintColor = NSColor.init(hex: "ffffff")
                 }
                 TextView.isHidden = false
-                templatesBtn.bgColor = NSColor.init(hex: "A80C62")
+                templatesBtn.bgColor = NSColor.init(hex: MAIN_COLOR)
             }
         }
     }
@@ -200,6 +219,11 @@ class ViewController: NSViewController {
         super.viewDidLoad()
 
         //self.editingView.isHidden = true
+        self.updateView.isHidden = true
+        
+        FirebaseApp.configure()
+        
+        
         self.mainSelectionViiew = .layoutSelection
         currentEditOption = .backgrounds
         // Do any additional setup after loading the view.
@@ -220,16 +244,78 @@ class ViewController: NSViewController {
         socialView.addGestureRecognizer(fbTap)
         //instaImageView.addGestureRecognizer(instaTap)
         
+        
+        AppCenter.start(withAppSecret: "c50f3691-08ce-4c40-92ca-5d3d1e151fc4", services: [
+            Analytics.self,
+            Crashes.self
+        ])
+        
     }
 
     override func viewDidAppear() {
         
         setDesignViewSize()
+        self.downImageFromFirebase()
     }
     
+    func downImageFromFirebase(){
+        
+        let storage = Storage.storage()
+
+        // Create a storage reference from our storage service
+        let storageRef = storage.reference()
+        
+        // Create a storage reference from our app
+        // Create a reference to the file you want to download
+        let islandRef = storageRef.child("fotoDesign.json")
+
+        guard let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String else { return }
+
+        
+        
+        // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
+        islandRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+          if let error = error {
+            // Uh-oh, an error occurred!
+          } else {
+            do{
+                let json = try JSONSerialization.jsonObject(with: data!, options: []) as? [String:Any]
+                if let version = json?["version"] as? String{
+                    if appVersion <= version {
+                        self.updateView.isHidden = false
+                    }
+                }
+            }catch{
+                
+            }
+          }
+        }
+    }
+    
+    @IBAction func updateBtnClicked(_ sender: Any) {
+        
+    }
     @IBAction func layoutBtnClicked(_ sender: Any) {
         cardSelectionView.isHidden = false
         editingView.isHidden = true
+        
+        self.stickerLayers.removeAll()
+        self.bgImageView.image = nil
+        self.currentEditOption = .backgrounds
+        self.designView.bgColor = NSColor.clear
+        for sticker in designView.subviews{
+            if sticker is ZDStickerView{
+                sticker.removeFromSuperview()
+            }
+        }
+        bgImageView.image = nil
+        for  sublayer in self.designView.layer!.sublayers! {
+            if sublayer is CAGradientLayer{
+                sublayer.removeFromSuperlayer()
+            }
+        }
+        
+        
     }
     @IBAction func socialPostClicked(_ sender: Any) {
         if let button = sender as? NSButton{
@@ -374,56 +460,43 @@ class ViewController: NSViewController {
                 
                 bgImageView.bgColor = NSColor.clear
                 designView.bgColor = NSColor.clear
-               
-//                if editorType == .poster {
-//
-//                }else if editorType == .logo {
-//
-//
-//                } else{
                     if let img = loadImageNamed(name: "postsBg" + String(index)) {
                         
                         DispatchQueue.main.async {[weak self] in
                             guard let self = self else {return}
                             self.bgImageView.image = img
-                            self.bgImageView.imageScaling = .scaleNone
+                           // self.bgImageView.imageScaling = .scaleNone
                            
                         }
                             
                     }
-                //}
                 
                 
                 importBgView.isHidden = true
             }
             if let bgUrl = userInfo["url"] as? String{
-//                self.bgImageView.sd_setImage(with: URL.init(string:bgUrl),placeholderImage: NSImage(named: "postsBg0"), options: .highPriority, progress: nil, completed: { (image, error, type, url) in
-//                })
-                ApiManager.downloadFile(url: bgUrl, completion: {[weak self](url,error) in
-                  guard let self = self else {return}
-                    if error != nil {
-                        print(error)
-                        //self.downloadReq(url: outPut.url)
-                    }else{
-                       //
-                        let img = NSImage.init(contentsOfFile: (url?.path)!)
-                        if img != nil {
-                            //if (img?.size.width ?? 0) > 1500 &  (img?.size.height ?? 0) > 1500 {
-                                let newImg = img?.resizeBGImage()
-                            self.bgImageView.imageScaling = .scaleAxesIndependently
-                                self.bgImageView.image = newImg
-                            //}
+                self.showHudbuyProd(){[weak self](isSaved) in
+                    guard let self = self else{ return }
+                    ApiManager.downloadFile(url: bgUrl, completion: {[weak self](url,error) in
+                      guard let self = self else {return}
+                        if error != nil {
+                            print("error")
+                        }else{
+                           //
+                            let img = NSImage.init(contentsOfFile: (url?.path)!)
+                            if img != nil {
+                                self.hideHud()
+                                let resizeImg = img?.resizeMaintainingAspectRatio(withSize: self.bgImageView.frame.size)
+                                self.bgImageView.imageScaling = .scaleNone
+                                
+                                    self.bgImageView.image = resizeImg
+                            }
                         }
-                        
-                        
-                    }
-                }, progress: {[weak self](progress) in
-                    guard let self = self else {return}
-                    print(progress)
-                })
-                
-                //self.bgImageView.image = img
-                self.bgImageView.imageScaling = .scaleNone
+                    }, progress: {[weak self](progress) in
+                        guard let self = self else {return}
+                        print(progress)
+                    })
+                }
             }
         }
     }
@@ -531,22 +604,24 @@ class ViewController: NSViewController {
     }
     @objc func shapeSelected(_ notification: Notification){
         if let userInfo = notification.userInfo{
-            if let index = userInfo["index"] as? Int{
+            if let name = userInfo["index"] as? String{
                 
                 
-                if editorType == .logo {
-                    if let img = loadImageNamed(name: "logo_icon" + String(index)) {
-                        let imgae = img.resizeImage()
-                        self.addImageSticker(image: imgae)
+               // if editorType == .logo {
+                    if let img = loadImageNamed(name: name) {
+                       // let scale = img.size.width / img.size.height
+                        if let imgae = img.resizeMaintainingAspectRatio(withSize: NSSize(width: 500, height: 500)){
+                            self.addImageSticker(image: imgae)
+                        }
                         
                     }
-                }else{
-                    if let img = loadImageNamed(name: "social_icon" + String(index)) {
-                        let imgae = img.resizeImage()
-                        self.addImageSticker(image: imgae)
-                        
-                    }
-                }
+//                }else{
+//                    if let img = loadImageNamed(name: "social_icon" + String(index)) {
+//                        let imgae = img.resizeImage()
+//                        self.addImageSticker(image: imgae)
+//
+//                    }
+//                }
                 
             }
         }

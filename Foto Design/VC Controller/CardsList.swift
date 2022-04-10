@@ -27,25 +27,27 @@ class CardsListVC: NSViewController {
     @IBOutlet weak var gredientView: NSView!
     @IBOutlet weak var angleSlider: NSSlider!
     
+    var editorType:DesignViewType = .none
+    
     var backgroundsArray:[PhotoObject]?
     
     var isGradientSelected:Bool = false{
         didSet{
             if isGradientSelected == true{
                 colorBtn.bgColor = NSColor.init(hex: "ffffff")
-                gredientColorBtn.bgColor = NSColor.init(hex: "A80C62")
+                gredientColorBtn.bgColor = NSColor.init(hex: MAIN_COLOR)
                 if #available(OSX 10.14, *) {
-                    colorBtn.contentTintColor = NSColor.init(hex: "A80C62")
+                    colorBtn.contentTintColor = NSColor.init(hex: MAIN_COLOR)
                     gredientColorBtn.contentTintColor = NSColor.init(hex: "ffffff")
                 } else {
                     // Fallback on earlier versions
                 }
             }else{
-                colorBtn.bgColor = NSColor.init(hex: "A80C62")
+                colorBtn.bgColor = NSColor.init(hex: MAIN_COLOR)
                 gredientColorBtn.bgColor = NSColor.init(hex: "ffffff")
                 if #available(OSX 10.14, *) {
                     colorBtn.contentTintColor = NSColor.init(hex: "ffffff")
-                    gredientColorBtn.contentTintColor = NSColor.init(hex: "A80C62")
+                    gredientColorBtn.contentTintColor = NSColor.init(hex: MAIN_COLOR)
                 } else {
                     // Fallback on earlier versions
                 }
@@ -69,9 +71,18 @@ class CardsListVC: NSViewController {
         if let type = notification.object as? DesignViewType {
             //self.currentTextView = zdView
             //self.currentSelectedFontFamily = dView.txtView.familyName
-           // if type == .poster {
-                loadData(search: "wallpaper")
-            //}
+            self.editorType = type
+            if type == .flyer || type == .invitation {
+                loadData(search: "invitation&orientation=vertical")
+            }else if type == .poster{
+                loadData(search: "poster&orientation=horizontal")
+            }else if type == .logo{
+                loadData(search: "background+texture&orientation=horizontal")
+            }else if type == .ytThumbnail{
+                loadData(search: "video&orientation=horizontal")
+            }else{
+                loadData(search: "wallpaper&orientation=horizontal")
+            }
         }else {
            // self.currentTextView =  nil
         }
@@ -164,7 +175,7 @@ extension CardsListVC:NSCollectionViewDelegate,NSCollectionViewDataSource,NSColl
         if let count = backgroundsArray?.count {
             return count
         }
-        return 62
+        return 0
     }
     
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
@@ -181,15 +192,20 @@ extension CardsListVC:NSCollectionViewDelegate,NSCollectionViewDataSource,NSColl
             }
         }
         
-        cell.quoteImg.imageScaling = .scaleProportionallyUpOrDown
+        cell.quoteImg.imageScaling = .scaleAxesIndependently
         
         return cell
     }
     func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
 
        // return NSSize(width:115, height:60)
+        let width = (collectionView.frame.size.width / 2) - 5
         
-        return NSSize(width:230, height:230)
+        if editorType == .poster || editorType == .invitation || editorType == .flyer{
+            return NSSize(width:width, height:width * 1.414)
+        }
+        
+        return NSSize(width:width, height:width)
     }
     func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
         guard let indexPath = indexPaths.first else {return}

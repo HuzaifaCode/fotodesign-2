@@ -70,6 +70,28 @@ extension ViewController{
             }
             
             var fileName = "Social Post"
+            if editorType == .logo {
+                fileName = "Logo"
+            }else if editorType == .invitation{
+                fileName = "Invitation"
+            }else if editorType == .poster{
+                fileName = "Poster"
+            }else if editorType == .flyer{
+                fileName = "Flyer"
+            }else if editorType == .ytThumbnail{
+                fileName = "YT Thumbnail"
+            }else if editorType == .ytChannelArt{
+                fileName = "YT Channel Art"
+            }else if editorType == .fbPost{
+                fileName = "FB Post"
+            }else if editorType == .fbAd{
+                fileName = "FB Ad"
+            }else if editorType == .fbCover{
+                fileName = "FB Cover"
+            }else if editorType == .pintrastGraphic{
+                fileName = "Pintrast"
+            }
+            
             fileName = (fileName ?? "Social Post") + " " + Date().string(format: "yyyy-MM-dd HH mm ss")
             savePanel.nameFieldStringValue = fileName ?? "Social Post"
             savePanel.beginSheetModal(for: self.view.window!) {[weak self](response) in
@@ -147,6 +169,9 @@ extension ViewController{
             self.designView.layoutSubtreeIfNeeded()
             bgImageView.layer?.sublayers?[0].frame.size.height = designView.frame.height
             bgImageView.layer?.sublayers?[0].frame.size.width = designView.frame.width
+            let resizeImg = bgImageView.image?.resizeMaintainingAspectRatio(withSize: self.bgImageView.frame.size)
+            bgImageView.image = resizeImg
+            
             for subView in self.designView.subviews {
                 if(subView is ZDStickerView) {
                     if let stickerView = subView as? ZDStickerView {
@@ -214,7 +239,16 @@ extension ViewController{
             if(isLargeQuality) {
                 self.designView.frame = oldFrame
                 self.designViewHeightConstraint.constant = self.designViewHeightConstraint.constant / scale
+                
+                
+                
+                
                 self.designView.layoutSubtreeIfNeeded()
+                
+                let resizeImg = bgImageView.image?.resizeMaintainingAspectRatio(withSize: self.bgImageView.frame.size)
+                bgImageView.image = resizeImg
+                
+                
                 for subView in self.designView.subviews {
 //                    if(subView is BgImageView) {
 //                        let width = designView.frame.width//subView.frame.width/scale

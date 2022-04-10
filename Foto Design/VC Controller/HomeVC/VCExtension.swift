@@ -203,11 +203,11 @@ extension ViewController{
     func printBtnClicked(){
         
         var images = [NSImage]()
-        let scale:CGFloat = 1.588
+        let scale:CGFloat = 2.5
         if let snapshot = self.takeScreenShot(true, scale: scale){
             images.append(snapshot)
         }
-        if images.count > 1{
+        if images.count > 0{
             if let printView = self.convertImagesToSingleView(images, spaceMargin: 50){
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in

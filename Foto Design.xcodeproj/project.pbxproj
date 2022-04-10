@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		1F1BB4D0269F33CB009260F7 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F1BB4CF269F33CB009260F7 /* MBProgressHUD.m */; };
 		1F1BB4D5269F3417009260F7 /* ZDTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1BB4D4269F3417009260F7 /* ZDTextView.swift */; };
-		1F1BB4E0269F3426009260F7 /* ZDStickerView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1F1BB4D9269F3426009260F7 /* ZDStickerView.bundle */; };
 		1F1BB4E1269F3426009260F7 /* ZDAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F1BB4DC269F3426009260F7 /* ZDAttributes.m */; };
 		1F1BB4E2269F3426009260F7 /* ZDStickerView-Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1BB4DD269F3426009260F7 /* ZDStickerView-Extentions.swift */; };
 		1F1BB4E3269F3426009260F7 /* ZDStickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F1BB4DE269F3426009260F7 /* ZDStickerView.m */; };
@@ -35,6 +34,7 @@
 		1F3B3B89269E143000C0F15E /* DesignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3B3B7D269E143000C0F15E /* DesignView.swift */; };
 		1F3B3B8E269E14F100C0F15E /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3B3B8D269E14F100C0F15E /* ViewExtensions.swift */; };
 		1F5429B927FEF7C7006BFE50 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5429B827FEF7C7006BFE50 /* ApiManager.swift */; };
+		1FDC08CD280364DC00FE5130 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1FDC08CC280364DC00FE5130 /* GoogleService-Info.plist */; };
 		AC7B3AC70741FA4DAAE19698 /* Pods_Foto_Design.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0947F8B32933121B9A60AECF /* Pods_Foto_Design.framework */; };
 /* End PBXBuildFile section */
 
@@ -46,7 +46,6 @@
 		1F1BB4CF269F33CB009260F7 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		1F1BB4D4269F3417009260F7 /* ZDTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZDTextView.swift; sourceTree = "<group>"; };
 		1F1BB4D8269F3426009260F7 /* ZDAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZDAttributes.h; sourceTree = "<group>"; };
-		1F1BB4D9269F3426009260F7 /* ZDStickerView.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ZDStickerView.bundle; sourceTree = "<group>"; };
 		1F1BB4DA269F3426009260F7 /* ZDStickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZDStickerView.h; sourceTree = "<group>"; };
 		1F1BB4DB269F3426009260F7 /* SPGripViewBorderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPGripViewBorderView.h; sourceTree = "<group>"; };
 		1F1BB4DC269F3426009260F7 /* ZDAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZDAttributes.m; sourceTree = "<group>"; };
@@ -76,6 +75,7 @@
 		1F3B3B7D269E143000C0F15E /* DesignView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignView.swift; sourceTree = "<group>"; };
 		1F3B3B8D269E14F100C0F15E /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		1F5429B827FEF7C7006BFE50 /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
+		1FDC08CC280364DC00FE5130 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1FDF180F26D96DF900A707F5 /* Foto Design.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Foto Design.entitlements"; sourceTree = "<group>"; };
 		3858A4366D93D0C6FA909BEA /* Pods-Foto Design.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foto Design.release.xcconfig"; path = "Target Support Files/Pods-Foto Design/Pods-Foto Design.release.xcconfig"; sourceTree = "<group>"; };
 		CC7CF86DF4E9EE68D9984FC4 /* Pods-TypoGraphy Editor.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TypoGraphy Editor.debug.xcconfig"; path = "Target Support Files/Pods-TypoGraphy Editor/Pods-TypoGraphy Editor.debug.xcconfig"; sourceTree = "<group>"; };
@@ -114,7 +114,6 @@
 			isa = PBXGroup;
 			children = (
 				1F1BB4D8269F3426009260F7 /* ZDAttributes.h */,
-				1F1BB4D9269F3426009260F7 /* ZDStickerView.bundle */,
 				1F1BB4DA269F3426009260F7 /* ZDStickerView.h */,
 				1F1BB4DB269F3426009260F7 /* SPGripViewBorderView.h */,
 				1F1BB4DC269F3426009260F7 /* ZDAttributes.m */,
@@ -196,6 +195,7 @@
 		1F3B3B48269E095200C0F15E /* Foto Design */ = {
 			isa = PBXGroup;
 			children = (
+				1FDC08CC280364DC00FE5130 /* GoogleService-Info.plist */,
 				1F5429B727FEF79E006BFE50 /* Manager */,
 				1FDF180F26D96DF900A707F5 /* Foto Design.entitlements */,
 				1F3B3B69269E11A800C0F15E /* Appdelegate */,
@@ -356,10 +356,10 @@
 			files = (
 				1F3B3B4E269E095300C0F15E /* Assets.xcassets in Resources */,
 				1F3B3B51269E095300C0F15E /* Main.storyboard in Resources */,
-				1F1BB4E0269F3426009260F7 /* ZDStickerView.bundle in Resources */,
 				1F1BB4FD269F3697009260F7 /* CardListCell.xib in Resources */,
 				1F1BB4FF269F3697009260F7 /* ShapesCell.xib in Resources */,
 				1F3B3B81269E143000C0F15E /* ZdContentView.xib in Resources */,
+				1FDC08CD280364DC00FE5130 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

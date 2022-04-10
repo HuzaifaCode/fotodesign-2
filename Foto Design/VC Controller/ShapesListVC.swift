@@ -13,7 +13,26 @@ class ShapesListVC: NSViewController {
     @IBOutlet weak var stickerCollectionView: NSCollectionView!
     @IBOutlet weak var colorPicker: NSColorWell!
     
+    @IBOutlet weak var logoBtn: NSButton!
+    @IBOutlet weak var iconBtn: NSButton!
+    @IBOutlet weak var shapesBtn: NSButton!
+    
     var editorType:DesignViewType = .none
+    
+    
+    var stickerSelection: StickerSelection = .logo {
+        didSet{
+            
+            self.stickerCollectionView.reloadData()
+            if stickerSelection == .logo{
+                
+            }else if stickerSelection == .icons{
+                
+            }else if stickerSelection == .shappes{
+                
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +49,15 @@ class ShapesListVC: NSViewController {
            // self.currentTextView =  nil
         }
     }
+    @IBAction func logoIconClicked(_ sender: Any) {
+        self.stickerSelection = .logo
+    }
+    @IBAction func iconsClicked(_ sender: Any) {
+        self.stickerSelection = .icons
+    }
+    @IBAction func shapesClicked(_ sender: Any) {
+        self.stickerSelection = .shappes
+    }
     @IBAction func importBtnClicked(_ sender: Any) {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.importImageSticker.rawValue), object: nil, userInfo: nil)
     }
@@ -43,8 +71,12 @@ class ShapesListVC: NSViewController {
 extension ShapesListVC:NSCollectionViewDelegate,NSCollectionViewDataSource,NSCollectionViewDelegateFlowLayout{
 
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-        if editorType == .logo {
-            return 110
+        if stickerSelection == .logo {
+            return 210
+        }else if stickerSelection == .icons {
+            return 154
+        }else if stickerSelection == .shappes {
+            return 135
         }
         return 154
     }
@@ -53,8 +85,16 @@ extension ShapesListVC:NSCollectionViewDelegate,NSCollectionViewDataSource,NSCol
         guard let cell =   collectionView.makeItem(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "ShapesCell"), for: indexPath) as? ShapesCell else {
             fatalError("The dequeued cell is not an instance of DetailCell.")
         }
-        if editorType == .logo {
+        if stickerSelection == .logo {
             if let img = loadImageNamed(name: "logo_icon" + String(indexPath.item)){
+                cell.quoteImg.image = img
+            }
+        }else if stickerSelection == .icons {
+            if let img = loadImageNamed(name: "social_icon" + String(indexPath.item)){
+                cell.quoteImg.image = img
+            }
+        }else if stickerSelection == .shappes {
+            if let img = loadImageNamed(name: "shape_icon" + String(indexPath.item)){
                 cell.quoteImg.image = img
             }
         }else{
@@ -62,7 +102,7 @@ extension ShapesListVC:NSCollectionViewDelegate,NSCollectionViewDataSource,NSCol
                 cell.quoteImg.image = img
             }
         }
-        
+        cell.quoteImg.imageScaling = .scaleProportionallyUpOrDown
         return cell
     }
     func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
@@ -74,9 +114,17 @@ extension ShapesListVC:NSCollectionViewDelegate,NSCollectionViewDataSource,NSCol
     func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
         guard let indexPath = indexPaths.first else {return}
         
+        var iconName = "logo_icon" + String(indexPath.item)
+        if stickerSelection == .logo {
+            iconName = "logo_icon" + String(indexPath.item)
+        }else if stickerSelection == .icons {
+            iconName = "social_icon" + String(indexPath.item)
+        }else if stickerSelection == .shappes {
+            iconName = "shape_icon" + String(indexPath.item)
+        }
         
         
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.shapeSelected.rawValue), object: nil, userInfo: ["index":indexPath.item])
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.shapeSelected.rawValue), object: nil, userInfo: ["index":iconName])
         
         
         collectionView.deselectItems(at: indexPaths)

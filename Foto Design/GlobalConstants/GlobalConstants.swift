@@ -21,6 +21,9 @@ let NOTIFICATION_CENTER = NotificationCenter.default
 let appDelegate = NSApp.delegate as! AppDelegate
 let userDefaults = UserDefaults.standard
 
+let MAIN_COLOR = "9B2F82"
+
+
 let IS_FREE_USERS = "isFreeUsers"
 let documentDiroctoryPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
 let ImportedStickerpath = documentDiroctoryPath.appending("/Stickers")
@@ -83,6 +86,11 @@ enum MainSelectionType : Int {
 enum SideMenu : Int {
     case front = 1, back = 2, none = 3, ipad = 4
 }
+
+enum StickerSelection : Int {
+    case logo = 1, icons = 2, none = 3, shappes = 4
+}
+
 func twoBtnAlert(question: String, text: String = "") -> Bool {
     let alert = NSAlert()
     alert.messageText = question
@@ -132,7 +140,7 @@ struct FeedbackEmail {
 class StickerManager:NSObject {
     
     
-   class func getZDSticker(frame:CGRect = CGRect(x: 0, y: 0, width: 300, height: 300)) -> ZDStickerView {
+   class func getZDSticker(frame:CGRect = CGRect(x: 0, y: 0, width: 200, height: 200)) -> ZDStickerView {
         let sticker = ZDStickerView(frame: frame)
         sticker.setButton(.del, image: #imageLiteral(resourceName: "cross"))
         sticker.setButton(.resize, image: #imageLiteral(resourceName: "resize"))
