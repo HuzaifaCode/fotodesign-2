@@ -180,7 +180,7 @@ class ViewController: NSViewController {
             for sticker in stickerLayers {
                 if let zdSticker = sticker as? ZDStickerView {
                     zdSticker.hideEditingHandles()
-                    if let textView = zdSticker.contentView as? ZdContentView {
+                    if let textView = zdSticker.contentView as? FotoContentView {
                         DispatchQueue.main.async {
                             textView.txtView?.resignFirstResponder()
                             textView.txtView?.window?.makeFirstResponder(nil)
@@ -225,7 +225,7 @@ class ViewController: NSViewController {
         
         
         self.mainSelectionViiew = .layoutSelection
-        currentEditOption = .backgrounds
+        currentEditOption = .shape
         // Do any additional setup after loading the view.
        
         addObservers()
@@ -250,12 +250,30 @@ class ViewController: NSViewController {
             Crashes.self
         ])
         
+        
+        if userDefaults.integer(forKey: APP_OPEN_COUNT) != 0 {
+           let count =  userDefaults.integer(forKey: APP_OPEN_COUNT)
+            //if count % 2 == 1 {
+                showRatingPopUp()
+            //}
+            userDefaults.setValue(count + 1, forKey: APP_OPEN_COUNT)
+        }else{
+            userDefaults.setValue(1, forKey: APP_OPEN_COUNT)
+        }
+        
+        
     }
 
     override func viewDidAppear() {
         
         setDesignViewSize()
         self.downImageFromFirebase()
+    }
+    
+    func showRatingPopUp(){
+        if #available(OSX 10.14, *) {
+            SKStoreReviewController.requestReview()
+        }
     }
     
     func downImageFromFirebase(){
@@ -280,8 +298,8 @@ class ViewController: NSViewController {
           } else {
             do{
                 let json = try JSONSerialization.jsonObject(with: data!, options: []) as? [String:Any]
-                if let version = json?["version"] as? String{
-                    if appVersion <= version {
+                if let version = json?["version"] as? [String]{
+                    if appVersion < version[0] {
                         self.updateView.isHidden = false
                     }
                 }
@@ -293,7 +311,8 @@ class ViewController: NSViewController {
     }
     
     @IBAction func updateBtnClicked(_ sender: Any) {
-        
+        openApps { (_) in
+        }
     }
     @IBAction func layoutBtnClicked(_ sender: Any) {
         cardSelectionView.isHidden = false
@@ -301,7 +320,7 @@ class ViewController: NSViewController {
         
         self.stickerLayers.removeAll()
         self.bgImageView.image = nil
-        self.currentEditOption = .backgrounds
+        self.currentEditOption = .shape
         self.designView.bgColor = NSColor.clear
         for sticker in designView.subviews{
             if sticker is ZDStickerView{
@@ -351,13 +370,13 @@ class ViewController: NSViewController {
     @IBAction func marketingClicked(_ sender: Any) {
         if let button = sender as? NSButton{
             if button.tag == 0 {
-                editorType = .poster
+                editorType = .logo
             }else if button.tag == 1 {
                 editorType = .flyer
             }else if button.tag == 2 {
                 editorType = .invitation
             }else if button.tag == 3 {
-                editorType = .logo
+                editorType = .poster
             }else if button.tag == 4 {
                 
             }
@@ -524,9 +543,9 @@ class ViewController: NSViewController {
                 //self.changeFont(fontName, newFontSize: CGFloat(fontSize),style:fontStyle,familyName:family,sticker: sticker)
             }else{
                 if let size = dict["fontSize"] as? CGFloat{
-                    let fontName = (sticker.contentView as? ZdContentView)?.txtView.font?.fontName ?? ""
-                    let style = (sticker.contentView as? ZdContentView)?.txtView.fontStyle ?? ""
-                    let familyName = (sticker.contentView as? ZdContentView)?.txtView.familyName ?? ""
+                    let fontName = (sticker.contentView as? FotoContentView)?.txtView.font?.fontName ?? ""
+                    let style = (sticker.contentView as? FotoContentView)?.txtView.fontStyle ?? ""
+                    let familyName = (sticker.contentView as? FotoContentView)?.txtView.familyName ?? ""
                     
                     self.changeFont(fontName, newFontSize: CGFloat(size),style:style,familyName:familyName,sticker: sticker)
                     
@@ -548,7 +567,7 @@ class ViewController: NSViewController {
     }
     
     func alignText(_ alignment: NSTextAlignment,sticker: ZDStickerView) {
-        guard  let textView = sticker.contentView as? ZdContentView else {
+        guard  let textView = sticker.contentView as? FotoContentView else {
             return
         }
         textView.txtView.textAlign = alignment
@@ -556,7 +575,7 @@ class ViewController: NSViewController {
     
     
     func updateFontSize(newFontSize:CGFloat?,sticker: ZDStickerView) {
-        guard  let textView = sticker.contentView as? ZdContentView else {
+        guard  let textView = sticker.contentView as? FotoContentView else {
             return
         }
         if let fontSize = newFontSize{
@@ -567,7 +586,7 @@ class ViewController: NSViewController {
         }
     }
     func updateFontName(newFontName:String?,style:String ,sticker: ZDStickerView) {
-        guard  let textView = sticker.contentView as? ZdContentView else {
+        guard  let textView = sticker.contentView as? FotoContentView else {
             return
         }
         if let fontName = newFontName{
@@ -581,7 +600,7 @@ class ViewController: NSViewController {
     }
     
     func changeFont(_ newFontName: String,newFontSize:CGFloat,style:String,familyName:String ,sticker: ZDStickerView) {
-        guard  let textView = sticker.contentView as? ZdContentView else {
+        guard  let textView = sticker.contentView as? FotoContentView else {
             return
         }
         
@@ -629,7 +648,7 @@ class ViewController: NSViewController {
     @objc func textChanged(_ notification: Notification){
         if let userInfo = notification.userInfo{
             if let txt = userInfo["text"] as? String{
-                if let zdContentView = self.currentSelectedShape?.contentView as? ZdContentView{
+                if let zdContentView = self.currentSelectedShape?.contentView as? FotoContentView{
                     zdContentView.txtView.stringValue = txt
                 }
             }
@@ -808,7 +827,7 @@ class ViewController: NSViewController {
     }
     @objc func addText(_ notification:NSNotification) -> Void {
         
-        if let dView = notification.object as? ZdContentView {
+        if let dView = notification.object as? FotoContentView {
             
             let point = CGPoint.init(x: NSMidX(self.designView.frame)-100, y:200)
             self.addNewTextView(dView, leftConst: -1*(point.x-100.0), bottomConst: point.y-50.0,textStr: dView.txtView.stringValue)
@@ -820,7 +839,7 @@ class ViewController: NSViewController {
             self.addShapeSticker(sticker: sticker)
         }
     }
-    func  addNewTextView(_ dView:ZdContentView,leftConst:CGFloat,bottomConst:CGFloat,isLoadingFromModel:Bool = false,fontName:String = "American Typewriter",familyName:String  =  "American Typewriter",style:String  = "Regular",fontSize:CGFloat = 17, textStr:String =  "", textColor:NSColor = .black,isNeedToChangeZPosition: Bool = true,sendNotification:Bool = false,oldLayerIndex:Int? = nil) -> Void {
+    func  addNewTextView(_ dView:FotoContentView,leftConst:CGFloat,bottomConst:CGFloat,isLoadingFromModel:Bool = false,fontName:String = "American Typewriter",familyName:String  =  "American Typewriter",style:String  = "Regular",fontSize:CGFloat = 17, textStr:String =  "", textColor:NSColor = .black,isNeedToChangeZPosition: Bool = true,sendNotification:Bool = false,oldLayerIndex:Int? = nil) -> Void {
         
         
         

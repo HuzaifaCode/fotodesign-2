@@ -45,7 +45,7 @@ class TextVC: NSViewController {
     var filterFontUsableNames = [String]()
     
     
-    var currentTextView:ZdContentView? = nil {
+    var currentTextView:FotoContentView? = nil {
         didSet {
             self.updateUI()
         }
@@ -115,7 +115,7 @@ class TextVC: NSViewController {
         }
     }
     @objc func changeCurrentTextView(_ notification:NSNotification) -> Void {
-        if let zdView = notification.object as? ZdContentView {
+        if let zdView = notification.object as? FotoContentView {
             self.currentTextView = zdView
             //self.currentSelectedFontFamily = dView.txtView.familyName
         }else {
@@ -123,7 +123,7 @@ class TextVC: NSViewController {
         }
     }
     func addTextView() -> Void {
-        if let drView = ZdContentView.createFromNib() {
+        if let drView = FotoContentView.createFromNib() {
             drView.txtView.stringValue = "Enter Text Here"
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.AddText.rawValue), object: drView, userInfo: nil)
         }

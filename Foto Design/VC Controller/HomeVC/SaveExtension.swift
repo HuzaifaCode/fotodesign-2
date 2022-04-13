@@ -19,10 +19,9 @@ extension ViewController{
         
        // printBtnClicked()
         self.designView.isHidden = false
-        let scale:CGFloat = self.editorType.rawValue //withHightRes == true ? 3 : 2
+        let scale:CGFloat = self.editorType.rawValue
         let snapshot = self.takeScreenShot(true, scale: scale)
  
-        //let resieImg = snapshot?.resizeImage(image: <#T##NSImage#>, w: <#T##Int#>, h: <#T##Int#>)
         
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
         let destinationPath = "file://" + documentsPath
@@ -64,7 +63,7 @@ extension ViewController{
             self.isSavePanelOpen = true
             let savePanel = NSSavePanel()
             if isHighRes == true{
-               savePanel.allowedFileTypes = ["png"]
+               savePanel.allowedFileTypes = [selectedExt]
             }else{
                 savePanel.allowedFileTypes = ["pdf"]
             }
@@ -179,7 +178,7 @@ extension ViewController{
                         stickerView.frame = stickerView.frame.scale(by: scale)
                        // stickerView.contentView.frame =  stickerView.contentView.frame.scale(by: scale)
                         stickerView.transform = transfrom
-                        if let sView = (stickerView.contentView as? ZdContentView)?.txtView {
+                        if let sView = (stickerView.contentView as? FotoContentView)?.txtView {
                             
                             sView.oldFontSize = sView.font!.pointSize
                             let font = NSFont.init(name: sView.fontName, size: sView.font!.pointSize * scale )
@@ -269,7 +268,7 @@ extension ViewController{
                             stickerView.frame = stickerView.frame.scaleDown(by: scale)
                            // stickerView.contentView.frame = stickerView.contentView.frame.scaleDown(by: scale)
                             stickerView.transform = transfrom
-                            if let sView = (stickerView.contentView as? ZdContentView)?.txtView {
+                            if let sView = (stickerView.contentView as? FotoContentView)?.txtView {
                                 if let font = NSFont.init(name: sView.fontName, size: sView.oldFontSize) {
                                     sView.font = font
                                     let alignment = sView.textAlign

@@ -13,6 +13,13 @@ extension ViewController {
     func showSavePopup(view: NSView){
         mainPopover?.close()
         let vc = SaveOptions.options()
+        let width = Int(self.designView.frame.size.width * editorType.rawValue * 2)
+        let height = Int(self.designView.frame.size.height * editorType.rawValue * 2)
+        vc.sizeString = "\(width)x\(height) px"
+        if editorType == .ytThumbnail {
+            vc.sizeString = "1280x720 px"
+        }
+        
         vc.delegate = self
         mainPopover = showPopover(viewController: vc, viewForBounds: view)
     }
@@ -28,6 +35,35 @@ extension ViewController {
     }
     
     func saveClicked(){
+        
+        if editorType == .poster {
+            FotoEventManager.shared.logEvent(name: .saveDesign, parameters: ["Name" : "Poster"])
+        }else if editorType == .flyer {
+            FotoEventManager.shared.logEvent(name: .saveDesign, parameters: ["Name" : "Flyer"])
+        }else if editorType == .invitation {
+            FotoEventManager.shared.logEvent(name: .saveDesign, parameters: ["Name" : "Inviation"])
+        }else if editorType == .logo {
+            FotoEventManager.shared.logEvent(name: .saveDesign, parameters: ["Name" : "Logo"])
+        }else if editorType == .ytChannelArt {
+            FotoEventManager.shared.logEvent(name: .saveDesign, parameters: ["Name" : "Channel Art"])
+        }else if editorType == .fbCover {
+            FotoEventManager.shared.logEvent(name: .saveDesign, parameters: ["Name" : "FB Cover"])
+        }else if editorType == .ytThumbnail {
+            FotoEventManager.shared.logEvent(name: .saveDesign, parameters: ["Name" : "YT Thumbnail"])
+        }else if editorType == .googleCover {
+            FotoEventManager.shared.logEvent(name: .saveDesign, parameters: ["Name" : "Google Cover"])
+        }else if editorType == .fbPost {
+            FotoEventManager.shared.logEvent(name: .saveDesign, parameters: ["Name" : "FB Post"])
+        }else if editorType == .instaPost {
+            FotoEventManager.shared.logEvent(name: .saveDesign, parameters: ["Name" : "Insta Post"])
+        }else if editorType == .pintrastGraphic {
+            FotoEventManager.shared.logEvent(name: .saveDesign, parameters: ["Name" : "Pintrast"])
+        }else if editorType == .fbAd {
+            FotoEventManager.shared.logEvent(name: .saveDesign, parameters: ["Name" : "FB Add"])
+        }
+        
+        
+        
         DispatchQueue.main.async {[weak self] in
             guard let self = self else {return}
             self.showHudbuyProd(){[weak self](isSaved) in
@@ -69,7 +105,7 @@ extension ViewController: SaveProtocol {
 extension ViewController{
     
     func addBorder(_ borderWidth:CGFloat,borderColor:NSColor,sticker: ZDStickerView) {
-        guard  let textView = sticker.contentView as? ZdContentView else {
+        guard  let textView = sticker.contentView as? FotoContentView else {
             return
         }
        
@@ -140,7 +176,7 @@ extension ViewController{
         }
     }
     func changeTextColor(_ newColor: NSColor,sticker:ZDStickerView) {
-        guard  let textView = sticker.contentView as? ZdContentView else {
+        guard  let textView = sticker.contentView as? FotoContentView else {
             return
         }
         var oldColor:NSColor? = textView.txtView.textColor

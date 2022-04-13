@@ -129,7 +129,7 @@ class FotoEventManager {
 
 enum MyAnalyticsEventsName : String {
     case DesignType = "Layout Selection",
-    saveLogo = "Saved Logos",
+    saveDesign = "Save Design",
     PosterTemplates = "PosterTemplates"
 
 }

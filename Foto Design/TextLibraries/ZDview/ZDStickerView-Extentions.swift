@@ -98,7 +98,7 @@ extension ZDStickerView {
     func type() -> ZDStickerViewType {
         if contentView is DraggingImageView {
             return ZDStickerViewType.image
-        }else if contentView is ZdContentView {
+        }else if contentView is FotoContentView {
             return ZDStickerViewType.text
         }
         return .none

@@ -162,7 +162,7 @@ extension NSImage {
 
 
 
-final class ZdContentView: NSView, NibLoadable {
+final class FotoContentView: NSView, NibLoadable {
 
     @IBOutlet weak var widthConstrain: NSLayoutConstraint!
     @IBOutlet weak var heightConstrain: NSLayoutConstraint!

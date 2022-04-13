@@ -15,6 +15,7 @@
 import Foundation
 import Cocoa
 
+let APP_OPEN_COUNT = "AppLaunchCount"
 
 let NOTIFICATION_CENTER = NotificationCenter.default
 
@@ -157,3 +158,14 @@ class CustomFlippedView : NSView{
     override var isFlipped: Bool {return true}
 }
 
+
+func openApps(completion: @escaping ((_ success: Bool)->())) {
+    
+    
+    guard let url = URL(string : "macappstore://apps.apple.com/us/app/1583273312") else {
+        completion(false)
+        return
+    }
+    
+    NSWorkspace.shared.open(url)
+}

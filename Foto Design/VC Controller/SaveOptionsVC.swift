@@ -21,8 +21,12 @@ protocol SaveProtocol: class {
 class SaveOptions: NSViewController {
 
     
+    @IBOutlet weak var headingLbl: NSTextField!
+    @IBOutlet weak var sizeLbl: NSTextField!
+    
     weak var delegate:SaveProtocol?
     
+    var sizeString:String?
     
     class func options()-> SaveOptions{
         return NSStoryboard(name: "Main", bundle: nil).instantiateController(withIdentifier: "SaveOptions") as! SaveOptions
@@ -30,6 +34,7 @@ class SaveOptions: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
+        self.sizeLbl.stringValue = self.sizeString ?? ""
     }
     
     @IBAction func pngBtnClicked(_ sender: Any) {
