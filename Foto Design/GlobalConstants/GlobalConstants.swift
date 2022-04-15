@@ -81,6 +81,34 @@ enum DesignViewType : CGFloat {
     case poster = 4.45, flyer = 1.586, invitation = 2.828, logo = 2.0, ytChannelArt = 7.3145, fbCover = 4.255, ytThumbnail = 2.0572, googleCover = 1.945, fbPost = 1.7512, instaPost = 2.16, pintrastGraphic = 2.204, fbAd = 2.0934, none = 0.0
 }
 
+
+class Constatnts {
+    static let totalTemplates: Int = 50
+    static let logo = TempleteSize(
+        "",
+        1,
+        CGSize(width: 600, height: 600)
+    )
+    static let poster = TempleteSize(
+        "",
+        0.7072,
+        CGSize(width: 400, height: 565)
+    )
+    static let totalBG: Int = 272
+}
+struct TempleteSize {
+    var displayText: String
+    var size: CGSize
+    var ratio: CGFloat
+    init(_ displayText:String,_ ratio: CGFloat,_ size:CGSize? = .zero) {
+        self.displayText = displayText
+        self.size = size ?? .zero
+        self.ratio = ratio
+    }
+}
+
+
+
 enum MainSelectionType : Int {
     case none = 1, editing = 2, layoutSelection = 3
 }

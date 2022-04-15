@@ -12,6 +12,21 @@ import Cocoa
 
 extension NSView {
   
+    
+    func png() -> Data? {
+        let rep = self.bitmapImageRepForCachingDisplay(in: bounds)!
+        self.cacheDisplay(in: bounds, to: rep)
+        let data = rep.representation(using: .png, properties: [:])
+        return data
+    }
+    func jpeg() -> Data? {
+        let rep = self.bitmapImageRepForCachingDisplay(in: bounds)!
+        self.cacheDisplay(in: bounds, to: rep)
+        let data = rep.representation(using: .jpeg, properties: [:])
+        return data
+    }
+    
+    
     var snapshotImage: NSImage? {
         
         

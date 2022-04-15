@@ -158,6 +158,13 @@
 		1F3BE893280828B800F96DCD /* thumb0.svg in Resources */ = {isa = PBXBuildFile; fileRef = 1F3BE892280828B700F96DCD /* thumb0.svg */; };
 		1F42053728089629004EDB98 /* thumb1.svg in Resources */ = {isa = PBXBuildFile; fileRef = 1F42053628089629004EDB98 /* thumb1.svg */; };
 		1F5429B927FEF7C7006BFE50 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5429B827FEF7C7006BFE50 /* ApiManager.swift */; };
+		1F6621572809BC1D00149EFF /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6621562809BC1D00149EFF /* DashboardView.swift */; };
+		1F66215F2809BF2E00149EFF /* StickerControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6621592809BF2E00149EFF /* StickerControl.swift */; };
+		1F6621602809BF2E00149EFF /* StickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F66215A2809BF2E00149EFF /* StickerView.swift */; };
+		1F6621612809BF2E00149EFF /* KeyEventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F66215B2809BF2E00149EFF /* KeyEventMonitor.swift */; };
+		1F6621622809BF2E00149EFF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F66215C2809BF2E00149EFF /* Extensions.swift */; };
+		1F6621632809BF2E00149EFF /* StickerContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F66215D2809BF2E00149EFF /* StickerContainerView.swift */; };
+		1F6621642809BF2E00149EFF /* BorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F66215E2809BF2E00149EFF /* BorderView.swift */; };
 		1F7BF5C0280818AF00674E9E /* thumbs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7BF5BF280818AF00674E9E /* thumbs.swift */; };
 		1FDC08CD280364DC00FE5130 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1FDC08CC280364DC00FE5130 /* GoogleService-Info.plist */; };
 		AC7B3AC70741FA4DAAE19698 /* Pods_Foto_Design.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0947F8B32933121B9A60AECF /* Pods_Foto_Design.framework */; };
@@ -479,6 +486,13 @@
 		1F3BE892280828B700F96DCD /* thumb0.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = thumb0.svg; sourceTree = "<group>"; };
 		1F42053628089629004EDB98 /* thumb1.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = thumb1.svg; sourceTree = "<group>"; };
 		1F5429B827FEF7C7006BFE50 /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
+		1F6621562809BC1D00149EFF /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		1F6621592809BF2E00149EFF /* StickerControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StickerControl.swift; sourceTree = "<group>"; };
+		1F66215A2809BF2E00149EFF /* StickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StickerView.swift; sourceTree = "<group>"; };
+		1F66215B2809BF2E00149EFF /* KeyEventMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyEventMonitor.swift; sourceTree = "<group>"; };
+		1F66215C2809BF2E00149EFF /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		1F66215D2809BF2E00149EFF /* StickerContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StickerContainerView.swift; sourceTree = "<group>"; };
+		1F66215E2809BF2E00149EFF /* BorderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderView.swift; sourceTree = "<group>"; };
 		1F7BF5BF280818AF00674E9E /* thumbs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = thumbs.swift; sourceTree = "<group>"; };
 		1FDC08CC280364DC00FE5130 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1FDF180F26D96DF900A707F5 /* Foto Design.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Foto Design.entitlements"; sourceTree = "<group>"; };
@@ -1080,6 +1094,7 @@
 		1F3B3B6A269E11ED00C0F15E /* TextLibraries */ = {
 			isa = PBXGroup;
 			children = (
+				1F6621582809BF2E00149EFF /* StickerView */,
 				1F3AC4E52807581C0096EC0E /* SVGK */,
 				1F1BB4D7269F3426009260F7 /* ZDview */,
 				1F1BB4D3269F3417009260F7 /* ZDTextView */,
@@ -1129,6 +1144,7 @@
 			isa = PBXGroup;
 			children = (
 				1F3B3B8D269E14F100C0F15E /* ViewExtensions.swift */,
+				1F6621562809BC1D00149EFF /* DashboardView.swift */,
 			);
 			path = ViewExtensions;
 			sourceTree = "<group>";
@@ -1149,6 +1165,19 @@
 				1F3BE88F2808258F00F96DCD /* GModel.swift */,
 			);
 			path = Manager;
+			sourceTree = "<group>";
+		};
+		1F6621582809BF2E00149EFF /* StickerView */ = {
+			isa = PBXGroup;
+			children = (
+				1F6621592809BF2E00149EFF /* StickerControl.swift */,
+				1F66215A2809BF2E00149EFF /* StickerView.swift */,
+				1F66215B2809BF2E00149EFF /* KeyEventMonitor.swift */,
+				1F66215C2809BF2E00149EFF /* Extensions.swift */,
+				1F66215D2809BF2E00149EFF /* StickerContainerView.swift */,
+				1F66215E2809BF2E00149EFF /* BorderView.swift */,
+			);
+			path = StickerView;
 			sourceTree = "<group>";
 		};
 		A757AD5D65CC2B6E017CDAFF /* Pods */ = {
@@ -1313,6 +1342,7 @@
 				1F3AC62F280758450096EC0E /* SVGImageElement.m in Sources */,
 				1F3AC649280758450096EC0E /* ProcessingInstruction.m in Sources */,
 				1F3AC612280758450096EC0E /* DDOSLogger.m in Sources */,
+				1F6621632809BF2E00149EFF /* StickerContainerView.swift in Sources */,
 				1F3AC614280758450096EC0E /* CLIColor.m in Sources */,
 				1F3AC681280758450096EC0E /* SVGKSourceString.m in Sources */,
 				1F3AC644280758450096EC0E /* Attr.m in Sources */,
@@ -1340,6 +1370,7 @@
 				1F3AC670280758450096EC0E /* SVGKExporterNSImage.m in Sources */,
 				1F3AC63A280758450096EC0E /* EntityReference.m in Sources */,
 				1F3AC677280758450096EC0E /* SVGKit.m in Sources */,
+				1F6621572809BC1D00149EFF /* DashboardView.swift in Sources */,
 				1F3AC637280758450096EC0E /* CSSRuleList.m in Sources */,
 				1F3AC667280758450096EC0E /* SVGKParserDefsAndUse.m in Sources */,
 				1F1BB508269F3712009260F7 /* VCExtension.swift in Sources */,
@@ -1365,6 +1396,7 @@
 				1F3AC678280758450096EC0E /* SVGGradientLayer.m in Sources */,
 				1F3AC618280758450096EC0E /* DDMultiFormatter.m in Sources */,
 				1F3AC65B280758450096EC0E /* SVGRect.m in Sources */,
+				1F6621642809BF2E00149EFF /* BorderView.swift in Sources */,
 				1F3BE8902808258F00F96DCD /* GModel.swift in Sources */,
 				1F3AC61E280758450096EC0E /* IJSVGBezierPathAdditions.m in Sources */,
 				1F3AC63E280758450096EC0E /* DocumentType.m in Sources */,
@@ -1385,6 +1417,7 @@
 				1F3AC67E280758450096EC0E /* CALayerWithChildHitTest.m in Sources */,
 				1F3AC652280758450096EC0E /* SVGTextPositioningElement.m in Sources */,
 				1F3AC65D280758450096EC0E /* SVGAngle.m in Sources */,
+				1F66215F2809BF2E00149EFF /* StickerControl.swift in Sources */,
 				1F3B3B82269E143000C0F15E /* ImageViewExtension.swift in Sources */,
 				1F3AC66B280758450096EC0E /* SVGKParserSVG.m in Sources */,
 				1F3AC66A280758450096EC0E /* SVGKParserDOM.m in Sources */,
@@ -1409,6 +1442,7 @@
 				1F3AC65C280758450096EC0E /* SVGAnimatedPreserveAspectRatio.m in Sources */,
 				1F3AC648280758450096EC0E /* Text.m in Sources */,
 				1F3AC639280758450096EC0E /* CSSValue.m in Sources */,
+				1F6621612809BF2E00149EFF /* KeyEventMonitor.swift in Sources */,
 				1F3AC664280758450096EC0E /* SVGKParser.m in Sources */,
 				1F1BB4D0269F33CB009260F7 /* MBProgressHUD.m in Sources */,
 				1F3AC64E280758450096EC0E /* CSSStyleRule.m in Sources */,
@@ -1417,6 +1451,7 @@
 				1F3AC61A280758450096EC0E /* DDLoggerNames.m in Sources */,
 				1F3AC66C280758450096EC0E /* SVGKParserPatternsAndGradients.m in Sources */,
 				1F3AC65E280758450096EC0E /* SVGDocument.m in Sources */,
+				1F6621602809BF2E00149EFF /* StickerView.swift in Sources */,
 				1F3AC655280758450096EC0E /* SVGMatrix.m in Sources */,
 				1F3AC672280758450096EC0E /* SVGKImage+CGContext.m in Sources */,
 				1F3AC686280758450096EC0E /* SVGKLayeredImageView.m in Sources */,
@@ -1424,6 +1459,7 @@
 				1F3AC610280758450096EC0E /* SVGKView.swift in Sources */,
 				1F7BF5C0280818AF00674E9E /* thumbs.swift in Sources */,
 				1F3AC63D280758450096EC0E /* DOMHelperUtilities.m in Sources */,
+				1F6621622809BF2E00149EFF /* Extensions.swift in Sources */,
 				1F3AC64C280758450096EC0E /* CharacterData.m in Sources */,
 				1F3AC643280758450096EC0E /* CDATASection.m in Sources */,
 				1F3AC67B280758450096EC0E /* CGPathAdditions.m in Sources */,
