@@ -349,6 +349,24 @@ class ZDTextView: CursorTextField {
         }
         
     }
+    public var fontSize: CGFloat = 20 {
+        didSet {
+            let font = NSFont(name: fontName, size: fontSize)
+            textAttributes[NSAttributedString.Key.font] = font
+            self.attributedStringValue = NSAttributedString(string: self.stringValue , attributes: textAttributes)
+            self.font = font
+        }
+    }
+    
+    public var textAttributes: [NSAttributedString.Key: Any] = [:]
+    func fitText() {
+          guard let currentFont = font else {
+            return
+          }
+          let text = stringValue
+          let bestFittingFont = NSFont.bestFittingFont(for: text, in: bounds, fontDescriptor: currentFont.fontDescriptor, additionalAttributes: textAttributes)
+          self.fontSize = bestFittingFont.pointSize
+    }
     
     var textAlign:NSTextAlignment = NSTextAlignment.left{
         didSet{
@@ -478,6 +496,34 @@ extension CursorTextField : NSTextViewDelegate{
     
 }
 extension NSFont {
+    static func bestFittingFontSize(for text: String, in bounds: CGRect, fontDescriptor: NSFontDescriptor, additionalAttributes: [NSAttributedString.Key: Any]? = nil) -> CGFloat {
+      let constrainingDimension = min(bounds.width, bounds.height)
+      let properBounds = CGRect(origin: .zero, size: CGSize(width: bounds.size.width-5, height: bounds.height))
+      var attributes = additionalAttributes ?? [:]
+
+      let infiniteBounds = CGSize(width: CGFloat.infinity, height: CGFloat.infinity)
+      var bestFontSize: CGFloat = constrainingDimension
+
+      for fontSize in stride(from: bestFontSize, through: 0, by: -1) {
+        let newFont = NSFont(descriptor: fontDescriptor, size: fontSize)
+        attributes[.font] = newFont
+
+        let currentFrame = text.boundingRect(with: infiniteBounds, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: attributes, context: nil)
+
+        if properBounds.contains(currentFrame) {
+          bestFontSize = fontSize
+          break
+        }
+      }
+      return bestFontSize
+    }
+    
+    static func bestFittingFont(for text: String, in bounds: CGRect, fontDescriptor: NSFontDescriptor, additionalAttributes: [NSAttributedString.Key: Any]? = nil) -> NSFont {
+      let bestSize = bestFittingFontSize(for: text, in: bounds, fontDescriptor: fontDescriptor, additionalAttributes: additionalAttributes)
+      // TODO: Safely unwrap this later
+      return NSFont(descriptor: fontDescriptor, size: bestSize)!
+    }
+    
     func canBold() -> Bool {
         
         return (NSFontManager.shared.font(withFamily: self.familyName!, traits: NSFontTraitMask(rawValue:UInt(NSFontBoldTrait)), weight: 9, size: self.pointSize) != nil)

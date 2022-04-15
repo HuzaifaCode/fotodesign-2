@@ -5,3 +5,4 @@
 
 #import "ZDStickerView.h"
 #import "MBProgressHUD.h"
+#import "SVGKit.h"

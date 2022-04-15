@@ -100,6 +100,7 @@ class ViewController: NSViewController {
                 FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "YT Thumbnail"])
                 designViewHeightConstraint.constant = 350
                 setDesignViewSize(aspectRatio: (1.7777/1))
+                loadLocalSvg()
             }else if editorType == .googleCover {
                 FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "Google Cover"])
                 designViewHeightConstraint.constant = 360
@@ -268,7 +269,218 @@ class ViewController: NSViewController {
         
         setDesignViewSize()
         self.downImageFromFirebase()
+       
     }
+    
+    func loadLocalSvg() {
+        
+        if let path = Bundle.main.path(forResource: "thumb1", ofType:"svg") {
+            // use path
+            print(path)
+            do {
+                let data: Data = try Data(contentsOf: URL(fileURLWithPath: path))
+                
+                let str = String(data: data, encoding: .utf8)
+                print(str)
+                if let frontSVG = str {
+                    let svgView = SVGKView()
+                    svgView.frame = designView.bounds
+                    view.addSubview(svgView)
+                    svgView.isHidden = true
+                    svgView.loadSVG(data: frontSVG.data(using: .utf8)!)
+                    
+                    if let bgImage = svgView.bgImage {
+                        bgImageView.image = bgImage
+                    }else if let bgColor = svgView.bgColor {
+                        bgImageView.image = nil
+                        designView.bgColor = bgColor
+                        //designView.setLogoBGColor(color: bgColor)
+                        //backgroundVC?.bgColor.color = bgColor
+                    }
+                    
+                    
+                    for layer in svgView.layers {
+
+                        if let textLayer = layer as? SVGTextLayer {
+                            
+                            if let dView = FotoContentView.createFromNib() {
+                                let y = self.designView.frame.height - textLayer.frame.origin.y - textLayer.frame.height
+                                let frame = CGRect(x: textLayer.frame.origin.x, y: y, width: textLayer.frame.width+5, height: textLayer.frame.height)
+                                
+                                
+                                
+                                dView.txtView.stringValue = (textLayer.string as! NSAttributedString).string
+                                let point = CGPoint.init(x: NSMidX(self.designView.frame)-100, y:200)
+                                
+                                let attributedString = textLayer.string as! NSAttributedString
+                                var attributes = attributedString.attributes(at: 0, effectiveRange: nil)
+                                
+                               
+                                
+                                //dView.txtView.fitText()
+                                
+                                
+                                
+                                if let font = attributes[NSAttributedString.Key.font] as? NSFont {
+                                    if let color = attributes[NSAttributedString.Key.foregroundColor] {
+                                        self.addNewTextView(dView, leftConst: -1*(point.x-100.0), bottomConst: point.y-50.0,fontName: font.fontName, fontSize: font.pointSize, textStr: dView.txtView.stringValue,textColor: NSColor(cgColor: color as! CGColor)!)
+                                    }else {
+                                        self.addNewTextView(dView, leftConst: -1*(point.x-100.0), bottomConst: point.y-50.0,fontName: font.fontName, fontSize: font.pointSize, textStr: dView.txtView.stringValue)
+                                       // text.foregroundColor = .black
+                                    }
+                                    
+                                    
+                                    //dView.txtView.font = font
+                                }
+                                
+                                let sticker = StickerManager.getZDSticker(frame: CGRect(origin: frame.origin, size: CGSize(width:frame.size.width + 40 , height: frame.size.height+20 )))
+                                //sticker.center = point
+                                
+                            
+                                //dView.translatesAutoresizingMaskIntoConstraints = true
+                                sticker.contentView = dView
+                                self.addShapeSticker(sticker: sticker)
+                                
+                            }
+//                            let y = self.designView.frame.height - textLayer.frame.origin.y - textLayer.frame.height
+//                            let frame = CGRect(x: textLayer.frame.origin.x, y: y, width: textLayer.frame.width+5, height: textLayer.frame.height)
+//                            let text = StickerTextField(frame: frame)
+//                            let attributedString = textLayer.string as! NSAttributedString
+//                            var attributes = attributedString.attributes(at: 0, effectiveRange: nil)
+//
+//
+//
+//
+//                            for attr in attributes {
+//                              print(attr.key, attr.value)
+//                                if let fontt = attr.value as? NSFont{
+//                                    print(fontt)
+//                                }
+//                            }
+//
+//                            text.textAttributes = attributes
+//
+//                            text.text = attributedString.string
+//                            let st = StickerView(contentView: text)
+//                            text.backgroundColor = .clear
+//
+//                            if let color = attributes[NSAttributedString.Key.foregroundColor] {
+//                                text.foregroundColor = NSColor(cgColor: color as! CGColor)
+//                            }else {
+//                                text.foregroundColor = .black
+//                            }
+//                            if let font = attributes[NSAttributedString.Key.font] as? NSFont {
+//                                text.fontName = font.fontName
+//                                //text.letterSpacing = font.
+//                                if let letterSpacing = textLayer.value(forKey: "letter-spacing") as? String {
+//                                    let emValue = letterSpacing.replacingOccurrences(of: "em", with: "")
+//                                    text.letterSpacing = CGFloat((Double(emValue) ?? 0)) * font.pointSize
+//                                }
+//                            }
+//
+//                            st.delegate = self
+//                            self.addStickerView(sticker: st)
+//                            text.fitText()
+//                            st.resizeToFontSize()
+//
+                        }else if let imageLayer = layer as? CALayerWithClipRender {
+                            let y = self.designView.frame.height - imageLayer.frame.origin.y - imageLayer.frame.height
+                            let frame = CGRect(x: imageLayer.frame.origin.x, y: y, width: imageLayer.frame.width, height: imageLayer.frame.height)
+                            let cgImage = layer.contents as! CGImage
+                            let image = NSImage(cgImage: cgImage, size: imageLayer.bounds.size)
+                            
+                            let scale = image.size.width / image.size.height
+                            let imageView = DraggingImageView(frame: frame)
+                            imageView.image = image
+                            imageView.imageScaling = .scaleProportionallyUpOrDown
+                            //imageView.imageName = "shape1"
+                            imageView.orignalImage = image
+                            self.addStickerToView(imageView: imageView)
+                            
+                            
+//                            let imgView = ImageView(frame: frame)
+//                            imgView.image = image
+//                            imgView.imageScaling = .scaleProportionallyUpOrDown
+//                           let st = StickerView(contentView: imgView)
+//                            st.delegate = self
+//                            self.addStickerView(sticker: st)
+                        }else if let shapLayer = layer as? CAShapeLayerWithHitTest {
+//
+//
+//                            let y = self.dashboardView.logoView.frame.height - shapLayer.frame.origin.y - shapLayer.frame.height
+//                            let frame = CGRect(x: shapLayer.frame.origin.x, y: y, width: shapLayer.frame.width, height: shapLayer.frame.height)
+//                            let imgView = ShapeView(frame: frame)
+//                            if let path = shapLayer.path {
+//                                let newShapeLayer = CAShapeLayer()
+//                                newShapeLayer.frame = path.boundingBox
+//                                newShapeLayer.path = path
+//
+//                                newShapeLayer.fillColor = shapLayer.fillColor
+//
+//
+//                                imgView.wantsLayer = true
+//                                imgView.layer = newShapeLayer
+//                            }
+//                            if let color = shapLayer.fillColor {
+//                                let st = StickerView(contentView: imgView)
+//                                st.delegate = self
+//                                self.addStickerView(sticker: st)
+//                            }
+//
+//
+                        }else if let grLayer = layer as? SVGGradientLayer {
+//
+//
+//                            let y = self.dashboardView.logoView.frame.height - grLayer.frame.origin.y - grLayer.frame.height
+//                            let frame = CGRect(x: grLayer.frame.origin.x, y: y, width: grLayer.frame.width, height: grLayer.frame.height)
+//                            let imgView = GradientView(frame: frame)
+//        //                    if let path = shapLayer.path {
+//        //                        let newShapeLayer = CAShapeLayer()
+//        //                        newShapeLayer.frame = path.boundingBox
+//        //                        newShapeLayer.path = path
+//        //
+//        //                        newShapeLayer.fillColor = shapLayer.fillColor
+//        //
+//        //
+//        //                        imgView.wantsLayer = true
+//        //                        imgView.layer = shapLayer
+//        //                    }
+//        //                    if let color = shapLayer.fillColor {
+//        //                        let st = StickerView(contentView: imgView)
+//        //                        st.delegate = self
+//        //                        dashboardView.logoView.addSubview(st)
+//        //                        stickers.append(st)
+//        //                    }
+//                            imgView.wantsLayer = true
+//                            imgView.layer = grLayer
+//                            let st = StickerView(contentView: imgView)
+//                            st.delegate = self
+//                            self.addStickerView(sticker: st)
+//
+//
+                            
+                        }
+                    }
+                        
+                        
+                }
+            }catch {
+                print(error.localizedDescription)
+            }
+        }
+        
+//
+//        do {
+//            let data = thumbnailsJson.data(using: .utf8)!
+//            let model = try JSONDecoder().decode(ThumnailJson.self, from: data)
+//
+//            print(model)
+//        }catch {
+//
+//            print("can't load settings.",error.localizedDescription)
+//        }
+    }
+    
     
     func showRatingPopUp(){
         if #available(OSX 10.14, *) {
