@@ -9,14 +9,14 @@ import Foundation
 import Cocoa
 
 extension CGRect {
-    var center:CGPoint {
-        set {
-            origin = CGPoint(x: newValue.x-width/2, y: newValue.y-height/2)
-        }
-        get {
-            return CGPoint(x: self.minX+width/2, y: self.minY+height/2)
-        }
-    }
+//    var center:CGPoint {
+//        set {
+//            origin = CGPoint(x: newValue.x-width/2, y: newValue.y-height/2)
+//        }
+//        get {
+//            return CGPoint(x: self.minX+width/2, y: self.minY+height/2)
+//        }
+//    }
 }
 extension CGPoint {
     func getDistance(from point:CGPoint) -> CGFloat {
@@ -27,13 +27,13 @@ extension CGPoint {
 }
 @objc
 public extension NSView {
-    var center: CGPoint {
-        get { return CGPoint(x: NSMidX(frame), y: NSMidY(frame)) }
-        set {
-
-            setFrameOrigin(CGPoint(x: newValue.x - frame.width / 2.0, y: newValue.y - frame.height / 2.0))
-        }
-    }
+//    var center: CGPoint {
+//        get { return CGPoint(x: NSMidX(frame), y: NSMidY(frame)) }
+//        set {
+//
+//            setFrameOrigin(CGPoint(x: newValue.x - frame.width / 2.0, y: newValue.y - frame.height / 2.0))
+//        }
+//    }
 
     public var transform:CGAffineTransform {
         set {
@@ -87,7 +87,9 @@ enum ControlType: Int {
     case circule  = 0
     case rectangle
     case rotate
+    case delete
+    case changeTxt
 }
-enum Direction : Int {
-    case left = 1, right = 2, top = 3, bottom = 4
-}
+//enum Direction : Int {
+//    case left = 1, right = 2, top = 3, bottom = 4
+//}

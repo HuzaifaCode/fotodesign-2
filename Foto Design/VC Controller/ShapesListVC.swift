@@ -34,12 +34,30 @@ class ShapesListVC: NSViewController {
         }
     }
     
+
+    var sticker: StickerView?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
         NotificationCenter.default.addObserver(self,selector: #selector(loadStickers(_:)),name: NSNotification.Name(rawValue: NotificationKey.DesignTypeSelected.rawValue),
                                                       object: nil)
+        
+        NotificationCenter.default.addObserver(self,selector: #selector(changeCurrentTextView(_:)),name: NSNotification.Name(rawValue: NotificationKey.selectionChanged.rawValue),
+                                                      object: nil)
+        
     }
+    
+    @objc func changeCurrentTextView(_ notification:NSNotification) -> Void {
+        if let zdView = notification.object as? StickerView {
+            self.sticker = zdView
+        }else {
+            self.sticker =  nil
+        }
+    }
+    
+    
     @objc func loadStickers(_ notification:NSNotification) -> Void {
         if let type = notification.object as? DesignViewType {
             self.editorType = type
@@ -63,7 +81,15 @@ class ShapesListVC: NSViewController {
     }
     
     @IBAction func chnageColor(_ sender: NSColorWell) {
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.StickerColorChanged.rawValue), object: sender.color, userInfo: nil)
+        if let sticker = self.sticker{
+            if let shapeView = sticker.contentView as? ImageView{
+                shapeView.tintcolor = sender.color
+            }
+            if let shape_View = sticker.contentView as? ShapeView{
+                shape_View.fillColor = sender.color
+            }
+        }
+       // NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.StickerColorChanged.rawValue), object: sender.color, userInfo: nil)
     }
     
 }

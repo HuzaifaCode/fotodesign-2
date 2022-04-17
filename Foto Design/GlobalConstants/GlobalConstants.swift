@@ -89,9 +89,44 @@ class Constatnts {
         1,
         CGSize(width: 600, height: 600)
     )
+    static let thumbnail = TempleteSize(
+        "",
+        1.7778,
+        CGSize(width: 600, height: 600)
+    )
     static let poster = TempleteSize(
         "",
         0.7072,
+        CGSize(width: 400, height: 565)
+    )
+    static let fbCover = TempleteSize(
+        "",
+        2.701,
+        CGSize(width: 400, height: 565)
+    )
+    static let channelArt = TempleteSize(
+        "",
+        1.7777,
+        CGSize(width: 400, height: 565)
+    )
+    static let googleCover = TempleteSize(
+        "",
+        1.7714,
+        CGSize(width: 400, height: 565)
+    )
+    static let fbPost = TempleteSize(
+        "",
+        1.1928,
+        CGSize(width: 400, height: 565)
+    )
+    static let pintrast = TempleteSize(
+        "",
+        0.6669,
+        CGSize(width: 400, height: 565)
+    )
+    static let fbAd = TempleteSize(
+        "",
+        1.9108,
         CGSize(width: 400, height: 565)
     )
     static let totalBG: Int = 272

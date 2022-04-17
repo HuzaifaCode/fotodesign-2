@@ -13,8 +13,8 @@ extension ViewController {
     func showSavePopup(view: NSView){
         mainPopover?.close()
         let vc = SaveOptions.options()
-        let width = Int(self.designView.frame.size.width * editorType.rawValue * 2)
-        let height = Int(self.designView.frame.size.height * editorType.rawValue * 2)
+        let width = Int(self.dashboardView.logoView.frame.size.width * 1.5)//* editorType.rawValue * 2)
+        let height = Int(self.dashboardView.logoView.frame.size.height * 1.5 )//* editorType.rawValue * 2)
         vc.sizeString = "\(width)x\(height) px"
         if editorType == .ytThumbnail {
             vc.sizeString = "1280x720 px"

@@ -303,9 +303,9 @@ public class StickerView: NSView {
         let rect = CGRect(x: 0, y: 0, width: CONTROLL_WIDTH, height: CONTROLL_WIDTH)
         let bottomLeftButton = StickerControl(type: .circule, position: .bottomLeft,rect: rect)
 
-        let topLeftButton = StickerControl(type: .circule, position: .topLeft,rect: rect)
+        let topLeftButton = StickerControl(type: .delete, position: .topLeft,rect: rect)
 
-        let topRightButton = StickerControl(type: .rotate, position: .topRight,rect: rect)
+        let topRightButton = StickerControl(type: .changeTxt, position: .topRight,rect: rect)
 
         let bottomRightButton = StickerControl(type: .circule, position: .bottomRight,rect: rect)
 
@@ -314,8 +314,11 @@ public class StickerView: NSView {
         let top = StickerControl(type: .rectangle, position: .top,rect: rect)
         let bottom = StickerControl(type: .rectangle, position: .bottom,rect: rect)
 
-        //self.addSubview(topLeftButton)
-        //self.addSubview(topRightButton)
+        self.addSubview(topLeftButton)
+        
+        if let textView = self.contentView as? StickerTextField {
+            self.addSubview(topRightButton)
+        }
         //self.addSubview(bottomLeftButton)
         self.addSubview(bottomRightButton)
 //        self.addSubview(right)
@@ -324,8 +327,8 @@ public class StickerView: NSView {
 //        self.addSubview(bottom)
 
 
-        //self.editingControlles.append(topLeftButton)
-       // self.editingControlles.append(topRightButton)
+        self.editingControlles.append(topLeftButton)
+        self.editingControlles.append(topRightButton)
         //self.editingControlles.append(bottomLeftButton)
         self.editingControlles.append(bottomRightButton)
 //        self.editingControlles.append(top)
@@ -335,8 +338,8 @@ public class StickerView: NSView {
 
 
         //bottomLeftButton.addGestureRecognizer(resizeGesture())
-        //topLeftButton.addGestureRecognizer(resizeGesture())
-       // topRightButton.addGestureRecognizer(rotateGesture())
+        topLeftButton.addGestureRecognizer(deleteGesture())
+        topRightButton.addGestureRecognizer(editTxtGesture())
         bottomRightButton.addGestureRecognizer(resizeGesture())
 
 //        top.addGestureRecognizer(resizeGesture())
@@ -346,6 +349,12 @@ public class StickerView: NSView {
 
         updateControlPositions()
 
+    }
+    func deleteGesture() -> NSClickGestureRecognizer {
+        return NSClickGestureRecognizer(target: self, action: #selector(deleteSticker(_:)))
+    }
+    func editTxtGesture() -> NSClickGestureRecognizer {
+        return NSClickGestureRecognizer(target: self, action: #selector(editTxtSticker(_:)))
     }
     func resizeGesture() -> NSPanGestureRecognizer {
         return NSPanGestureRecognizer(target: self, action: #selector(resizeSticker(_:)))
@@ -424,7 +433,16 @@ public class StickerView: NSView {
             break
         }
     }
-
+    @objc func editTxtSticker(_ gesture: NSClickGestureRecognizer) {
+        if delegate != nil {
+            delegate?.stickerViewTxtChnages(self)
+        }
+    }
+    @objc func deleteSticker(_ gesture: NSClickGestureRecognizer) {
+        if delegate != nil {
+            delegate?.stickerViewdidClose(self)
+        }
+    }
     @objc func resizeSticker(_ gesture: NSPanGestureRecognizer) {
         let touchLocation = gesture.location(in: self.superview)
         let center = self.center
@@ -624,7 +642,7 @@ fileprivate func getStickerFrame(_ contentFrame:CGRect) -> CGRect {
 //    @objc func stickerViewDidCopy(_ stickerView: StickerView)
 //    @objc func stickerViewDidPaste(_ stickerView: StickerView)
 //    @objc func stickerViewUndoChnages(_ stickerView: StickerView)
-//    @objc func stickerViewRedoChnages(_ stickerView: StickerView)
+    @objc func stickerViewTxtChnages(_ stickerView: StickerView)
     @objc func stickerViewdidClose(_ stickerView: StickerView)
 }
 @inline(__always) func CGRectScale(_ rect:CGRect, wScale:CGFloat, hScale:CGFloat) -> CGRect {

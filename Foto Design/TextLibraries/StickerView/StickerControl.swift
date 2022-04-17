@@ -22,11 +22,15 @@ class StickerControl: NSButton {
         self.imageScaling = .scaleProportionallyUpOrDown
         switch type {
         case .circule:
-            self.image = NSImage(named: "tlControl")
+            self.image = NSImage(named: "resize")
+        case .delete:
+            self.image = NSImage(named: "cross")
+        case .changeTxt:
+            self.image = NSImage(named: "edit-text")
         case .rotate:
-            self.image = NSImage(named: "rotationControl")
-            self.hoverImage = NSImage(named: "rotationControl")
-            self.normalImage = NSImage(named: "rotationControl")
+            self.image = NSImage(named: "resize")
+            self.hoverImage = NSImage(named: "resize")
+            self.normalImage = NSImage(named: "resize")
         default:
             break
         }

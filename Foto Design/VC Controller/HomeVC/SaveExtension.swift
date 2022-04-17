@@ -18,24 +18,34 @@ extension ViewController{
     func saveImage(withHightRes: Bool,completion: @escaping (Bool) -> Void) {
         
        // printBtnClicked()
-        self.designView.isHidden = false
+       // self.designView.isHidden = false
         let scale:CGFloat = self.editorType.rawValue
-        let snapshot = self.takeScreenShot(true, scale: scale)
+        
+
+        guard let logoData = self.dashboardView.frontPNG() else { return }
+        
+        
+        guard let logoScaleData = self.dashboardView.designPNG(scale: 1.5) else { return }
+        
+//        if let logoData = self.dashboardView?.frontPNG() {
+//            snapshot = NSImage.init(data: logoData)!
+//        }
+       
  
         
-        let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
-        let destinationPath = "file://" + documentsPath
-        if let destURL = NSURL.init(string: destinationPath) {
-            var type:NSBitmapImageRep.FileType = .jpeg
-            var extensionType = "jpg"
-            if withHightRes{
-                type = .png
-                extensionType = "png"
-            }
-            if let isSaved = snapshot?.saveImage(as: "tempImage", fileType: type, at: destURL as URL) {
-                if (isSaved){
-                    let fileURLString = documentsPath+"/tempImage."+extensionType
-                    showSavePanel(fileURLString,withHightRes){[weak self](isSave) in
+//        let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+//        let destinationPath = "file://" + documentsPath
+//        if let destURL = NSURL.init(string: destinationPath) {
+//            var type:NSBitmapImageRep.FileType = .jpeg
+//            var extensionType = selectedExt
+//            if selectedExt == "png"{
+//                type = .png
+//                extensionType = "png"
+//            }
+           // if let isSaved = snapshot?.saveImage(as: "tempImage", fileType: type, at: destURL as URL) {
+               // if (isSaved){
+                 //   let fileURLString = documentsPath+"/tempImage."+extensionType
+                    showSavePanel(data: logoScaleData,withHightRes){[weak self](isSave) in
                         guard self != nil else {return}
                         if isSave{
                             completion(true)
@@ -44,9 +54,9 @@ extension ViewController{
                         }
                         
                     }
-                }
-            }
-        }
+               // }
+           // }
+     //   }
         
 //        self.zipImages(data: [snapshot!], completion: {(success) -> Void in
 //            self.showZipSavePanel(success!.path, completion: {(save) -> Void in
@@ -57,16 +67,16 @@ extension ViewController{
 //            })
 //        })
     }
-    func showSavePanel(_ path:String,_ isHighRes:Bool = false,completion: @escaping (Bool) -> Void) -> Void {
+    func showSavePanel(data:Data,_ isHighRes:Bool = false,completion: @escaping (Bool) -> Void) -> Void {
         
         if(!self.isSavePanelOpen) {
             self.isSavePanelOpen = true
             let savePanel = NSSavePanel()
-            if isHighRes == true{
+            //if isHighRes == true{
                savePanel.allowedFileTypes = [selectedExt]
-            }else{
-                savePanel.allowedFileTypes = ["pdf"]
-            }
+//            }else{
+//                savePanel.allowedFileTypes = ["pdf"]
+//            }
             
             var fileName = "Social Post"
             if editorType == .logo {
@@ -99,7 +109,7 @@ extension ViewController{
                     if let url = savePanel.url {
                         do {
                             let filePath = url.path
-                            let data = try Data.init(contentsOf: URL.init(fileURLWithPath: path))
+                            
                             try data.write(to: URL.init(fileURLWithPath: filePath))
                             completion(true)
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: { [weak self] in
@@ -134,7 +144,13 @@ extension ViewController{
     }
     
     func takeScreenShot(_ isLargeQuality:Bool = true,scale:CGFloat = 8, forceWatermarkRemoval: Bool = false) -> NSImage? {
-        self.designView.isHidden = false
+        
+       
+        
+        
+        
+        
+        //self.designView.isHidden = false
         self.currentSelectedShape = nil
         let oldFrame = self.designView.frame
         //self.btnCrossWatermark.isHidden = true
@@ -174,10 +190,10 @@ extension ViewController{
             for subView in self.designView.subviews {
                 if(subView is ZDStickerView) {
                     if let stickerView = subView as? ZDStickerView {
-                        let transfrom = stickerView.transform
+                        //let transfrom = stickerView.transform
                         stickerView.frame = stickerView.frame.scale(by: scale)
                        // stickerView.contentView.frame =  stickerView.contentView.frame.scale(by: scale)
-                        stickerView.transform = transfrom
+                        //stickerView.transform = transfrom
                         if let sView = (stickerView.contentView as? FotoContentView)?.txtView {
                             
                             sView.oldFontSize = sView.font!.pointSize
@@ -210,8 +226,8 @@ extension ViewController{
 //                            sView.updateShape()
 //                        }
                         
-                        let stickerTransform = stickerView.transform
-                        stickerView.transform = stickerTransform
+                       // let stickerTransform = stickerView.transform
+                       // stickerView.transform = stickerTransform
                     }
                 }
 //                else if subView.tag == 345 {
@@ -264,10 +280,10 @@ extension ViewController{
 //                    }else
                     if(subView is ZDStickerView) {
                         if let stickerView = subView as? ZDStickerView {
-                            let transfrom = stickerView.transform
+                           // let transfrom = stickerView.transform
                             stickerView.frame = stickerView.frame.scaleDown(by: scale)
                            // stickerView.contentView.frame = stickerView.contentView.frame.scaleDown(by: scale)
-                            stickerView.transform = transfrom
+                            //stickerView.transform = transfrom
                             if let sView = (stickerView.contentView as? FotoContentView)?.txtView {
                                 if let font = NSFont.init(name: sView.fontName, size: sView.oldFontSize) {
                                     sView.font = font
@@ -300,8 +316,8 @@ extension ViewController{
 //                                sView.updateShape()
 //                            }
                             
-                            let stickerTransform = stickerView.transform
-                            stickerView.transform = stickerTransform
+                           // let stickerTransform = stickerView.transform
+                           // stickerView1.transform = stickerTransform
                             
                         }
                         

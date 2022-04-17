@@ -10,8 +10,8 @@ import Cocoa
 
 class BorderView: NSView {
     private var _borderColor: NSColor = NSColor.clear
-    var borderColor: NSColor = NSColor.gray
-    var hoverColor: NSColor = NSColor.lightGray
+    var borderColor: NSColor = NSColor.black
+    var hoverColor: NSColor = .clear //NSColor.systemPink
     var isBorder: Bool = false {
         didSet {
             if isBorder {
@@ -29,9 +29,9 @@ class BorderView: NSView {
         let path = NSBezierPath(roundedRect: shapeRect, xRadius: 0, yRadius: 0)
         NSColor.clear.setFill()
         _borderColor.setStroke()
-        path.setLineDash([5,3], count: 2, phase: 0)
+//        path.setLineDash([10,1], count: 2, phase: 0)
         path.lineJoinStyle = .miter
-        path.lineCapStyle = .butt
+//        path.lineCapStyle = .butt
         path.lineWidth = 1
         path.fill()
         path.stroke()

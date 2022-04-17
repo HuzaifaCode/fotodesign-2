@@ -19,29 +19,23 @@ class ShapesCell: NSCollectionViewItem {
         super.viewDidLoad()
         // Do view setup here.
         
-//        DispatchQueue.main.async {
-//            let ta = NSTrackingArea(rect: self.view.bounds,
-//                                     options: [.mouseEnteredAndExited, .mouseMoved, .activeWhenFirstResponder, .activeInKeyWindow],
-//                                     owner: self,
-//                                     userInfo: nil)
-//            self.view.addTrackingArea(ta)
-//        }
         
-        
-//        self.view.wantsLayer = true
-//        self.view.layer?.borderWidth = 1
-//        self.view.layer?.borderColor = NSColor(hex: "EBEBEB").cgColor
-//        self.view.layer?.cornerRadius = 10
+    }
+    
+}
+class ListItem: NSCollectionViewItem {
+
+    static let itemIdentifier: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier(rawValue: "ListItem")
+    
+    @IBOutlet weak var tempImg: NSImageView!
+    @IBOutlet weak var createLbl: NSTextField!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do view setup here.
         
         
     }
-
-    
-//    override func mouseEntered(with event: NSEvent) {
-//        NSCursor.pointingHand.set()
-//    }
-//    override func mouseExited(with event: NSEvent) {
-//        NSCursor.arrow.set()
-//    }
     
 }
+

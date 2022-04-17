@@ -19,6 +19,16 @@ import AppCenterCrashes
 
 class ViewController: NSViewController {
 
+    @IBOutlet weak var dashboardView: DashboardView!
+    
+   
+    @IBOutlet weak var txtView: NSTextView!
+    @IBOutlet weak var txtField: NSTextField!
+    @IBOutlet weak var changeTxtView: NSView!
+    
+    @IBOutlet weak var templatestView: NSView!
+    @IBOutlet weak var templatesCollectionView: NSCollectionView!
+    
     @IBOutlet weak var importBgView: NSView!
     @IBOutlet weak var TextView: NSView!
     @IBOutlet weak var bgImageView: NSImageView!
@@ -51,6 +61,49 @@ class ViewController: NSViewController {
     
     @IBOutlet weak var editingView: NSView!
     
+    
+    var stickers: [StickerView] = []
+    var currentSticer: StickerView? = nil {
+        didSet {
+            
+            for sticker in stickers {
+                sticker.isEditinMode = false
+            }
+            NSColorPanel.shared.orderOut(nil)
+            if let sticker = currentSticer {
+                sticker.isEditinMode = true
+                if let textView = sticker.contentView as? StickerTextField {
+//                    textVC?.sticker = currentSticer
+//                    self.mainMenuState = .text
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.selectionChanged.rawValue), object: self.currentSticer)
+                    
+                    self.currentEditOption = .text
+                }else {
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.selectionChanged.rawValue), object: self.currentSticer)
+                    self.currentEditOption = .shape
+//                    self.logoVC?.sticker = currentSticer
+//                    self.mainMenuState = .logo
+                }
+//                opacitySlider.floatValue = Float(sticker.contentView.alphaValue)
+//                btnOpacity.isHidden = false
+//                btnDelete.isHidden = false
+//                btnDuplicate.isHidden = false
+//                opacitySlider.isHidden = false
+//                btnDelete.alphaValue = 1
+            }else {
+               // btnOpacity.isHidden = true
+               // btnDelete.isHidden = true
+               // btnDuplicate.isHidden = true
+//                opacitySlider.isHidden = true
+//                opacitySliderWidth.constant = 0
+//                self.mainMenuState = .bg
+            }
+           // self.layersTableView.reloadData()
+        }
+    }
+    
+    
+    
     public var mainPopover: NSPopover?
     var selectedExt = "png"
     var hud:MBProgressHUD?
@@ -75,52 +128,63 @@ class ViewController: NSViewController {
             
             designViewHeightConstraint.constant = 500
             self.mainSelectionViiew = .editing
+            self.templatestView.isHidden = true
             if editorType == .poster {
                 FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "Poster"])
-                designViewHeightConstraint.constant = 500
-                setDesignViewSize(aspectRatio: (0.7072/1))
+                dashboardView.adjustSize(template: Constatnts.poster)
             }else if editorType == .flyer {
                 FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "Flyer"])
-                setDesignViewSize(aspectRatio: (0.7072/1))
+                dashboardView.adjustSize(template: Constatnts.poster)
             }else if editorType == .invitation {
                 FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "Inviation"])
                 setDesignViewSize(aspectRatio: (0.7072/1))
             }else if editorType == .logo {
                 FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "Logo"])
                 setDesignViewSize(aspectRatio: (1/1))
+                dashboardView.adjustSize(template: Constatnts.logo)
+                self.templatestView.isHidden = false
+                self.templatesCollectionView.reloadData()
             }else if editorType == .ytChannelArt {
                 FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "Channel Art"])
-                designViewHeightConstraint.constant = 350
-                setDesignViewSize(aspectRatio: (1.7777/1))
+                dashboardView.adjustSize(template: Constatnts.channelArt)
+//                designViewHeightConstraint.constant = 350
+//                setDesignViewSize(aspectRatio: (1.7777/1))
             }else if editorType == .fbCover {
                 FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "FB Cover"])
-                designViewHeightConstraint.constant = 200
-                setDesignViewSize(aspectRatio: (2.701/1))
+                dashboardView.adjustSize(template: Constatnts.fbCover)
+//                designViewHeightConstraint.constant = 200
+//                setDesignViewSize(aspectRatio: (2.701/1))
             }else if editorType == .ytThumbnail {
                 FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "YT Thumbnail"])
-                designViewHeightConstraint.constant = 350
-                setDesignViewSize(aspectRatio: (1.7777/1))
-                loadLocalSvg()
+                //designViewHeightConstraint.constant = 350
+               // setDesignViewSize(aspectRatio: (1.7777/1))
+                dashboardView.adjustSize(template: Constatnts.thumbnail)
+                self.templatestView.isHidden = false
+                self.templatesCollectionView.reloadData()
+                //loadLocalSvg()
             }else if editorType == .googleCover {
                 FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "Google Cover"])
-                designViewHeightConstraint.constant = 360
-                setDesignViewSize(aspectRatio: (1.7714/1))
+//                designViewHeightConstraint.constant = 360
+//                setDesignViewSize(aspectRatio: (1.7714/1))
+                dashboardView.adjustSize(template: Constatnts.googleCover)
             }else if editorType == .fbPost {
                 FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "FB Post"])
-                designViewHeightConstraint.constant = 450
-                setDesignViewSize(aspectRatio: (1.1928/1))
+                dashboardView.adjustSize(template: Constatnts.fbPost)
+//                designViewHeightConstraint.constant = 450
+//                setDesignViewSize(aspectRatio: (1.1928/1))
             }else if editorType == .instaPost {
                 FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "Insta Post"])
-                designViewHeightConstraint.constant = 500
-                setDesignViewSize(aspectRatio: (1/1))
+                dashboardView.adjustSize(template: Constatnts.logo)
             }else if editorType == .pintrastGraphic {
                 FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "Pintrast"])
-                designViewHeightConstraint.constant = 500
-                setDesignViewSize(aspectRatio: (0.6669/1))
+                dashboardView.adjustSize(template: Constatnts.pintrast)
+//                designViewHeightConstraint.constant = 500
+//                setDesignViewSize(aspectRatio: (0.6669/1))
             }else if editorType == .fbAd {
                 FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "FB Add"])
-                designViewHeightConstraint.constant = 300
-                setDesignViewSize(aspectRatio: (1.9108/1))
+//                designViewHeightConstraint.constant = 300
+//                setDesignViewSize(aspectRatio: (1.9108/1))
+                dashboardView.adjustSize(template: Constatnts.fbAd)
             }
         }
     }
@@ -224,6 +288,8 @@ class ViewController: NSViewController {
         
         FirebaseApp.configure()
         
+        //dashboardView.selectCardSide(.front)
+        
         
         self.mainSelectionViiew = .layoutSelection
         currentEditOption = .shape
@@ -270,11 +336,34 @@ class ViewController: NSViewController {
         setDesignViewSize()
         self.downImageFromFirebase()
        
+        dashboardView.didSelect = {
+            self.currentSticer = nil
+            self.currentSelectedShape = nil
+        }
+        
+    }
+    
+    @IBAction func createBtnClicked(_ sender: Any) {
+        self.templatestView.isHidden = true
+    }
+    @IBAction func cancelBtnAction(_ sender: NSButton) {
+        self.changeTxtView.isHidden = true
+    }
+    @IBAction func changeTxtBtnAction(_ sender: NSButton) {
+        if let sticker = self.currentSticer {
+            if let text = sticker.contentView as? StickerTextField {
+                //if let txt = txtView.string {
+                    text.text = txtView.string
+                    self.currentSticer?.resizeToFontSize()
+                //}
+            }
+        }
+        self.changeTxtView.isHidden = true
     }
     
     func loadLocalSvg() {
         
-        if let path = Bundle.main.path(forResource: "thumb1", ofType:"svg") {
+        if let path = Bundle.main.path(forResource: "thumb22", ofType:"svg") {
             // use path
             print(path)
             do {
@@ -283,187 +372,119 @@ class ViewController: NSViewController {
                 let str = String(data: data, encoding: .utf8)
                 print(str)
                 if let frontSVG = str {
+                    
+                    //self.designView.isHidden = true
+                    
+                    
                     let svgView = SVGKView()
-                    svgView.frame = designView.bounds
+                    svgView.frame = dashboardView.logoView.bounds
                     view.addSubview(svgView)
                     svgView.isHidden = true
                     svgView.loadSVG(data: frontSVG.data(using: .utf8)!)
-                    
+                //return
+                   
                     if let bgImage = svgView.bgImage {
-                        bgImageView.image = bgImage
+                        dashboardView.setFrontBGImage(image: bgImage)
                     }else if let bgColor = svgView.bgColor {
-                        bgImageView.image = nil
-                        designView.bgColor = bgColor
-                        //designView.setLogoBGColor(color: bgColor)
-                        //backgroundVC?.bgColor.color = bgColor
+                        dashboardView.setLogoBGColor(color: bgColor)
+                       // backgroundVC?.bgColor.color = bgColor
                     }
                     
                     
                     for layer in svgView.layers {
-
+                        
                         if let textLayer = layer as? SVGTextLayer {
+                            let y = self.dashboardView.logoView.frame.height - textLayer.frame.origin.y - textLayer.frame.height
+                            let frame = CGRect(x: textLayer.frame.origin.x, y: y, width: textLayer.frame.width+5, height: textLayer.frame.height)
+                            let text = StickerTextField(frame: frame)
+                            let attributedString = textLayer.string as! NSAttributedString
+                            var attributes = attributedString.attributes(at: 0, effectiveRange: nil)
                             
-                            if let dView = FotoContentView.createFromNib() {
-                                let y = self.designView.frame.height - textLayer.frame.origin.y - textLayer.frame.height
-                                let frame = CGRect(x: textLayer.frame.origin.x, y: y, width: textLayer.frame.width+5, height: textLayer.frame.height)
-                                
-                                
-                                
-                                dView.txtView.stringValue = (textLayer.string as! NSAttributedString).string
-                                let point = CGPoint.init(x: NSMidX(self.designView.frame)-100, y:200)
-                                
-                                let attributedString = textLayer.string as! NSAttributedString
-                                var attributes = attributedString.attributes(at: 0, effectiveRange: nil)
-                                
-                               
-                                
-                                //dView.txtView.fitText()
-                                
-                                
-                                
-                                if let font = attributes[NSAttributedString.Key.font] as? NSFont {
-                                    if let color = attributes[NSAttributedString.Key.foregroundColor] {
-                                        self.addNewTextView(dView, leftConst: -1*(point.x-100.0), bottomConst: point.y-50.0,fontName: font.fontName, fontSize: font.pointSize, textStr: dView.txtView.stringValue,textColor: NSColor(cgColor: color as! CGColor)!)
-                                    }else {
-                                        self.addNewTextView(dView, leftConst: -1*(point.x-100.0), bottomConst: point.y-50.0,fontName: font.fontName, fontSize: font.pointSize, textStr: dView.txtView.stringValue)
-                                       // text.foregroundColor = .black
-                                    }
-                                    
-                                    
-                                    //dView.txtView.font = font
+                            for attr in attributes {
+                              print(attr.key, attr.value)
+                                if let fontt = attr.value as? NSFont{
+                                    print(fontt)
                                 }
-                                
-                                let sticker = StickerManager.getZDSticker(frame: CGRect(origin: frame.origin, size: CGSize(width:frame.size.width + 40 , height: frame.size.height+20 )))
-                                //sticker.center = point
-                                
-                            
-                                //dView.translatesAutoresizingMaskIntoConstraints = true
-                                sticker.contentView = dView
-                                self.addShapeSticker(sticker: sticker)
-                                
                             }
-//                            let y = self.designView.frame.height - textLayer.frame.origin.y - textLayer.frame.height
-//                            let frame = CGRect(x: textLayer.frame.origin.x, y: y, width: textLayer.frame.width+5, height: textLayer.frame.height)
-//                            let text = StickerTextField(frame: frame)
-//                            let attributedString = textLayer.string as! NSAttributedString
-//                            var attributes = attributedString.attributes(at: 0, effectiveRange: nil)
-//
-//
-//
-//
-//                            for attr in attributes {
-//                              print(attr.key, attr.value)
-//                                if let fontt = attr.value as? NSFont{
-//                                    print(fontt)
-//                                }
-//                            }
-//
-//                            text.textAttributes = attributes
-//
-//                            text.text = attributedString.string
-//                            let st = StickerView(contentView: text)
-//                            text.backgroundColor = .clear
-//
-//                            if let color = attributes[NSAttributedString.Key.foregroundColor] {
-//                                text.foregroundColor = NSColor(cgColor: color as! CGColor)
-//                            }else {
-//                                text.foregroundColor = .black
-//                            }
-//                            if let font = attributes[NSAttributedString.Key.font] as? NSFont {
-//                                text.fontName = font.fontName
-//                                //text.letterSpacing = font.
-//                                if let letterSpacing = textLayer.value(forKey: "letter-spacing") as? String {
-//                                    let emValue = letterSpacing.replacingOccurrences(of: "em", with: "")
-//                                    text.letterSpacing = CGFloat((Double(emValue) ?? 0)) * font.pointSize
-//                                }
-//                            }
-//
-//                            st.delegate = self
-//                            self.addStickerView(sticker: st)
-//                            text.fitText()
-//                            st.resizeToFontSize()
-//
+
+                            text.textAttributes = attributes
+
+                            text.text = attributedString.string
+                            let st = StickerView(contentView: text)
+                            text.backgroundColor = .clear
+
+                            if let color = attributes[NSAttributedString.Key.foregroundColor] {
+                                text.foregroundColor = NSColor(cgColor: color as! CGColor)
+                            }else {
+                                text.foregroundColor = .black
+                            }
+                            if let font = attributes[NSAttributedString.Key.font] as? NSFont {
+                                text.fontName = font.fontName
+                                //text.letterSpacing = font.
+                                if let letterSpacing = textLayer.value(forKey: "letter-spacing") as? String {
+                                    let emValue = letterSpacing.replacingOccurrences(of: "em", with: "")
+                                    text.letterSpacing = CGFloat((Double(emValue) ?? 0)) * font.pointSize
+                                }
+                            }
+                            
+                            st.delegate = self
+                            self.addStickerView(sticker: st)
+                            text.fitText()
+                            st.resizeToFontSize()
+                            
                         }else if let imageLayer = layer as? CALayerWithClipRender {
-                            let y = self.designView.frame.height - imageLayer.frame.origin.y - imageLayer.frame.height
+                            let y = self.dashboardView.logoView.frame.height - imageLayer.frame.origin.y - imageLayer.frame.height
                             let frame = CGRect(x: imageLayer.frame.origin.x, y: y, width: imageLayer.frame.width, height: imageLayer.frame.height)
                             let cgImage = layer.contents as! CGImage
                             let image = NSImage(cgImage: cgImage, size: imageLayer.bounds.size)
-                            
-                            let scale = image.size.width / image.size.height
-                            let imageView = DraggingImageView(frame: frame)
-                            imageView.image = image
-                            imageView.imageScaling = .scaleProportionallyUpOrDown
-                            //imageView.imageName = "shape1"
-                            imageView.orignalImage = image
-                            self.addStickerToView(imageView: imageView)
-                            
-                            
-//                            let imgView = ImageView(frame: frame)
-//                            imgView.image = image
-//                            imgView.imageScaling = .scaleProportionallyUpOrDown
-//                           let st = StickerView(contentView: imgView)
-//                            st.delegate = self
-//                            self.addStickerView(sticker: st)
+                            let imgView = ImageView(frame: frame)
+                            imgView.image = image
+                            imgView.imageScaling = .scaleProportionallyUpOrDown
+                            let st = StickerView(contentView: imgView)
+                            st.delegate = self
+                            self.addStickerView(sticker: st)
                         }else if let shapLayer = layer as? CAShapeLayerWithHitTest {
-//
-//
-//                            let y = self.dashboardView.logoView.frame.height - shapLayer.frame.origin.y - shapLayer.frame.height
-//                            let frame = CGRect(x: shapLayer.frame.origin.x, y: y, width: shapLayer.frame.width, height: shapLayer.frame.height)
-//                            let imgView = ShapeView(frame: frame)
-//                            if let path = shapLayer.path {
-//                                let newShapeLayer = CAShapeLayer()
-//                                newShapeLayer.frame = path.boundingBox
-//                                newShapeLayer.path = path
-//
-//                                newShapeLayer.fillColor = shapLayer.fillColor
-//
-//
-//                                imgView.wantsLayer = true
-//                                imgView.layer = newShapeLayer
-//                            }
-//                            if let color = shapLayer.fillColor {
-//                                let st = StickerView(contentView: imgView)
-//                                st.delegate = self
-//                                self.addStickerView(sticker: st)
-//                            }
-//
-//
+                            
+                            
+                            let y = self.dashboardView.logoView.frame.height - shapLayer.frame.origin.y - shapLayer.frame.height
+                            let frame = CGRect(x: shapLayer.frame.origin.x, y: y, width: shapLayer.frame.width, height: shapLayer.frame.height)
+                            let imgView = ShapeView(frame: frame)
+                            if let path = shapLayer.path {
+                                let newShapeLayer = CAShapeLayer()
+                                newShapeLayer.frame = path.boundingBox
+                                newShapeLayer.path = path
+                                
+                                newShapeLayer.fillColor = shapLayer.fillColor
+                                
+                               
+                                imgView.wantsLayer = true
+                                imgView.layer = newShapeLayer
+                            }
+                            if let color = shapLayer.fillColor {
+                                let st = StickerView(contentView: imgView)
+                                st.delegate = self
+                                self.addStickerView(sticker: st)
+                            }
+                            
+                            
                         }else if let grLayer = layer as? SVGGradientLayer {
-//
-//
-//                            let y = self.dashboardView.logoView.frame.height - grLayer.frame.origin.y - grLayer.frame.height
-//                            let frame = CGRect(x: grLayer.frame.origin.x, y: y, width: grLayer.frame.width, height: grLayer.frame.height)
-//                            let imgView = GradientView(frame: frame)
-//        //                    if let path = shapLayer.path {
-//        //                        let newShapeLayer = CAShapeLayer()
-//        //                        newShapeLayer.frame = path.boundingBox
-//        //                        newShapeLayer.path = path
-//        //
-//        //                        newShapeLayer.fillColor = shapLayer.fillColor
-//        //
-//        //
-//        //                        imgView.wantsLayer = true
-//        //                        imgView.layer = shapLayer
-//        //                    }
-//        //                    if let color = shapLayer.fillColor {
-//        //                        let st = StickerView(contentView: imgView)
-//        //                        st.delegate = self
-//        //                        dashboardView.logoView.addSubview(st)
-//        //                        stickers.append(st)
-//        //                    }
-//                            imgView.wantsLayer = true
-//                            imgView.layer = grLayer
-//                            let st = StickerView(contentView: imgView)
-//                            st.delegate = self
-//                            self.addStickerView(sticker: st)
-//
-//
+                            
+                            
+                            let y = self.dashboardView.logoView.frame.height - grLayer.frame.origin.y - grLayer.frame.height
+                            let frame = CGRect(x: grLayer.frame.origin.x, y: y, width: grLayer.frame.width, height: grLayer.frame.height)
+                            let imgView = GradientView(frame: frame)
+
+                            imgView.wantsLayer = true
+                            imgView.layer = grLayer
+                            let st = StickerView(contentView: imgView)
+                            st.delegate = self
+                            self.addStickerView(sticker: st)
+                            
                             
                         }
                     }
-                        
-                        
                 }
+                self.currentSticer = nil
             }catch {
                 print(error.localizedDescription)
             }
@@ -481,13 +502,164 @@ class ViewController: NSViewController {
 //        }
     }
     
+    func loadSvgFromData(data:Data) {
+        let str = String(data: data, encoding: .utf8)
+        print(str)
+        if let frontSVG = str {
+            
+           // self.designView.isHidden = true
+            
+            
+            let svgView = SVGKView()
+            svgView.frame = dashboardView.logoView.bounds
+            view.addSubview(svgView)
+            svgView.isHidden = true
+            svgView.loadSVG(data: frontSVG.data(using: .utf8)!)
+        //return
+           
+            if let bgImage = svgView.bgImage {
+                dashboardView.setFrontBGImage(image: bgImage)
+            }else if let bgColor = svgView.bgColor {
+                dashboardView.setLogoBGColor(color: bgColor)
+               // backgroundVC?.bgColor.color = bgColor
+            }
+            
+            
+            for layer in svgView.layers {
+                
+                if let textLayer = layer as? SVGTextLayer {
+                    let y = self.dashboardView.logoView.frame.height - textLayer.frame.origin.y - textLayer.frame.height
+                    let frame = CGRect(x: textLayer.frame.origin.x, y: y, width: textLayer.frame.width+5, height: textLayer.frame.height)
+                    let text = StickerTextField(frame: frame)
+                    let attributedString = textLayer.string as! NSAttributedString
+                    var attributes = attributedString.attributes(at: 0, effectiveRange: nil)
+                    
+                    for attr in attributes {
+                      print(attr.key, attr.value)
+                        if let fontt = attr.value as? NSFont{
+                            print(fontt)
+                        }
+                    }
+
+                    text.textAttributes = attributes
+
+                    text.text = attributedString.string
+                    let st = StickerView(contentView: text)
+                    text.backgroundColor = .clear
+
+                    if let color = attributes[NSAttributedString.Key.foregroundColor] {
+                        text.foregroundColor = NSColor(cgColor: color as! CGColor)
+                    }else {
+                        text.foregroundColor = .black
+                    }
+                    if let font = attributes[NSAttributedString.Key.font] as? NSFont {
+                        text.fontName = font.fontName
+                        //text.letterSpacing = font.
+                        if let letterSpacing = textLayer.value(forKey: "letter-spacing") as? String {
+                            let emValue = letterSpacing.replacingOccurrences(of: "em", with: "")
+                            text.letterSpacing = CGFloat((Double(emValue) ?? 0)) * font.pointSize
+                        }
+                    }
+                    
+                    st.delegate = self
+                    self.addStickerView(sticker: st)
+                    text.fitText()
+                    st.resizeToFontSize()
+                    
+                }else if let imageLayer = layer as? CALayerWithClipRender {
+                    let y = self.dashboardView.logoView.frame.height - imageLayer.frame.origin.y - imageLayer.frame.height
+                    let frame = CGRect(x: imageLayer.frame.origin.x, y: y, width: imageLayer.frame.width, height: imageLayer.frame.height)
+                    let cgImage = layer.contents as! CGImage
+                    let image = NSImage(cgImage: cgImage, size: imageLayer.bounds.size)
+                    let imgView = ImageView(frame: frame)
+                    imgView.image = image
+                    imgView.imageScaling = .scaleProportionallyUpOrDown
+                    let st = StickerView(contentView: imgView)
+                    st.delegate = self
+                    self.addStickerView(sticker: st)
+                }else if let shapLayer = layer as? CAShapeLayerWithHitTest {
+                    
+                    
+                    let y = self.dashboardView.logoView.frame.height - shapLayer.frame.origin.y - shapLayer.frame.height
+                    let frame = CGRect(x: shapLayer.frame.origin.x, y: y, width: shapLayer.frame.width, height: shapLayer.frame.height)
+                    let imgView = ShapeView(frame: frame)
+                    if let path = shapLayer.path {
+                        let newShapeLayer = CAShapeLayer()
+                        newShapeLayer.frame = path.boundingBox
+                        newShapeLayer.path = path
+                        
+                        newShapeLayer.fillColor = shapLayer.fillColor
+                        
+                       
+                        imgView.wantsLayer = true
+                        imgView.layer = newShapeLayer
+                    }
+                    if let color = shapLayer.fillColor {
+                        let st = StickerView(contentView: imgView)
+                        st.delegate = self
+                        self.addStickerView(sticker: st)
+                    }
+                    
+                    
+                }else if let grLayer = layer as? SVGGradientLayer {
+                    
+                    
+                    let y = self.dashboardView.logoView.frame.height - grLayer.frame.origin.y - grLayer.frame.height
+                    let frame = CGRect(x: grLayer.frame.origin.x, y: y, width: grLayer.frame.width, height: grLayer.frame.height)
+                    let imgView = GradientView(frame: frame)
+
+                    imgView.wantsLayer = true
+                    imgView.layer = grLayer
+                    let st = StickerView(contentView: imgView)
+                    st.delegate = self
+                    self.addStickerView(sticker: st)
+                    
+                    
+                }
+            }
+        }
+        self.currentSticer = nil
+    }
+    
     
     func showRatingPopUp(){
         if #available(OSX 10.14, *) {
             SKStoreReviewController.requestReview()
         }
     }
-    
+    func downSvgFromFirebase(name:String){
+        
+        let storage = Storage.storage()
+
+        // Create a storage reference from our storage service
+        let storageRef = storage.reference()
+        
+        // Create a storage reference from our app
+        // Create a reference to the file you want to download
+        let islandRef = storageRef.child(name)
+
+
+        self.showHudbuyProd(completion: { [weak self] res in
+            
+            guard let self = self else { return }
+            
+            islandRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+              if let error = error {
+                // Uh-oh, an error occurred!
+              } else {
+                if let dat = data{
+                    self.hideHud()
+                    self.templatestView.isHidden = true
+                    self.loadSvgFromData(data: dat)
+                }
+              }
+            }
+            
+        })
+        
+        // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
+        
+    }
     func downImageFromFirebase(){
         
         let storage = Storage.storage()
@@ -530,21 +702,12 @@ class ViewController: NSViewController {
         cardSelectionView.isHidden = false
         editingView.isHidden = true
         
-        self.stickerLayers.removeAll()
-        self.bgImageView.image = nil
-        self.currentEditOption = .shape
-        self.designView.bgColor = NSColor.clear
-        for sticker in designView.subviews{
-            if sticker is ZDStickerView{
-                sticker.removeFromSuperview()
-            }
+        for sticker in self.stickers {
+            sticker.removeFromSuperview()
         }
-        bgImageView.image = nil
-        for  sublayer in self.designView.layer!.sublayers! {
-            if sublayer is CAGradientLayer{
-                sublayer.removeFromSuperlayer()
-            }
-        }
+
+        self.stickers.removeAll()
+        self.dashboardView.logoBGView.image = nil
         
         
     }
@@ -621,6 +784,7 @@ class ViewController: NSViewController {
     
     
     func setDesignViewSize(aspectRatio:CGFloat? = nil){
+        self.designView.isHidden = true
         if let ratio = aspectRatio {
             let multiplier:CGFloat = ratio//isInvitaion ? (0.7072/1) : (1/1)
             NSLayoutConstraint.setMultiplier(multiplier, of: &designViewAspectConstraint)
@@ -717,10 +881,12 @@ class ViewController: NSViewController {
                             let img = NSImage.init(contentsOfFile: (url?.path)!)
                             if img != nil {
                                 self.hideHud()
-                                let resizeImg = img?.resizeMaintainingAspectRatio(withSize: self.bgImageView.frame.size)
-                                self.bgImageView.imageScaling = .scaleNone
-                                
-                                    self.bgImageView.image = resizeImg
+                                let resizeImg = img?.resizeMaintainingAspectRatio(withSize: self.dashboardView.logoBGView.frame.size)
+//                                self.bgImageView.imageScaling = .scaleNone
+//
+//                                    self.bgImageView.image = resizeImg
+                                self.dashboardView.logoBGView.imageScaling = .scaleNone
+                                self.dashboardView.setFrontBGImage(image: resizeImg!)
                             }
                         }
                     }, progress: {[weak self](progress) in
@@ -825,34 +991,13 @@ class ViewController: NSViewController {
             textView.txtView.setNeedsDisplay()
         }
     }
-    func addImageSticker(image:NSImage){
-        let scale = image.size.width / image.size.height
-        let imageView = DraggingImageView(frame: CGRect(x: 0, y: 0, width: 150*scale, height:150 ))
-        imageView.image = image
-        //imageView.imageName = "shape1"
-        imageView.orignalImage = image
-        self.addStickerToView(imageView: imageView)
-    }
     @objc func shapeSelected(_ notification: Notification){
         if let userInfo = notification.userInfo{
             if let name = userInfo["index"] as? String{
-                
-                
-               // if editorType == .logo {
-                    if let img = loadImageNamed(name: name) {
-                       // let scale = img.size.width / img.size.height
-                        if let imgae = img.resizeMaintainingAspectRatio(withSize: NSSize(width: 500, height: 500)){
-                            self.addImageSticker(image: imgae)
-                        }
-                        
-                    }
-//                }else{
-//                    if let img = loadImageNamed(name: "social_icon" + String(index)) {
-//                        let imgae = img.resizeImage()
-//                        self.addImageSticker(image: imgae)
-//
-//                    }
-//                }
+
+                if let img = loadImageNamed(name: name) {
+                        self.addNewIcon(icon: img)
+                }
                 
             }
         }
@@ -867,18 +1012,13 @@ class ViewController: NSViewController {
         }
     }
     @objc func textBorderDidChanged(notification:Notification) {
-        
         if let sticker = self.currentSelectedShape , let dict = notification.object as? [String:Any] {
             if let width = dict["borderWidth"] as? CGFloat,
                 let color = dict["borderColor"] as? NSColor {
-                
                 self.addBorder(width, borderColor: color, sticker: sticker)
             }
         }
-        
     }
-    
-    
     func hideViews(){
         self.TextView.isHidden = true
         self.cardslistView.isHidden = true
@@ -898,7 +1038,7 @@ class ViewController: NSViewController {
     @IBAction func printBtnClicked(_ sender: Any) {
         self.showHudbuyProd(){[weak self](isSaved) in
             guard let self = self else {return}
-            self.designView.isHidden = false
+            // self.designView.isHidden = false
             self.printBtnClicked()
         }
     }
@@ -908,62 +1048,49 @@ class ViewController: NSViewController {
     }
     @IBAction func resetBtnClicked(_ sender: Any) {
         
-        
         var str = "Do you really want to reset?"
         
         let isYes =  twoBtnAlert(question: str)
         if (isYes) {
             
-            self.stickerLayers.removeAll()
-            self.bgImageView.image = nil
-            self.currentEditOption = .backgrounds
-            self.designView.bgColor = NSColor.clear
-            for sticker in designView.subviews{
-                if sticker is ZDStickerView{
-                    sticker.removeFromSuperview()
-                }
+            for sticker in self.stickers {
+                sticker.removeFromSuperview()
             }
-            bgImageView.image = nil
-            for  sublayer in self.designView.layer!.sublayers! {
-                if sublayer is CAGradientLayer{
-                    sublayer.removeFromSuperlayer()
-                }
-            }
+            self.stickers.removeAll()
+            self.dashboardView.logoBGView.image = nil
             
         }
-        
-        
     }
-    func showZipSavePanel(_ path:String,completion: @escaping (Bool) -> Void) -> Void {
-        
-            let savePanel = NSSavePanel()
-            savePanel.allowedFileTypes = ["zip"]
-            savePanel.nameFieldStringValue = "Business Card " + Date().string(format: "yyyy-MM-dd HH mm ss")
-            savePanel.beginSheetModal(for: self.view.window!) {[weak self](response) in
-                guard let self = self else {return}
-                if response == .OK{
-                    if let url = savePanel.url {
-                        do {
-                            let filePath = url.path
-                            let data = try Data.init(contentsOf: URL.init(fileURLWithPath: path))
-                            try data.write(to: URL.init(fileURLWithPath: filePath))
-                            self.isSavePanelOpen = false
-                            if #available(OSX 10.14, *) {
-                                SKStoreReviewController.requestReview()
-                            }
-                            completion(true)
-                        }catch {
-
-                        }
-                    }
-                    self.isSavePanelOpen = false
-                }else if response == .cancel {
-
-                    completion(true)
-                    self.isSavePanelOpen = false
-                }
-            }
-    }
+//    func showZipSavePanel(_ path:String,completion: @escaping (Bool) -> Void) -> Void {
+//
+//            let savePanel = NSSavePanel()
+//            savePanel.allowedFileTypes = ["zip"]
+//            savePanel.nameFieldStringValue = "Business Card " + Date().string(format: "yyyy-MM-dd HH mm ss")
+//            savePanel.beginSheetModal(for: self.view.window!) {[weak self](response) in
+//                guard let self = self else {return}
+//                if response == .OK{
+//                    if let url = savePanel.url {
+//                        do {
+//                            let filePath = url.path
+//                            let data = try Data.init(contentsOf: URL.init(fileURLWithPath: path))
+//                            try data.write(to: URL.init(fileURLWithPath: filePath))
+//                            self.isSavePanelOpen = false
+//                            if #available(OSX 10.14, *) {
+//                                SKStoreReviewController.requestReview()
+//                            }
+//                            completion(true)
+//                        }catch {
+//
+//                        }
+//                    }
+//                    self.isSavePanelOpen = false
+//                }else if response == .cancel {
+//
+//                    completion(true)
+//                    self.isSavePanelOpen = false
+//                }
+//            }
+//    }
     
     
     func showHudbuyProd(completion: @escaping (Bool) -> Void){
@@ -997,8 +1124,8 @@ class ViewController: NSViewController {
         sticker.contentView.wantsLayer = true
         sticker.contentView.layer?.masksToBounds = false
         sticker.stickerViewDelegate = self
-        self.designView.addSubview(sticker)
-        
+       // self.designView.addSubview(sticker)
+        self.dashboardView.addSubview(sticker)
         self.currentSelectedShape = sticker
        
         
@@ -1008,8 +1135,8 @@ class ViewController: NSViewController {
             self.stickerLayers.insert(sticker, at: 0)
         }
         DispatchQueue.main.async {
-            let transform = sticker.transform
-            sticker.transform = transform
+            //let transform = sticker.transform
+            //sticker.transform = transform
         }
        // self.changeUndoBtnStatus()
         
@@ -1037,19 +1164,52 @@ class ViewController: NSViewController {
 //            NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.StatusStickerOpacityChanged.rawValue), object: nil, userInfo: ["status":false])
 //        }
     }
+    
+    func addNewIcon(icon: NSImage) {
+        //self.hideHud()
+        let frame = CGRect(x: 0, y: 0, width: 300, height: 300)
+        let imgView = ImageView(frame: frame)
+        imgView.image = icon
+        imgView.imageScaling = .scaleProportionallyUpOrDown
+        let st = StickerView(contentView: imgView)
+        st.delegate = self
+        st.center = self.dashboardView.center
+        self.addStickerView(sticker: st)
+       
+    }
+    
+    
     @objc func addText(_ notification:NSNotification) -> Void {
         
-        if let dView = notification.object as? FotoContentView {
-            
-            let point = CGPoint.init(x: NSMidX(self.designView.frame)-100, y:200)
-            self.addNewTextView(dView, leftConst: -1*(point.x-100.0), bottomConst: point.y-50.0,textStr: dView.txtView.stringValue)
-            let sticker = StickerManager.getZDSticker(frame: dView.frame)
-            sticker.center = point
-            
-            //dView.translatesAutoresizingMaskIntoConstraints = true
-            sticker.contentView = dView
-            self.addShapeSticker(sticker: sticker)
-        }
+        let text = StickerTextField(frame: CGRect(x: 0, y: 0, width: 200, height: 50))
+        
+        text.text = "Enter Text Here"
+        let st = StickerView(contentView: text)
+        text.fontName = "Arial Narrow"
+        text.fontSize = 23.0
+        text.fitText()
+        text.backgroundColor = .clear
+        text.foregroundColor = .black
+        st.center = dashboardView.logoView.center
+        st.delegate = self
+        
+        self.addStickerView(sticker: st)
+        
+        currentSticer = st
+        
+        
+//
+//        if let dView = notification.object as? FotoContentView {
+//
+//            let point = CGPoint.init(x: NSMidX(self.designView.frame)-100, y:200)
+//            self.addNewTextView(dView, leftConst: -1*(point.x-100.0), bottomConst: point.y-50.0,textStr: dView.txtView.stringValue)
+//            let sticker = StickerManager.getZDSticker(frame: dView.frame)
+//            sticker.center = point
+//
+//            //dView.translatesAutoresizingMaskIntoConstraints = true
+//            sticker.contentView = dView
+//            self.addShapeSticker(sticker: sticker)
+//        }
     }
     func  addNewTextView(_ dView:FotoContentView,leftConst:CGFloat,bottomConst:CGFloat,isLoadingFromModel:Bool = false,fontName:String = "American Typewriter",familyName:String  =  "American Typewriter",style:String  = "Regular",fontSize:CGFloat = 17, textStr:String =  "", textColor:NSColor = .black,isNeedToChangeZPosition: Bool = true,sendNotification:Bool = false,oldLayerIndex:Int? = nil) -> Void {
         
@@ -1093,6 +1253,7 @@ class ViewController: NSViewController {
     }
     override func mouseDown(with event: NSEvent) {
         self.currentSelectedShape = nil
+        self.currentSticer = nil
         //NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.currentTextSelectionChanged.rawValue), object: nil)
     }
     func openPanel(isBg:Bool? = false){
@@ -1119,12 +1280,13 @@ class ViewController: NSViewController {
                 if isBg == true{
                     self.importBgView.isHidden = true
                     self.bgImageView.image = image
+                    dashboardView.setFrontBGImage(image: image)
                     //self.orignalBgImage = image
                     //let img = self.orignalBgImage?.addNormalFilter(filter: filterTypes[0])
                    
                    // NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.BgViewDidChanged.rawValue), object: self.backgroundImageView)
                 }else{
-                    self.addImageSticker(image: image)
+                    self.addNewIcon(icon: image)
                 }
             }
             
@@ -1139,25 +1301,45 @@ class ViewController: NSViewController {
 }
 extension ViewController: NSTextFieldDelegate {
     
+//    func controlTextDidChange(_ obj: Notification) {
+//        //self.tableView.reloadData()
+//    }
+//
+//    func controlTextDidBeginEditing(_ obj: Notification) {
+////        if let sticker = self.currentSelectedShape, let txtField =  obj.object as? NSTextField {
+////            //self.changeText(txtField.stringValue, sticker: sticker)
+////        }
+//    }
     func controlTextDidChange(_ obj: Notification) {
-        //self.tableView.reloadData()
+//        if let txtField =  obj.object as? NSTextField {
+//            print(txtField.stringValue)
+//           // NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.TextChanged.rawValue), object: nil, userInfo: ["text":txtField.stringValue])
+//
+//        }
     }
 
     func controlTextDidBeginEditing(_ obj: Notification) {
-//        if let sticker = self.currentSelectedShape, let txtField =  obj.object as? NSTextField {
-//            //self.changeText(txtField.stringValue, sticker: sticker)
+//        if let txtField =  obj.object as? NSTextField {
+//            print(txtField.stringValue)
 //        }
     }
+    func controlTextDidEndEditing(_ obj: Notification) {
+//        if let txtField =  obj.object as? NSTextField {
+//            print(txtField.stringValue)
+//
+//        }
+    }
+    
 
 }
 extension ViewController: ZDStickerViewDelegate {
     
     func stickerViewDidClose(_ sticker: ZDStickerView!) {
         //isAlertModelOpend = true
-        var str = "Do you want to delete this text ?"
-        if(sticker.type() == .image) {
-            str = "Do you want to delete this Asset ?"
-        }
+        var str = "Do you want to delete this Asset ?"
+//        if(sticker.type() == .image) {
+//            str = "Do you want to delete this Asset ?"
+//        }
         let isYes =  twoBtnAlert(question: str)
        // isAlertModelOpend = false
         if (isYes) {
@@ -1171,7 +1353,7 @@ extension ViewController: ZDStickerViewDelegate {
 //        undoManagerLM.registerUndo(withTarget: self) { (targetSelf) in
 //            targetSelf.transformStickerView(sticker,oldTrans)
 //        }
-        sticker.transform = transform
+       // sticker.transform = transform
        // self.changeUndoBtnStatus()
     }
     func resizeStickerView(_ sticker: ZDStickerView,_ frame: CGRect,dFrame : NSSize? = nil) {
@@ -1204,7 +1386,74 @@ extension ViewController: ZDStickerViewDelegate {
     func stickerViewDidBeginEditing(_ sticker: ZDStickerView!) {
         
         if self.currentSelectedShape != sticker {
+            self.currentSticer = nil
             self.currentSelectedShape = sticker
         }
+    }
+}
+
+
+extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource,NSCollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
+        if editorType == .logo{
+            return 15
+        }
+        return 10
+    }
+    
+  
+    
+    func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
+
+            if let item = collectionView.makeItem(withIdentifier: ListItem.itemIdentifier, for: indexPath) as? ListItem {
+                
+                if indexPath.item == 0 {
+                    
+                    item.createLbl.isHidden = false
+                    
+                    return item
+                }
+                
+                item.createLbl.isHidden = true
+                var thumb_Name = "yt_thumb"
+                if editorType == .logo{
+                    thumb_Name = "logo_thumb"
+                }
+                if let path = Bundle.main.path(forResource: thumb_Name+String(indexPath.item), ofType:"png") {
+                    
+                    item.tempImg.image = NSImage.init(contentsOf: URL.init(fileURLWithPath: path))
+                }
+                return item
+            }
+        return NSCollectionViewItem()
+        
+    }
+    func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
+        collectionView.deselectItems(at: indexPaths)
+       
+        if let indexPath = indexPaths.first{
+           
+
+            if editorType == .logo {
+                self.downSvgFromFirebase(name: "logos/logo"+String(indexPath.item)+".svg")
+            }else if editorType == .ytThumbnail{
+                self.downSvgFromFirebase(name: "yt_thumbnails/thumb"+String(indexPath.item)+".svg")
+            }
+
+        }
+    }
+    func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
+
+        
+        var width = ((collectionView.frame.width) / 3 ) - 20
+        
+        if editorType == .logo{
+            var width = ((collectionView.frame.width) / 4 ) - 20
+            return CGSize(width: width, height: width)
+        }
+        
+        return CGSize(width: width, height: width/1.7778)
+        
+        
     }
 }

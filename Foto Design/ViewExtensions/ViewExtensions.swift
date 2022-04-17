@@ -11,7 +11,11 @@ import Cocoa
 
 
 extension NSView {
-  
+    func image() -> NSImage {
+        let imageRepresentation = bitmapImageRepForCachingDisplay(in: bounds)!
+        cacheDisplay(in: bounds, to: imageRepresentation)
+        return NSImage(cgImage: imageRepresentation.cgImage!, size: bounds.size)
+    }
     
     func png() -> Data? {
         let rep = self.bitmapImageRepForCachingDisplay(in: bounds)!
@@ -19,26 +23,42 @@ extension NSView {
         let data = rep.representation(using: .png, properties: [:])
         return data
     }
+    func pngByScale(scale:CGFloat) -> Data? {
+        let rep = self.bitmapImageRepForCachingDisplay(in: bounds)!
+        self.cacheDisplay(in: bounds.scale(by: scale), to: rep)
+        let data = rep.representation(using: .png, properties: [:])
+        return data
+    }
+    func screenshotbyScale(scale:CGFloat = 1.588) -> NSImage {
+     
+        let imageRepresentation = bitmapImageRepForCachingDisplay(in: bounds)!
+        cacheDisplay(in: bounds, to: imageRepresentation)
+        return NSImage(cgImage: imageRepresentation.cgImage!, size: bounds.size.scale(by: scale))
+  }
     func jpeg() -> Data? {
         let rep = self.bitmapImageRepForCachingDisplay(in: bounds)!
         self.cacheDisplay(in: bounds, to: rep)
         let data = rep.representation(using: .jpeg, properties: [:])
         return data
     }
-    
-    
-    var snapshotImage: NSImage? {
-        
-        
-        return NSImage(data: dataWithPDF(inside: CGRect.init(origin: .zero, size: bounds.size.doubleScale())))
-    }
     func snapshot() -> NSImage {
      
         let imageRepresentation = bitmapImageRepForCachingDisplay(in: bounds)!
         cacheDisplay(in: bounds, to: imageRepresentation)
         return NSImage(cgImage: imageRepresentation.cgImage!, size: bounds.size.scale(by: 1.588))
-  }
+    }
     
+    func thumb() -> NSImage {
+        let rect = layer?.bounds ?? bounds
+        let imageRepresentation = bitmapImageRepForCachingDisplay(in: rect)!
+        cacheDisplay(in: rect, to: imageRepresentation)
+        return NSImage(cgImage: imageRepresentation.cgImage!, size: rect.size)
+    }
+    
+    var snapshotImage: NSImage? {
+        return NSImage(data: dataWithPDF(inside: CGRect.init(origin: .zero, size: bounds.size.doubleScale())))
+    }
+
     @IBInspectable var bgColor: NSColor? {
         get {
             if let colorRef = self.layer?.backgroundColor {
@@ -694,6 +714,24 @@ extension NSLayoutConstraint {
     }
 }
 extension NSImage {
+    func tint(color: NSColor) -> NSImage {
+        guard let image = self.copy() as? NSImage else {return self}
+        image.lockFocus()
+
+        color.set()
+
+        let imageRect = NSRect(origin: NSZeroPoint, size: image.size)
+        imageRect.fill(using: .sourceAtop)
+
+        image.unlockFocus()
+
+        return image
+        
+    }
+    var cgImage: CGImage? {
+        return self.cgImage(forProposedRect: nil, context: nil, hints: nil)
+    }
+    
     func resizeMaintainingAspectRatio(withSize targetSize: NSSize) -> NSImage? {
             let newSize: NSSize
         let widthRatio  = targetSize.width / self.size.width
@@ -720,4 +758,26 @@ extension NSImage {
             return image
         }
 
+}
+class ImageView: NSImageView {
+    
+   
+    @IBInspectable public var tintcolor: NSColor = NSColor.gray {
+        didSet {
+            if let image = image {
+                self.image = image.tint(color: tintcolor)
+            }
+        }
+    }
+    override init(frame frameRect: NSRect) {
+        super.init(frame: frameRect)
+        wantsLayer = true
+        
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        wantsLayer = true
+       
+    }
 }

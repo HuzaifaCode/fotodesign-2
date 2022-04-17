@@ -45,12 +45,12 @@ class TextVC: NSViewController {
     var filterFontUsableNames = [String]()
     
     
-    var currentTextView:FotoContentView? = nil {
+    var currentTextView:StickerTextField? = nil {
         didSet {
             self.updateUI()
         }
     }
-    
+    var sticker: StickerView?
     
     
     override func viewDidLoad() {
@@ -69,6 +69,37 @@ class TextVC: NSViewController {
         
         
         updateUI()
+    }
+    
+    func setFont() {
+        if let sticker = self.sticker {
+            if let text = sticker.contentView as? StickerTextField {
+                let fontFamily = fontCombobox.stringValue
+                if  let members = NSFontManager.shared.availableMembers(ofFontFamily: fontFamily) {
+                    for member in members {
+                        
+                        let title = filterStyleNames[self.styleCombobox.indexOfSelectedItem]
+                        if let memberName = member[1] as? String  {
+                            if memberName == title {
+                                if let fontName = member[0] as? String {
+                                    text.fontName = fontName
+                                    text.fitText()
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func getTextField() -> StickerTextField? {
+        //if let sticker = self.sticker {
+            if let text = currentTextView as? StickerTextField {
+                return text
+            }
+        //}
+        return nil
     }
     
     @IBAction func optionsButtonPressed(_ sender: Any) {
@@ -96,6 +127,7 @@ class TextVC: NSViewController {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.textAlignmentChanged.rawValue), object:NSTextAlignment.center, userInfo: nil)
         self.updateAlignementUI()
     }
+   
     @objc func updateAlignementUI() -> Void {
         
         self.leftAllignBtn.bgColor = NSColor.clear
@@ -103,7 +135,7 @@ class TextVC: NSViewController {
         self.rightAlignBtn.bgColor = NSColor.clear
         
         if(self.currentTextView != nil) {
-            let alignment = self.currentTextView?.txtView.textAlign
+            let alignment = self.currentTextView?.alignment
             if(alignment == .right) {
                 self.rightAlignBtn.bgColor = NSColor.init(hex: MAIN_COLOR)
             }else if(alignment == .left) {
@@ -115,9 +147,11 @@ class TextVC: NSViewController {
         }
     }
     @objc func changeCurrentTextView(_ notification:NSNotification) -> Void {
-        if let zdView = notification.object as? FotoContentView {
-            self.currentTextView = zdView
-            //self.currentSelectedFontFamily = dView.txtView.familyName
+        if let zdView = notification.object as? StickerView {
+            self.sticker = zdView
+            if let txtView = zdView.contentView as? StickerTextField{
+                self.currentTextView = txtView
+            }
         }else {
             self.currentTextView =  nil
         }
@@ -129,13 +163,21 @@ class TextVC: NSViewController {
         }
     }
     @IBAction func strokeSliderDidChanged(_ sender: NSSlider) {
-        var dict:[String:Any] = [String:Any]()
-        //let width = Int(borderWidthTextField.stringValue) ?? 0
-        dict["borderWidth"] = CGFloat(sender.floatValue)
-        dict["borderColor"] = borderColorPicker.color
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.TextBorderDidChanged.rawValue), object: dict, userInfo: nil)
+        if let text = self.getTextField() {
+            text.strokeWidth = CGFloat(sender.floatValue)
+        }
+        
+//        var dict:[String:Any] = [String:Any]()
+//        //let width = Int(borderWidthTextField.stringValue) ?? 0
+//        dict["borderWidth"] = CGFloat(sender.floatValue)
+//        dict["borderColor"] = borderColorPicker.color
+//        NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.TextBorderDidChanged.rawValue), object: dict, userInfo: nil)
     }
     @IBAction func borderColorDidChanged(_ sender: NSColorWell) {
+        if let text = self.getTextField() {
+            text.strokeColor = sender.color
+        }
+        
         //if let txtView = self.currentTextView?.txtView {
             var dict:[String:Any] = [String:Any]()
             //let width = Int(borderWidthTextField.stringValue) ?? 0
@@ -146,7 +188,11 @@ class TextVC: NSViewController {
     }
     
     @IBAction func opacitySliderDidChanged(_ sender: NSSlider) {
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.OpacitySliderChanged.rawValue), object:CGFloat(sender.floatValue), userInfo: nil)
+        if let text = self.getTextField() {
+            text.alphaValue = CGFloat(sender.floatValue)
+        }
+        
+       // NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.OpacitySliderChanged.rawValue), object:CGFloat(sender.floatValue), userInfo: nil)
     }
     @IBAction func stickerHeightSliderDidChanged(_ sender: NSSlider) {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.stickerHeightChanged.rawValue), object:CGFloat(sender.floatValue), userInfo: nil)
@@ -156,7 +202,11 @@ class TextVC: NSViewController {
     }
     
     @IBAction func chnageColor(_ sender: NSColorWell) {
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.ColorChanged.rawValue), object: sender.color, userInfo: nil)
+        if let text = self.getTextField() {
+            text.foregroundColor = sender.color
+        }
+        
+        //NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.ColorChanged.rawValue), object: sender.color, userInfo: nil)
     }
     
     
@@ -174,7 +224,7 @@ class TextVC: NSViewController {
             borderColorPicker.isEnabled = true
             heightSlider.isEnabled = true
             widthSlider.isEnabled = true
-            self.txtField.stringValue = currentTextView?.txtView.stringValue ?? ""
+            self.txtField.stringValue = currentTextView?.stringValue ?? ""
             self.fontCombobox.reloadData()
             self.styleCombobox.reloadData()
             self.sizeCombobox.reloadData()
@@ -184,16 +234,16 @@ class TextVC: NSViewController {
                 styleCombobox.isEnabled = true
                 sizeCombobox.isEnabled = true
                 strokeSlider.isEnabled = true
-                self.currentSelectedFontFamily = dView.txtView.font?.familyName
-                self.fontCombobox.stringValue = dView.txtView.font?.familyName ?? ""
+                self.currentSelectedFontFamily = dView.font?.familyName
+                self.fontCombobox.stringValue = dView.font?.familyName ?? ""
                 self.opacitySlider.floatValue = Float(dView.alphaValue)
-                self.strokeSlider.floatValue = Float(dView.txtView.borderWidth)
+                self.strokeSlider.floatValue = Float(dView.borderW)
                 
-                let index = self.fontFamilyNames.firstIndex(of: dView.txtView.font?.familyName ?? "")
+                let index = self.fontFamilyNames.firstIndex(of: dView.font?.familyName ?? "")
                 //self.changesMadeByMe = true
                 //self.fontCombobox.selectItem(at: index ?? 0)
                 //self.changesMadeByMe = false
-                if let fontStyles =  NSFontManager.shared.availableMembers(ofFontFamily: dView.txtView.font?.familyName ?? "") {
+                if let fontStyles =  NSFontManager.shared.availableMembers(ofFontFamily: dView.font?.familyName ?? "") {
                     if(self.fontUsableNames.count > 0) {
                         self.fontUsableNames.removeAll()
                     }
@@ -216,7 +266,7 @@ class TextVC: NSViewController {
                     self.styleCombobox.reloadData()
 
                 }
-                if let font = dView.txtView.font {
+                if let font = dView.font {
                     if let index = self.filterFontFamilySizes.firstIndex(of: String(Int(font.pointSize))) {
                         //self.changesMadeByMe = true
                        // self.sizeCombobox.selectItem(at: index)
@@ -225,8 +275,8 @@ class TextVC: NSViewController {
 
                     self.sizeCombobox.stringValue = String(Int(font.pointSize))
                 }
-                self.colorPicker.color = dView.txtView.textColor ?? NSColor.black
-                self.borderColorPicker.color = dView.txtView.borderColor ?? NSColor.black
+                self.colorPicker.color = dView.textColor ?? NSColor.black
+                self.borderColorPicker.color = dView.borderColour ?? NSColor.black
 
             }else {
                 fontCombobox.isEnabled = false
@@ -349,42 +399,28 @@ extension TextVC: NSComboBoxDelegate {
                                 self.styleCombobox.stringValue = self.filterStyleNames[0]
                             }
                             
-                           // self.sizeCombobox.reloadData()
-//                            if(self.sizeCombobox.indexOfSelectedItem == -1) {
-//                                var size = "13"
-//
-//                                if let index = self.fontSizes.firstIndex(of: size) {
-//                                    self.sizeCombobox.selectItem(at: index)
-//                                    self.sizeCombobox.stringValue = size
-//                                }
-//                            }
-//                            var size: Int = 13
-//                            if(self.sizeCombobox.indexOfSelectedItem > -1) {
-//                                if(self.filterFontFamilySizes.count > self.sizeCombobox.indexOfSelectedItem) {
-//                                    size = Int(filterFontFamilySizes[self.sizeCombobox.indexOfSelectedItem]) ?? 13
-//                                }
-//
-//                            }
-                            
-                            //self.sizeCombobox.stringValue = String(size)
                             var dict:[String:Any] = [String:Any]()
                             dict["fontName"] = cSelectedFontFamilyName
                            // dict["fontSize"] = CGFloat(size)
-                            var style = "Regular"
-                            if(self.fontStyleNames.count > 0) {
-                                style = fontStyleNames[0]
+                            if let sticker = self.sticker {
+                                if let text = sticker.contentView as? StickerTextField {
+                                    text.fontName = cSelectedFontFamilyName
+                                    
+                                    text.fitText()
+                                }
                             }
-                            dict["fontStyle"] = style
-                            dict["fontFamily"] = cSelectedFontFamilyName
-                           NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.FontChanged.rawValue), object: dict, userInfo: nil)
-                            
-                            
-                            
                         }
                     }else if box == sizeCombobox {
-                        var dict:[String:Any] = [String:Any]()
-                        dict["fontSize"] = CGFloat(self.sizeCombobox.indexOfSelectedItem + 1)
-                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.FontChanged.rawValue), object: dict, userInfo: nil)
+                        //var dict:[String:Any] = [String:Any]()
+                        //dict["fontSize"] = CGFloat(self.sizeCombobox.indexOfSelectedItem + 1)
+                        if let sticker = self.sticker {
+                            if let text = sticker.contentView as? StickerTextField {
+                                text.fontSize = CGFloat(self.sizeCombobox.indexOfSelectedItem + 1)
+                                sticker.resizeToFontSize()
+                            }
+                        }
+                        
+                       // NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.FontChanged.rawValue), object: dict, userInfo: nil)
                     }else if box == styleCombobox {
                         if(self.styleCombobox.indexOfSelectedItem > -1){
                             let style = self.filterFontUsableNames[self.styleCombobox.indexOfSelectedItem]
@@ -392,8 +428,17 @@ extension TextVC: NSComboBoxDelegate {
                             var dict:[String:Any] = [String:Any]()
                             dict["fontName"] = style
                             dict["fontStyle"] = styleName
+//
+//                            if let sticker = self.sticker {
+//                                if let text = sticker.contentView as? StickerTextField {
+//                                    text.fontSize = CGFloat(self.sizeCombobox.indexOfSelectedItem + 1)
+//                                    text.fitText()
+//                                }
+//                            }
                             
-                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.FontChanged.rawValue), object: dict, userInfo: nil)
+                            setFont()
+                            
+//                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.FontChanged.rawValue), object: dict, userInfo: nil)
                         }
                         
                     }else if(self.styleCombobox.indexOfSelectedItem > -1)  {

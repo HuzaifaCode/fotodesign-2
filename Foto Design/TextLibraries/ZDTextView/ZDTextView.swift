@@ -29,7 +29,7 @@ class ZDTextView: CursorTextField {
     var borderColor: NSColor = NSColor.black
     var textShadowColor: NSColor = NSColor.black
     var zIndex: CGFloat = 0
-    var transform: CGAffineTransform = CGAffineTransform.identity
+    var zdtransform: CGAffineTransform = CGAffineTransform.identity
     var currentAppVersion: String?
     
     override init(frame myFrameRect: NSRect) {

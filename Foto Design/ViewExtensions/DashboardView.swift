@@ -126,7 +126,7 @@ class DashboardView: NSView {
         self.logoBGView.layer?.sublayers?.remove(at: 0)
         //self.logoBGView.image = nil
         self.logoBGView.image = image
-        self.needsDisplay = true
+        //self.needsDisplay = true
     }
 
     
@@ -139,6 +139,14 @@ class DashboardView: NSView {
         let bgColor = self.logoView.layer?.backgroundColor
         self.logoView.layer?.backgroundColor = .clear
         let data = self.logoView.png()
+        self.logoView.layer?.backgroundColor = bgColor
+        return data
+    }
+    func designPNG(scale:CGFloat) -> Data? {
+        logoView.isHidden = false
+        let bgColor = self.logoView.layer?.backgroundColor
+        self.logoView.layer?.backgroundColor = .clear
+        let data = self.logoView.pngByScale(scale: scale)
         self.logoView.layer?.backgroundColor = bgColor
         return data
     }
@@ -195,4 +203,269 @@ extension NSView {
             ctx.closePDF()
             return data as Data
     }
+}
+
+
+class StickerTextField: NSTextField {
+    
+    func fitText() {
+          guard let currentFont = font else {
+            return
+          }
+          let text = stringValue
+          let bestFittingFont = NSFont.bestFittingFont(for: text, in: bounds, fontDescriptor: currentFont.fontDescriptor, additionalAttributes: textAttributes)
+          self.fontSize = bestFittingFont.pointSize
+    }
+    public var textAttributes: [NSAttributedString.Key: Any] = [:]
+//    public override var intrinsicContentSize: CGSize  {
+//        get {
+//            let s = super.intrinsicContentSize
+//            return CGSize(width: s.width + 100, height: s.height + 100)
+//        }
+//    }
+    var text: String = "" {
+        didSet {
+            self.stringValue = text
+            self.attributedStringValue = NSAttributedString(string: self.stringValue , attributes: textAttributes)
+        }
+    }
+    
+    //MARK: -
+    //MARK: Alpha
+    public var textAlpha: CGFloat = 1 {
+        didSet {
+            textAttributes[NSAttributedString.Key.foregroundColor] = foregroundColor?.withAlphaComponent(textAlpha)
+            self.attributedStringValue = NSAttributedString(string: self.stringValue , attributes: textAttributes)
+        }
+    }
+    
+    //MARK: -
+    //MARK: Font
+    
+    public var fontName: String = "HelveticaNeue" {
+        didSet {
+            
+            let font = NSFont(name: fontName, size: fontSize)
+            textAttributes[NSAttributedString.Key.font] = font
+            self.attributedStringValue = NSAttributedString(string: self.stringValue , attributes: textAttributes)
+            self.font = font
+        }
+    }
+    
+    public var fontSize: CGFloat = 20 {
+        didSet {
+            let font = NSFont(name: fontName, size: fontSize)
+            textAttributes[NSAttributedString.Key.font] = font
+            self.attributedStringValue = NSAttributedString(string: self.stringValue , attributes: textAttributes)
+            self.font = font
+        }
+    }
+    
+    public var strokeWidth: CGFloat = 0 {
+        didSet {
+            textAttributes[NSAttributedString.Key.strokeWidth] = -strokeWidth
+            self.attributedStringValue = NSAttributedString(string: self.stringValue , attributes: textAttributes)
+        }
+    }
+    public var strokeColor: NSColor = .black {
+        didSet {
+            textAttributes[NSAttributedString.Key.strokeColor] = strokeColor
+            self.attributedStringValue = NSAttributedString(string: self.stringValue , attributes: textAttributes)
+        }
+    }
+    
+    //MARK: -
+    //MARK: forgroundColor
+    
+    public var foregroundColor: NSColor? = .black {
+        didSet {
+            textAttributes[NSAttributedString.Key.foregroundColor] = foregroundColor
+            self.attributedStringValue = NSAttributedString(string: self.stringValue , attributes: textAttributes)
+        }
+    }
+    
+    //MARK: -
+    //MARK: letterSpacing
+    
+    public var letterSpacing: CGFloat? {
+        didSet {
+            textAttributes[NSAttributedString.Key.kern] = letterSpacing
+            self.attributedStringValue = NSAttributedString(string: self.stringValue , attributes: textAttributes)
+        }
+    }
+    
+    
+    public var underLine: Bool = false {
+        didSet {
+            let underLineStyle: NSUnderlineStyle = underLine ? .single : NSUnderlineStyle(rawValue: 0)
+            textAttributes[NSAttributedString.Key.underlineStyle] = underLineStyle.rawValue
+            textAttributes[NSAttributedString.Key.underlineColor ] = foregroundColor
+            self.attributedStringValue = NSAttributedString(string: self.stringValue , attributes: textAttributes)
+        }
+    }
+    
+    //MARK: -
+
+    
+
+    var capsStyle: CapsStyle = .none {
+        didSet {
+            
+            var text:String! = self.text
+            switch capsStyle {
+            case .none:
+                text = self.text
+            case .upper:
+                text = self.text.uppercased()
+            case .lower:
+                text = self.text.lowercased()
+            case .capitalized:
+                text = self.text.capitalized
+            default:
+               break
+            }
+            self.stringValue = text
+            self.attributedStringValue = NSAttributedString(string: text , attributes: textAttributes)
+        }
+    }
+    
+    //MARK: -
+    //MARK: Paragraph style
+
+    public var paragraphStyle: NSMutableParagraphStyle = NSMutableParagraphStyle() {
+        didSet {
+            textAttributes[NSAttributedString.Key.paragraphStyle] = paragraphStyle
+        }
+    }
+
+ 
+
+    public var lineSpacing: CGFloat {
+        get {
+            return paragraphStyle.lineSpacing
+        }
+        set {
+            paragraphStyle.lineSpacing = newValue
+            textAttributes[NSAttributedString.Key.paragraphStyle] = paragraphStyle
+            self.attributedStringValue = NSAttributedString(string: self.stringValue , attributes: textAttributes)
+
+        }
+    }
+    public var lineHeightMultiple: CGFloat {
+        get {
+            return paragraphStyle.lineHeightMultiple
+        }
+        set {
+            paragraphStyle.lineHeightMultiple = newValue
+            textAttributes[NSAttributedString.Key.paragraphStyle] = paragraphStyle
+            self.attributedStringValue = NSAttributedString(string: self.stringValue , attributes: textAttributes)
+            
+        }
+    }
+    public var paragraphSpacing: CGFloat {
+        get {
+            return paragraphStyle.paragraphSpacing
+        }
+        
+        set {
+            paragraphStyle.paragraphSpacing = newValue
+            textAttributes[NSAttributedString.Key.paragraphStyle] = paragraphStyle
+            self.attributedStringValue = NSAttributedString(string: self.stringValue , attributes: textAttributes)
+        }
+    }
+    
+    
+  
+    //MARK: -
+    //MARK: Shadow
+    
+    
+    
+    public var textShadowOffset: CGSize? {
+        get {
+            return textShadow.shadowOffset
+        }
+        set {
+            textShadow.shadowOffset = CGSize(width: (newValue?.width ?? 0)*fontSize, height: (newValue?.height ?? 0)*fontSize)
+            textAttributes[NSAttributedString.Key.shadow] = textShadow
+            textAttributes[NSAttributedString.Key.paragraphStyle] = paragraphStyle
+            self.attributedStringValue = NSAttributedString(string: self.stringValue , attributes: textAttributes)
+        }
+    }
+    
+    public var textShadowColor: NSColor? {
+        get {
+            return textShadow.shadowColor
+        }
+        set {
+            textShadow.shadowColor = newValue
+            textAttributes[NSAttributedString.Key.shadow] = textShadow
+            textAttributes[NSAttributedString.Key.paragraphStyle] = paragraphStyle
+            self.attributedStringValue = NSAttributedString(string: self.stringValue , attributes: textAttributes)
+            needsDisplay = true
+        }
+    }
+    
+    public var textShadowBlur: CGFloat? {
+        get {
+            return textShadow.shadowBlurRadius
+        }
+        set {
+            textShadow.shadowBlurRadius = newValue ?? 0
+            textAttributes[NSAttributedString.Key.shadow] = textShadow
+            textAttributes[NSAttributedString.Key.paragraphStyle] = paragraphStyle
+            self.attributedStringValue = NSAttributedString(string: self.stringValue , attributes: textAttributes)
+            
+        }
+    }
+    private var textShadow: NSShadow = NSShadow()
+   
+    override init(frame myFrameRect: NSRect) {
+        super.init(frame: myFrameRect)
+        self.cell?.focusRingType = .none
+        self.cell?.controlTint = .defaultControlTint
+        self.layer?.shadowOpacity = 1.0
+        isEditable = false
+        isBordered = false
+        wantsLayer = true
+        layer?.backgroundColor = .clear
+        backgroundColor = .clear
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func getCopy() -> StickerTextField {
+        let newText = StickerTextField(frame: frame)
+        newText.textAttributes = textAttributes
+        newText.text = text
+        newText.textAlpha = textAlpha
+        newText.fontName = fontName
+        newText.fontSize = fontSize
+        newText.strokeWidth = strokeWidth
+        newText.strokeColor = strokeColor
+        newText.foregroundColor = foregroundColor
+        newText.letterSpacing = letterSpacing
+        newText.underLine = underLine
+        newText.textShadowOffset = textShadowOffset
+        newText.textShadowColor = textShadowColor
+        newText.textShadowBlur = textShadowBlur
+        newText.alphaValue = alphaValue
+        return newText
+    }
+  
+    
+}
+enum CapsStyle: Int {
+    case none = 0
+    case upper = 1
+    case lower = 2
+    case capitalized = 3
+    case firstCapitalized
+    case firstUppercased
+}
+extension StringProtocol {
+    var firstUppercased: String { prefix(1).uppercased() + dropFirst() }
+    var firstCapitalized: String { prefix(1).capitalized + dropFirst() }
 }
