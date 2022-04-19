@@ -77,7 +77,7 @@ typedef NS_ENUM(NSUInteger, ZDStickerViewType) {
 - (void)stickerViewDidCancelEditing:(ZDStickerView *)sticker;
 - (void)stickerViewDidClose:(ZDStickerView *)sticker;
 - (void)stickerViewDidResize:(ZDStickerView *)sticker;
-- (void)stickerViewDidBeginRotating:(ZDStickerView *)sticker;
+//- (void)stickerViewDidBeginRotating:(ZDStickerView *)sticker;
 - (void)stickerViewDidBeginResizing:(ZDStickerView *)sticker;
 - (void)stickerViewDidBeginMoving:(ZDStickerView *)sticker;
 - (void)stickerViewMoving:(ZDStickerView *)sticker;

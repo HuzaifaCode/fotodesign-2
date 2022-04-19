@@ -23,11 +23,13 @@ class ViewController: NSViewController {
     
    
     @IBOutlet weak var txtView: NSTextView!
-    @IBOutlet weak var txtField: NSTextField!
+    
     @IBOutlet weak var changeTxtView: NSView!
     
     @IBOutlet weak var templatestView: NSView!
     @IBOutlet weak var templatesCollectionView: NSCollectionView!
+    @IBOutlet weak var templateHeadingLbl: NSTextField!
+    
     
     @IBOutlet weak var importBgView: NSView!
     @IBOutlet weak var TextView: NSView!
@@ -137,11 +139,13 @@ class ViewController: NSViewController {
                 dashboardView.adjustSize(template: Constatnts.poster)
             }else if editorType == .invitation {
                 FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "Inviation"])
-                setDesignViewSize(aspectRatio: (0.7072/1))
+                dashboardView.adjustSize(template: Constatnts.poster)
+                    // setDesignViewSize(aspectRatio: (0.7072/1))
             }else if editorType == .logo {
                 FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "Logo"])
                 setDesignViewSize(aspectRatio: (1/1))
                 dashboardView.adjustSize(template: Constatnts.logo)
+                self.templateHeadingLbl.stringValue = "Logo Templates"
                 self.templatestView.isHidden = false
                 self.templatesCollectionView.reloadData()
             }else if editorType == .ytChannelArt {
@@ -159,6 +163,7 @@ class ViewController: NSViewController {
                 //designViewHeightConstraint.constant = 350
                // setDesignViewSize(aspectRatio: (1.7777/1))
                 dashboardView.adjustSize(template: Constatnts.thumbnail)
+                self.templateHeadingLbl.stringValue = "YT Video Thumbnails"
                 self.templatestView.isHidden = false
                 self.templatesCollectionView.reloadData()
                 //loadLocalSvg()
@@ -346,6 +351,11 @@ class ViewController: NSViewController {
     @IBAction func createBtnClicked(_ sender: Any) {
         self.templatestView.isHidden = true
     }
+    @IBAction func backToLayoutsClicked(_ sender: Any) {
+        cardSelectionView.isHidden = false
+        editingView.isHidden = true
+        self.templatestView.isHidden = true
+    }
     @IBAction func cancelBtnAction(_ sender: NSButton) {
         self.changeTxtView.isHidden = true
     }
@@ -357,6 +367,7 @@ class ViewController: NSViewController {
                     self.currentSticer?.resizeToFontSize()
                 //}
             }
+            self.currentSticer = sticker
         }
         self.changeTxtView.isHidden = true
     }
@@ -643,7 +654,7 @@ class ViewController: NSViewController {
             
             guard let self = self else { return }
             
-            islandRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+            islandRef.getData(maxSize: 1 * 2024 * 1024) { data, error in
               if let error = error {
                 // Uh-oh, an error occurred!
               } else {
@@ -1112,38 +1123,38 @@ class ViewController: NSViewController {
     }
     func addStickerToView(imageView:NSImageView) -> Void {
         
-        let newStickerFrame = NSRect(x: 100, y: 100 , width: imageView.frame.width, height: imageView.frame.height)
-        let zdView = StickerManager.getZDSticker(frame: newStickerFrame)
-        zdView.contentView = imageView
-        zdView.stickerViewDelegate = self
-        
-        addShapeSticker(sticker: zdView, atIndex: 0)
-        zdView.showEditingHandles()
+//        let newStickerFrame = NSRect(x: 100, y: 100 , width: imageView.frame.width, height: imageView.frame.height)
+//        let zdView = StickerManager.getZDSticker(frame: newStickerFrame)
+//        zdView.contentView = imageView
+//        zdView.stickerViewDelegate = self
+//
+//        addShapeSticker(sticker: zdView, atIndex: 0)
+//        zdView.showEditingHandles()
     }
     func addShapeSticker(sticker:ZDStickerView,atIndex: Int? = nil) {
-        sticker.contentView.wantsLayer = true
-        sticker.contentView.layer?.masksToBounds = false
-        sticker.stickerViewDelegate = self
-       // self.designView.addSubview(sticker)
-        self.dashboardView.addSubview(sticker)
-        self.currentSelectedShape = sticker
-       
-        
-        if atIndex != nil {
-            self.stickerLayers.insert(sticker, at: atIndex!)
-        }else {
-            self.stickerLayers.insert(sticker, at: 0)
-        }
-        DispatchQueue.main.async {
-            //let transform = sticker.transform
-            //sticker.transform = transform
-        }
-       // self.changeUndoBtnStatus()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
-            
-            // NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.currentTextSelectionChanged.rawValue), object: self.currentSelectedShape?.contentView)
-        }
+//        sticker.contentView.wantsLayer = true
+//        sticker.contentView.layer?.masksToBounds = false
+//        sticker.stickerViewDelegate = self
+//       // self.designView.addSubview(sticker)
+//        self.dashboardView.addSubview(sticker)
+//        self.currentSelectedShape = sticker
+//       
+//        
+//        if atIndex != nil {
+//            self.stickerLayers.insert(sticker, at: atIndex!)
+//        }else {
+//            self.stickerLayers.insert(sticker, at: 0)
+//        }
+//        DispatchQueue.main.async {
+//            //let transform = sticker.transform
+//            //sticker.transform = transform
+//        }
+//       // self.changeUndoBtnStatus()
+//        
+//        DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+//            
+//            // NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.currentTextSelectionChanged.rawValue), object: self.currentSelectedShape?.contentView)
+//        }
     }
     func updateStikerLayers() {
         var index = 1
@@ -1278,8 +1289,10 @@ class ViewController: NSViewController {
             
             if image.pngWrite(to: path){
                 if isBg == true{
-                    self.importBgView.isHidden = true
-                    self.bgImageView.image = image
+                   // self.importBgView.isHidden = true
+                   // self.bgImageView.image = image
+                    
+                    self.dashboardView.logoBGView.imageScaling = .scaleNone
                     dashboardView.setFrontBGImage(image: image)
                     //self.orignalBgImage = image
                     //let img = self.orignalBgImage?.addNormalFilter(filter: filterTypes[0])
@@ -1311,6 +1324,7 @@ extension ViewController: NSTextFieldDelegate {
 ////        }
 //    }
     func controlTextDidChange(_ obj: Notification) {
+        
 //        if let txtField =  obj.object as? NSTextField {
 //            print(txtField.stringValue)
 //           // NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.TextChanged.rawValue), object: nil, userInfo: ["text":txtField.stringValue])
@@ -1332,65 +1346,65 @@ extension ViewController: NSTextFieldDelegate {
     
 
 }
-extension ViewController: ZDStickerViewDelegate {
-    
-    func stickerViewDidClose(_ sticker: ZDStickerView!) {
-        //isAlertModelOpend = true
-        var str = "Do you want to delete this Asset ?"
-//        if(sticker.type() == .image) {
-//            str = "Do you want to delete this Asset ?"
+//extension ViewController: ZDStickerViewDelegate {
+//
+//    func stickerViewDidClose(_ sticker: ZDStickerView!) {
+//        //isAlertModelOpend = true
+//        var str = "Do you want to delete this Asset ?"
+////        if(sticker.type() == .image) {
+////            str = "Do you want to delete this Asset ?"
+////        }
+//        let isYes =  twoBtnAlert(question: str)
+//       // isAlertModelOpend = false
+//        if (isYes) {
+//            self.removeShapeSticker(sticker: sticker)
+//
 //        }
-        let isYes =  twoBtnAlert(question: str)
-       // isAlertModelOpend = false
-        if (isYes) {
-            self.removeShapeSticker(sticker: sticker)
-            
-        }
-        
-    }
-    func transformStickerView(_ sticker: ZDStickerView,_ transform: CGAffineTransform) {
-        //let oldTrans = sticker.transform
-//        undoManagerLM.registerUndo(withTarget: self) { (targetSelf) in
-//            targetSelf.transformStickerView(sticker,oldTrans)
+//
+//    }
+//    func transformStickerView(_ sticker: ZDStickerView,_ transform: CGAffineTransform) {
+//        //let oldTrans = sticker.transform
+////        undoManagerLM.registerUndo(withTarget: self) { (targetSelf) in
+////            targetSelf.transformStickerView(sticker,oldTrans)
+////        }
+//       // sticker.transform = transform
+//       // self.changeUndoBtnStatus()
+//    }
+//    func resizeStickerView(_ sticker: ZDStickerView,_ frame: CGRect,dFrame : NSSize? = nil) {
+////        let oldFrame = sticker.frame
+////        let oldDFrame = self.designView.bounds.size
+////        undoManagerLM.registerUndo(withTarget: self) { (targetSelf) in
+////            targetSelf.resizeStickerView(sticker,oldFrame,dFrame: oldDFrame)
+////        }
+//        var nFrame = frame
+//         if let savedSize = dFrame, dFrame != NSSize.zero{
+//           let diffSize = CGSize(width: self.designView.frame.width/savedSize.width , height: self.designView.frame.height/savedSize.height)
+//           let scale = diffSize.height
+//           if (scale != 1) {
+//             nFrame = frame.scale(by: scale)
+//           }
+//         }
+//
+//        sticker.resizeFrame(nFrame)
+//
+//        //self.changeUndoBtnStatus()
+//    }
+//
+//
+//    func stickerViewDidBeginResizing(_ sticker: ZDStickerView!) {
+////        if let shape = sticker.contentView as? ShapeImageView {
+////            shape.shouldScalePath = true
+////        }
+//        resizeStickerView(sticker,sticker.frame)
+//    }
+//    func stickerViewDidBeginEditing(_ sticker: ZDStickerView!) {
+//
+//        if self.currentSelectedShape != sticker {
+//            self.currentSticer = nil
+//            self.currentSelectedShape = sticker
 //        }
-       // sticker.transform = transform
-       // self.changeUndoBtnStatus()
-    }
-    func resizeStickerView(_ sticker: ZDStickerView,_ frame: CGRect,dFrame : NSSize? = nil) {
-//        let oldFrame = sticker.frame
-//        let oldDFrame = self.designView.bounds.size
-//        undoManagerLM.registerUndo(withTarget: self) { (targetSelf) in
-//            targetSelf.resizeStickerView(sticker,oldFrame,dFrame: oldDFrame)
-//        }
-        var nFrame = frame
-         if let savedSize = dFrame, dFrame != NSSize.zero{
-           let diffSize = CGSize(width: self.designView.frame.width/savedSize.width , height: self.designView.frame.height/savedSize.height)
-           let scale = diffSize.height
-           if (scale != 1) {
-             nFrame = frame.scale(by: scale)
-           }
-         }
-        
-        sticker.resizeFrame(nFrame)
-        
-        //self.changeUndoBtnStatus()
-    }
-    
-    
-    func stickerViewDidBeginResizing(_ sticker: ZDStickerView!) {
-//        if let shape = sticker.contentView as? ShapeImageView {
-//            shape.shouldScalePath = true
-//        }
-        resizeStickerView(sticker,sticker.frame)
-    }
-    func stickerViewDidBeginEditing(_ sticker: ZDStickerView!) {
-        
-        if self.currentSelectedShape != sticker {
-            self.currentSticer = nil
-            self.currentSelectedShape = sticker
-        }
-    }
-}
+//    }
+//}
 
 
 extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource,NSCollectionViewDelegateFlowLayout {
@@ -1398,32 +1412,28 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource,N
         if editorType == .logo{
             return 15
         }
-        return 10
+        return 14
     }
     
-  
+    func resetCell(cell:ListItem){
+        cell.tempImg.image = nil
+    }
     
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
 
             if let item = collectionView.makeItem(withIdentifier: ListItem.itemIdentifier, for: indexPath) as? ListItem {
                 
-                if indexPath.item == 0 {
-                    
-                    item.createLbl.isHidden = false
-                    
+                    resetCell(cell: item)
+                    item.createLbl.isHidden = true
+                    var thumb_Name = "yt_thumb"
+                    if editorType == .logo{
+                        thumb_Name = "logo_thumb"
+                    }
+                    if let path = Bundle.main.path(forResource: thumb_Name+String(indexPath.item), ofType:"png") {
+                        
+                        item.tempImg.image = NSImage.init(contentsOf: URL.init(fileURLWithPath: path))
+                    }
                     return item
-                }
-                
-                item.createLbl.isHidden = true
-                var thumb_Name = "yt_thumb"
-                if editorType == .logo{
-                    thumb_Name = "logo_thumb"
-                }
-                if let path = Bundle.main.path(forResource: thumb_Name+String(indexPath.item), ofType:"png") {
-                    
-                    item.tempImg.image = NSImage.init(contentsOf: URL.init(fileURLWithPath: path))
-                }
-                return item
             }
         return NSCollectionViewItem()
         
@@ -1435,8 +1445,10 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource,N
            
 
             if editorType == .logo {
+                FotoEventManager.shared.logEvent(name: .Templates, parameters: ["Name" : "Logo"])
                 self.downSvgFromFirebase(name: "logos/logo"+String(indexPath.item)+".svg")
             }else if editorType == .ytThumbnail{
+                FotoEventManager.shared.logEvent(name: .Templates, parameters: ["Name" : "YT Thumbnail"])
                 self.downSvgFromFirebase(name: "yt_thumbnails/thumb"+String(indexPath.item)+".svg")
             }
 
@@ -1445,7 +1457,7 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource,N
     func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
 
         
-        var width = ((collectionView.frame.width) / 3 ) - 20
+        var width = ((collectionView.frame.width) / 4 ) - 20
         
         if editorType == .logo{
             var width = ((collectionView.frame.width) / 4 ) - 20

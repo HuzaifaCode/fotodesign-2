@@ -12,9 +12,10 @@ import Foundation
 extension ViewController {
     func showSavePopup(view: NSView){
         mainPopover?.close()
+        self.currentSticer = nil
         let vc = SaveOptions.options()
-        let width = Int(self.dashboardView.logoView.frame.size.width * 1.5)//* editorType.rawValue * 2)
-        let height = Int(self.dashboardView.logoView.frame.size.height * 1.5 )//* editorType.rawValue * 2)
+        let width = Int(self.dashboardView.logoView.frame.size.width * 2)//* editorType.rawValue * 2)
+        let height = Int(self.dashboardView.logoView.frame.size.height * 2)//* editorType.rawValue * 2)
         vc.sizeString = "\(width)x\(height) px"
         if editorType == .ytThumbnail {
             vc.sizeString = "1280x720 px"
@@ -135,43 +136,46 @@ extension ViewController{
         var angle = 0.0
         if let dict = notification.object as? [String:Any] {
             if let color = dict["color"] as? NSColor {
-                    for  sublayer in self.designView.layer!.sublayers! {
-                        if sublayer is CAGradientLayer{
-                            sublayer.removeFromSuperlayer()
-                        }
-                    }
-                    bgImageView.image = nil
-                    designView.bgColor = color
+//                    for  sublayer in self.designView.layer!.sublayers! {
+//                        if sublayer is CAGradientLayer{
+//                            sublayer.removeFromSuperlayer()
+//                        }
+//                    }
+                    //bgImageView.image = nil
+                   // designView.bgColor = color
+                self.dashboardView.setLogoBGColor(color: color)
             }
             if let lcolor = dict["leftColor"] as? NSColor, let rcolor = dict["rightColor"] as? NSColor{
                 
                 if let gangle = dict["angle"] as? Float{
                     angle = Double(gangle)
                 }
-                let gradient  = CAGradientLayer()
-                gradient.colors = [ lcolor.cgColor,rcolor.cgColor]
-                let x: Double! = Double(angle) / 360.0
-                let a = pow(sinf(Float(2.0 * Double.pi * ((x + 0.75) / 2.0))),2.0);
-                let b = pow(sinf(Float(2*Double.pi*((x+0.0)/2))),2);
-                let c = pow(sinf(Float(2*Double.pi*((x+0.25)/2))),2);
-                let d = pow(sinf(Float(2*Double.pi*((x+0.5)/2))),2);
+                self.dashboardView.setLogoBgGradientColor(fromColor: lcolor, toColor: rcolor,angle: Float((angle ?? 0.0)))
                 
-                gradient.endPoint = CGPoint(x: CGFloat(c),y: CGFloat(d))
-                gradient.startPoint = CGPoint(x: CGFloat(a),y:CGFloat(b))
-                
-                gradient.locations = [ 0.0, 1.0]
-                    for  sublayer in self.designView.layer!.sublayers! {
-                        if sublayer is CAGradientLayer{
-                            sublayer.removeFromSuperlayer()
-                        }
-                    }
-                    bgImageView.image = nil
-                    self.designView.bgColor = NSColor.clear
-                    gradient.frame  = self.designView.bounds
-                    self.designView.layer?.insertSublayer(gradient, at: 0)
-                    self.designView.leftColor = lcolor
-                    self.designView.rightColor = rcolor
-                    self.designView.gradientAngle = Float(angle)
+//                let gradient  = CAGradientLayer()
+//                gradient.colors = [ lcolor.cgColor,rcolor.cgColor]
+//                let x: Double! = Double(angle) / 360.0
+//                let a = pow(sinf(Float(2.0 * Double.pi * ((x + 0.75) / 2.0))),2.0);
+//                let b = pow(sinf(Float(2*Double.pi*((x+0.0)/2))),2);
+//                let c = pow(sinf(Float(2*Double.pi*((x+0.25)/2))),2);
+//                let d = pow(sinf(Float(2*Double.pi*((x+0.5)/2))),2);
+//
+//                gradient.endPoint = CGPoint(x: CGFloat(c),y: CGFloat(d))
+//                gradient.startPoint = CGPoint(x: CGFloat(a),y:CGFloat(b))
+//
+//                gradient.locations = [ 0.0, 1.0]
+//                    for  sublayer in self.designView.layer!.sublayers! {
+//                        if sublayer is CAGradientLayer{
+//                            sublayer.removeFromSuperlayer()
+//                        }
+//                    }
+//                    bgImageView.image = nil
+//                    self.designView.bgColor = NSColor.clear
+//                    gradient.frame  = self.designView.bounds
+//                    self.designView.layer?.insertSublayer(gradient, at: 0)
+//                    self.designView.leftColor = lcolor
+//                    self.designView.rightColor = rcolor
+//                    self.designView.gradientAngle = Float(angle)
             }
         }
     }
@@ -240,9 +244,11 @@ extension ViewController{
         
         var images = [NSImage]()
         let scale:CGFloat = 2.5
-        if let snapshot = self.takeScreenShot(true, scale: scale){
-            images.append(snapshot)
-        }
+         let snapshot = self.dashboardView.logoView.snapshot()//{
+            //self.takeScreenShot(true, scale: scale){
+        images.append(snapshot)
+      //  }
+    
         if images.count > 0{
             if let printView = self.convertImagesToSingleView(images, spaceMargin: 50){
                 

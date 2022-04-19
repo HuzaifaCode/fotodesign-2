@@ -19,13 +19,13 @@ extension ViewController{
         
        // printBtnClicked()
        // self.designView.isHidden = false
-        let scale:CGFloat = self.editorType.rawValue
+        //let scale:CGFloat = self.editorType.rawValue
         
 
-        guard let logoData = self.dashboardView.frontPNG() else { return }
+        //guard let logoData = self.dashboardView.frontPNG() else { return }
         
         
-        guard let logoScaleData = self.dashboardView.designPNG(scale: 1.5) else { return }
+        guard let logoScaleData = self.dashboardView.designPNG(scale: editorType.rawValue) else { return }
         
 //        if let logoData = self.dashboardView?.frontPNG() {
 //            snapshot = NSImage.init(data: logoData)!
@@ -45,7 +45,7 @@ extension ViewController{
            // if let isSaved = snapshot?.saveImage(as: "tempImage", fileType: type, at: destURL as URL) {
                // if (isSaved){
                  //   let fileURLString = documentsPath+"/tempImage."+extensionType
-                    showSavePanel(data: logoScaleData,withHightRes){[weak self](isSave) in
+                    showSavePanel(data: logoScaleData){[weak self](isSave) in
                         guard self != nil else {return}
                         if isSave{
                             completion(true)
@@ -67,7 +67,7 @@ extension ViewController{
 //            })
 //        })
     }
-    func showSavePanel(data:Data,_ isHighRes:Bool = false,completion: @escaping (Bool) -> Void) -> Void {
+    func showSavePanel(data:Data,completion: @escaping (Bool) -> Void) -> Void {
         
         if(!self.isSavePanelOpen) {
             self.isSavePanelOpen = true

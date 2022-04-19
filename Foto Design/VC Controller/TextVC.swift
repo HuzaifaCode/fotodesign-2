@@ -320,7 +320,16 @@ extension TextVC: NSTextFieldDelegate {
     func controlTextDidChange(_ obj: Notification) {
         if let txtField =  obj.object as? NSTextField {
             print(txtField.stringValue)
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.TextChanged.rawValue), object: nil, userInfo: ["text":txtField.stringValue])
+            if let sticker = self.sticker {
+                if let text = sticker.contentView as? StickerTextField {
+                    //if let txt = txtView.string {
+                        text.text = txtField.stringValue
+                        self.sticker?.resizeToFontSize()
+                    //}
+                }
+            }
+            
+           // NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.TextChanged.rawValue), object: nil, userInfo: ["text":txtField.stringValue])
         }
     }
 

@@ -276,16 +276,30 @@
                                         <rect key="frame" x="330" y="590" width="870" height="70"/>
                                         <subviews>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zxe-Dm-pWZ">
-                                                <rect key="frame" x="20" y="20" width="120" height="30"/>
+                                                <rect key="frame" x="20" y="18" width="135" height="35"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="30" id="h5A-BV-YEu"/>
-                                                    <constraint firstAttribute="width" constant="120" id="uL1-wb-pbe"/>
+                                                    <constraint firstAttribute="height" constant="35" id="h5A-BV-YEu"/>
+                                                    <constraint firstAttribute="width" constant="135" id="uL1-wb-pbe"/>
                                                 </constraints>
                                                 <buttonCell key="cell" type="square" title="&lt;  Select Layout" bezelStyle="shadowlessSquare" alignment="center" imageScaling="proportionallyDown" inset="2" id="dQH-Bj-p0U">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="systemMedium" size="14"/>
                                                 </buttonCell>
                                                 <color key="contentTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cRadius">
+                                                        <real key="value" value="17.5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="bgColor">
+                                                        <color key="value" red="0.19215686274509802" green="0.63529411764705879" blue="0.19215686274509802" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderW">
+                                                        <real key="value" value="1.5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColour">
+                                                        <color key="value" red="0.94117647059999998" green="0.94509803920000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="layoutBtnClicked:" target="XfG-lQ-9wD" id="7u5-WK-9Me"/>
                                                 </connections>
@@ -438,20 +452,11 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </customView>
-                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="qfe-Yh-SvO">
-                                                <rect key="frame" x="335" y="195" width="200" height="200"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="200" id="hup-9Q-QEC"/>
-                                                    <constraint firstAttribute="height" constant="200" id="ry7-I5-uvP"/>
-                                                </constraints>
-                                            </customView>
                                         </subviews>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="R8H-rW-6lO" secondAttribute="bottom" id="0XE-El-nrJ"/>
-                                            <constraint firstItem="qfe-Yh-SvO" firstAttribute="centerY" secondItem="wWP-iy-Ed0" secondAttribute="centerY" id="CIl-N2-bGO"/>
                                             <constraint firstItem="R8H-rW-6lO" firstAttribute="top" secondItem="wWP-iy-Ed0" secondAttribute="top" id="HwM-ac-SkA"/>
                                             <constraint firstItem="R8H-rW-6lO" firstAttribute="leading" secondItem="wWP-iy-Ed0" secondAttribute="leading" id="Kzs-c0-E0l"/>
-                                            <constraint firstItem="qfe-Yh-SvO" firstAttribute="centerX" secondItem="wWP-iy-Ed0" secondAttribute="centerX" id="X1G-9N-sBy"/>
                                             <constraint firstItem="B3h-me-WZe" firstAttribute="centerY" secondItem="wWP-iy-Ed0" secondAttribute="centerY" id="ZIT-hd-HSO"/>
                                             <constraint firstItem="3Fa-i9-amQ" firstAttribute="centerY" secondItem="wWP-iy-Ed0" secondAttribute="centerY" id="rn6-2n-ISn"/>
                                             <constraint firstAttribute="trailing" secondItem="R8H-rW-6lO" secondAttribute="trailing" id="t2f-UG-M6a"/>
@@ -1105,6 +1110,35 @@
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JRZ-Vn-Qqy">
+                                        <rect key="frame" x="20" y="595" width="135" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="135" id="HCQ-Ao-RGk"/>
+                                            <constraint firstAttribute="height" constant="35" id="IeJ-L3-Zgd"/>
+                                        </constraints>
+                                        <buttonCell key="cell" type="square" title="&lt;  Select Layout" bezelStyle="shadowlessSquare" alignment="center" imageScaling="proportionallyDown" inset="2" id="aFl-kn-S3K">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="systemMedium" size="14"/>
+                                        </buttonCell>
+                                        <color key="contentTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cRadius">
+                                                <real key="value" value="17.5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="bgColor">
+                                                <color key="value" red="0.19215686269999999" green="0.63529411759999999" blue="0.19215686269999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderW">
+                                                <real key="value" value="1.5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColour">
+                                                <color key="value" red="0.94117647059999998" green="0.94509803920000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="backToLayoutsClicked:" target="XfG-lQ-9wD" id="W7m-Pk-7pc"/>
+                                        </connections>
+                                    </button>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vWC-nD-Wkh">
                                         <rect key="frame" x="1010" y="583" width="140" height="50"/>
                                         <constraints>
@@ -1151,6 +1185,8 @@
                                     </scrollView>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="JRZ-Vn-Qqy" firstAttribute="top" secondItem="xeZ-2T-mq5" secondAttribute="top" constant="30" id="0d9-zY-qty"/>
+                                    <constraint firstItem="JRZ-Vn-Qqy" firstAttribute="leading" secondItem="xeZ-2T-mq5" secondAttribute="leading" constant="20" id="Ctk-Yp-R9z"/>
                                     <constraint firstAttribute="trailing" secondItem="vWC-nD-Wkh" secondAttribute="trailing" constant="50" id="ITC-c0-IJD"/>
                                     <constraint firstItem="BkI-Ca-juq" firstAttribute="top" secondItem="xeZ-2T-mq5" secondAttribute="top" constant="40" id="TL5-WA-ePs"/>
                                     <constraint firstItem="pxM-WC-tor" firstAttribute="top" secondItem="xeZ-2T-mq5" secondAttribute="top" constant="100" id="Uaz-9A-Sof"/>
@@ -1167,6 +1203,13 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </customView>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="qfe-Yh-SvO">
+                                <rect key="frame" x="500" y="230" width="200" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="hup-9Q-QEC"/>
+                                    <constraint firstAttribute="height" constant="200" id="ry7-I5-uvP"/>
+                                </constraints>
+                            </customView>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="bbn-Jo-Q6J" secondAttribute="trailing" id="7QD-Mw-dQ3"/>
@@ -1179,9 +1222,11 @@
                             <constraint firstAttribute="trailing" secondItem="yPn-uV-a02" secondAttribute="trailing" id="PJD-mH-Pro"/>
                             <constraint firstItem="xeZ-2T-mq5" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="aT6-mU-ls3"/>
                             <constraint firstItem="yPn-uV-a02" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="hzY-dc-SSp"/>
+                            <constraint firstItem="qfe-Yh-SvO" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="opQ-zG-Zs6"/>
                             <constraint firstAttribute="bottom" secondItem="xeZ-2T-mq5" secondAttribute="bottom" id="p8x-87-UvE"/>
                             <constraint firstAttribute="trailing" secondItem="QHY-9e-612" secondAttribute="trailing" id="pee-up-ozd"/>
                             <constraint firstItem="yPn-uV-a02" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="qQ8-QE-FXi"/>
+                            <constraint firstItem="qfe-Yh-SvO" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="rk9-8R-pEm"/>
                             <constraint firstAttribute="trailing" secondItem="xeZ-2T-mq5" secondAttribute="trailing" id="xVU-M2-JSY"/>
                             <constraint firstItem="QHY-9e-612" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="xdJ-fj-bcE"/>
                         </constraints>
@@ -1206,6 +1251,7 @@
                         <outlet property="shapesBtn" destination="f6q-iF-Pbu" id="IrS-fA-eJs"/>
                         <outlet property="shapeslistView" destination="RZ8-57-H2v" id="yVk-ed-0F2"/>
                         <outlet property="socialView" destination="MYl-Rr-gX2" id="3Pv-t2-gEP"/>
+                        <outlet property="templateHeadingLbl" destination="BkI-Ca-juq" id="Tes-nF-bdq"/>
                         <outlet property="templatesBtn" destination="tx7-gz-9qf" id="PVw-wY-obO"/>
                         <outlet property="templatesCollectionView" destination="kkJ-0d-m7p" id="bnM-1d-JWY"/>
                         <outlet property="templatestView" destination="xeZ-2T-mq5" id="oHe-hB-Vc9"/>

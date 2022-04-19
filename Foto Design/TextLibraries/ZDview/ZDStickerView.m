@@ -287,9 +287,9 @@
         if ([self.stickerViewDelegate respondsToSelector:@selector(stickerViewDidBeginEditing:)]) {
             [self.stickerViewDelegate stickerViewDidBeginEditing:self];
         }
-        if ([self.stickerViewDelegate respondsToSelector:@selector(stickerViewDidBeginRotating:)]) {
-            [self.stickerViewDelegate stickerViewDidBeginRotating:self];
-        }
+//        if ([self.stickerViewDelegate respondsToSelector:@selector(stickerViewDidBeginRotating:)]) {
+//            [self.stickerViewDelegate stickerViewDidBeginRotating:self];
+//        }
      
     }
     else if ([recognizer state] == NSGestureRecognizerStateChanged)

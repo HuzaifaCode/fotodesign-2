@@ -38,4 +38,16 @@ class ListItem: NSCollectionViewItem {
     }
     
 }
+class JLStickerTextView: NSCollectionViewItem {
+
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do view setup here.
+        
+        
+    }
+    
+}
 
