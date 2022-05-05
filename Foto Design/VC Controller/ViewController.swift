@@ -132,17 +132,26 @@ class ViewController: NSViewController {
             self.mainSelectionViiew = .editing
             self.templatestView.isHidden = true
             if editorType == .poster {
-                FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "Poster"])
+               // FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "Poster"])
                 dashboardView.adjustSize(template: Constatnts.poster)
+                self.templateHeadingLbl.stringValue = "Poster Templates"
+                self.templatestView.isHidden = false
+                self.templatesCollectionView.reloadData()
             }else if editorType == .flyer {
-                FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "Flyer"])
+               // FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "Flyer"])
                 dashboardView.adjustSize(template: Constatnts.poster)
+                self.templateHeadingLbl.stringValue = "Flyer Templates"
+                self.templatestView.isHidden = false
+                self.templatesCollectionView.reloadData()
             }else if editorType == .invitation {
-                FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "Inviation"])
+                //FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "Inviation"])
                 dashboardView.adjustSize(template: Constatnts.poster)
+                self.templateHeadingLbl.stringValue = "Invitation Templates"
+                self.templatestView.isHidden = false
+                self.templatesCollectionView.reloadData()
                     // setDesignViewSize(aspectRatio: (0.7072/1))
             }else if editorType == .logo {
-                FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "Logo"])
+                //FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "Logo"])
                 setDesignViewSize(aspectRatio: (1/1))
                 dashboardView.adjustSize(template: Constatnts.logo)
                 self.templateHeadingLbl.stringValue = "Logo Templates"
@@ -151,8 +160,9 @@ class ViewController: NSViewController {
             }else if editorType == .ytChannelArt {
                 FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "Channel Art"])
                 dashboardView.adjustSize(template: Constatnts.channelArt)
-//                designViewHeightConstraint.constant = 350
-//                setDesignViewSize(aspectRatio: (1.7777/1))
+                self.templateHeadingLbl.stringValue = "YT Channel Art Templates"
+                self.templatestView.isHidden = false
+                self.templatesCollectionView.reloadData()
             }else if editorType == .fbCover {
                 FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "FB Cover"])
                 dashboardView.adjustSize(template: Constatnts.fbCover)
@@ -175,11 +185,15 @@ class ViewController: NSViewController {
             }else if editorType == .fbPost {
                 FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "FB Post"])
                 dashboardView.adjustSize(template: Constatnts.fbPost)
-//                designViewHeightConstraint.constant = 450
-//                setDesignViewSize(aspectRatio: (1.1928/1))
+                self.templateHeadingLbl.stringValue = "FB Post Templates"
+                self.templatestView.isHidden = false
+                self.templatesCollectionView.reloadData()
             }else if editorType == .instaPost {
                 FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "Insta Post"])
                 dashboardView.adjustSize(template: Constatnts.logo)
+                self.templateHeadingLbl.stringValue = "Insta Post Templates"
+                self.templatestView.isHidden = false
+                self.templatesCollectionView.reloadData()
             }else if editorType == .pintrastGraphic {
                 FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "Pintrast"])
                 dashboardView.adjustSize(template: Constatnts.pintrast)
@@ -285,6 +299,11 @@ class ViewController: NSViewController {
     }
     
     
+    lazy var sheetViewController: NSViewController = {
+        return self.storyboard!.instantiateController(withIdentifier: "SubscriptionVC")
+        as! NSViewController
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -333,6 +352,10 @@ class ViewController: NSViewController {
             userDefaults.setValue(1, forKey: APP_OPEN_COUNT)
         }
         
+        NOTIFICATION_CENTER.addObserver(self,
+                  selector: #selector(refreshData),
+                  name:NSNotification.Name( NotificationKey.Refresh_Data.rawValue),object: nil)
+        
         
     }
 
@@ -346,9 +369,43 @@ class ViewController: NSViewController {
             self.currentSelectedShape = nil
         }
         
+        if !isProUser(){
+            self.presentAsSheet(sheetViewController)
+        }
+        
     }
     
+    @objc func refreshData(){
+        self.templatesCollectionView.reloadData()
+    }
+    
+    
     @IBAction func createBtnClicked(_ sender: Any) {
+        
+        if editorType == .logo {
+            FotoEventManager.shared.logEvent(name: .Create, parameters: ["Name" : "Logo"])
+            
+        }else if editorType == .ytThumbnail{
+            FotoEventManager.shared.logEvent(name: .Create, parameters: ["Name" : "YT Thumbnail"])
+          
+        }else if (editorType == .flyer){
+            FotoEventManager.shared.logEvent(name: .Create, parameters: ["Name" : "Flyer"])
+            
+        }else if (editorType == .poster){
+            FotoEventManager.shared.logEvent(name: .Create, parameters: ["Name" : "Poster"])
+            
+        }else if (editorType == .invitation){
+            FotoEventManager.shared.logEvent(name: .Create, parameters: ["Name" : "Invitation"])
+           
+        }else if (editorType == .fbPost){
+            FotoEventManager.shared.logEvent(name: .Create, parameters: ["Name" : "FB Post"])
+            
+        }else if (editorType == .instaPost){
+            FotoEventManager.shared.logEvent(name: .Create, parameters: ["Name" : "Insta Post"])
+            
+        }
+        
+        
         self.templatestView.isHidden = true
     }
     @IBAction func backToLayoutsClicked(_ sender: Any) {
@@ -814,12 +871,6 @@ class ViewController: NSViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(textChanged), name: NSNotification.Name(rawValue: NotificationKey.TextChanged.rawValue), object: nil)
         NotificationCenter.default.addObserver(self,selector: #selector(addText(_:)),name: NSNotification.Name(rawValue: NotificationKey.AddText.rawValue),object: nil)
         notificationCenter.addObserver(self,selector: #selector(textBorderDidChanged(notification:)),name: NSNotification.Name(rawValue:NotificationKey.TextBorderDidChanged.rawValue),object: nil)
-        notificationCenter.addObserver(self, selector: #selector(colorChanged(_:)), name: NSNotification.Name(rawValue: NotificationKey.ColorChanged.rawValue),object: nil)
-        notificationCenter.addObserver(self, selector: #selector(stickerColorChanged(_:)), name: NSNotification.Name(rawValue: NotificationKey.StickerColorChanged.rawValue),object: nil)
-        notificationCenter.addObserver(self,selector: #selector(opacityChanged(_:)),name: NSNotification.Name(rawValue: NotificationKey.OpacitySliderChanged.rawValue),object: nil)
-        notificationCenter.addObserver(self,selector: #selector(stickerHeightChanged(_:)),name: NSNotification.Name(rawValue: NotificationKey.stickerHeightChanged.rawValue),object: nil)
-        notificationCenter.addObserver(self,selector: #selector(stickerWidthChanged(_:)),name: NSNotification.Name(rawValue: NotificationKey.stickerWidthChanged.rawValue),object: nil)
-        notificationCenter.addObserver(self, selector: #selector(fontChanged(_:)),name: NSNotification.Name(rawValue: NotificationKey.FontChanged.rawValue),object: nil)
         
         notificationCenter.addObserver(self,selector: #selector(alignmentChanged(_:)),name: NSNotification.Name(rawValue: NotificationKey.textAlignmentChanged.rawValue),
                                        object: nil)
@@ -829,7 +880,8 @@ class ViewController: NSViewController {
                                        object: nil)
         
         notificationCenter.addObserver(self, selector: #selector(bgColorChanged(_:)), name: NSNotification.Name(rawValue: NotificationKey.bgColorChanged.rawValue),object: nil)
-        
+        notificationCenter.addObserver(self,selector: #selector(styleStickerAdded(_:)),name: NSNotification.Name(rawValue: NotificationKey.Text_Style_Sticker_Added.rawValue),
+                                       object: nil)
         
         
     }
@@ -845,10 +897,7 @@ class ViewController: NSViewController {
             guard let self = self else {return}
             self.bgViewWidthConstraint.constant = initialValue == 330 ? 0 : 330
             self.cardslistView.isHidden = false
-//            self.scrollviewSideMenu.isHidden = !self.scrollviewSideMenu.isHidden
-//            self.tableView.isHidden = !self.tableView.isHidden
-//            self.tableView2.reloadData()
-//            self.tableView.reloadData()
+
             self.view.layoutSubtreeIfNeeded()
         }, completion: nil)
     }
@@ -913,34 +962,18 @@ class ViewController: NSViewController {
             self.alignText(alignment, sticker: sticker)
         }
     }
+    
+    @objc func styleStickerAdded(_ notification:Notification) -> Void {
+        if let style = notification.object as? FontStyles {
+            self.addFontStyleSticker(fontDetail: style)
+        }
+    }
+    
     @objc func importSticker(_ notification:Notification) -> Void {
         self.openPanel()
     }
     @objc func importBackground(_ notification:Notification) -> Void {
         self.openPanel(isBg: true)
-    }
-    @objc func fontChanged(_ notification:Notification) -> Void {
-        if let sticker = self.currentSelectedShape , let dict = notification.object as? [String:Any] {
-            
-            if let fontSize = dict["fontSize"] as? CGFloat {
-                self.updateFontSize(newFontSize:fontSize,sticker: sticker)
-            }
-            
-            if let fontName = dict["fontName"] as? String,
-                let fontStyle = dict["fontStyle"] as? String{
-                self.updateFontName(newFontName:fontName, style: fontStyle,sticker: sticker)
-                //self.changeFont(fontName, newFontSize: CGFloat(fontSize),style:fontStyle,familyName:family,sticker: sticker)
-            }else{
-                if let size = dict["fontSize"] as? CGFloat{
-                    let fontName = (sticker.contentView as? FotoContentView)?.txtView.font?.fontName ?? ""
-                    let style = (sticker.contentView as? FotoContentView)?.txtView.fontStyle ?? ""
-                    let familyName = (sticker.contentView as? FotoContentView)?.txtView.familyName ?? ""
-                    
-                    self.changeFont(fontName, newFontSize: CGFloat(size),style:style,familyName:familyName,sticker: sticker)
-                    
-                }
-            }
-        }
     }
     
     func applyColor(color:NSColor){
@@ -960,47 +993,6 @@ class ViewController: NSViewController {
             return
         }
         textView.txtView.textAlign = alignment
-    }
-    
-    
-    func updateFontSize(newFontSize:CGFloat?,sticker: ZDStickerView) {
-        guard  let textView = sticker.contentView as? FotoContentView else {
-            return
-        }
-        if let fontSize = newFontSize{
-            let font = NSFont.init(name: textView.txtView.fontName, size: fontSize)
-            textView.txtView.font = font
-            textView.txtView.textAlign = textView.txtView.textAlign
-            textView.txtView.setNeedsDisplay()
-        }
-    }
-    func updateFontName(newFontName:String?,style:String ,sticker: ZDStickerView) {
-        guard  let textView = sticker.contentView as? FotoContentView else {
-            return
-        }
-        if let fontName = newFontName{
-            let font = NSFont.init(name: fontName, size: (textView.txtView.font?.pointSize ?? 13))
-            textView.txtView.font = font
-            textView.txtView.fontName = fontName
-            textView.txtView.fontStyle = style
-            textView.txtView.textAlign = textView.txtView.textAlign
-            textView.txtView.setNeedsDisplay()
-        }
-    }
-    
-    func changeFont(_ newFontName: String,newFontSize:CGFloat,style:String,familyName:String ,sticker: ZDStickerView) {
-        guard  let textView = sticker.contentView as? FotoContentView else {
-            return
-        }
-        
-        if let nFont = NSFont.init(name: newFontName, size: newFontSize) {
-            textView.txtView.font = nFont
-            textView.txtView.textAlign = textView.txtView.textAlign
-            textView.txtView.fontName = newFontName
-            textView.txtView.fontStyle = style
-            textView.txtView.familyName = familyName
-            textView.txtView.setNeedsDisplay()
-        }
     }
     @objc func shapeSelected(_ notification: Notification){
         if let userInfo = notification.userInfo{
@@ -1049,7 +1041,6 @@ class ViewController: NSViewController {
     @IBAction func printBtnClicked(_ sender: Any) {
         self.showHudbuyProd(){[weak self](isSaved) in
             guard let self = self else {return}
-            // self.designView.isHidden = false
             self.printBtnClicked()
         }
     }
@@ -1072,38 +1063,6 @@ class ViewController: NSViewController {
             
         }
     }
-//    func showZipSavePanel(_ path:String,completion: @escaping (Bool) -> Void) -> Void {
-//
-//            let savePanel = NSSavePanel()
-//            savePanel.allowedFileTypes = ["zip"]
-//            savePanel.nameFieldStringValue = "Business Card " + Date().string(format: "yyyy-MM-dd HH mm ss")
-//            savePanel.beginSheetModal(for: self.view.window!) {[weak self](response) in
-//                guard let self = self else {return}
-//                if response == .OK{
-//                    if let url = savePanel.url {
-//                        do {
-//                            let filePath = url.path
-//                            let data = try Data.init(contentsOf: URL.init(fileURLWithPath: path))
-//                            try data.write(to: URL.init(fileURLWithPath: filePath))
-//                            self.isSavePanelOpen = false
-//                            if #available(OSX 10.14, *) {
-//                                SKStoreReviewController.requestReview()
-//                            }
-//                            completion(true)
-//                        }catch {
-//
-//                        }
-//                    }
-//                    self.isSavePanelOpen = false
-//                }else if response == .cancel {
-//
-//                    completion(true)
-//                    self.isSavePanelOpen = false
-//                }
-//            }
-//    }
-    
-    
     func showHudbuyProd(completion: @escaping (Bool) -> Void){
         hudView.isHidden = false
         hud = MBProgressHUD.showAdded(to: self.hudView, animated: true)
@@ -1121,41 +1080,7 @@ class ViewController: NSViewController {
             MBProgressHUD.hide(for: self.hudView, animated: true)
         }
     }
-    func addStickerToView(imageView:NSImageView) -> Void {
-        
-//        let newStickerFrame = NSRect(x: 100, y: 100 , width: imageView.frame.width, height: imageView.frame.height)
-//        let zdView = StickerManager.getZDSticker(frame: newStickerFrame)
-//        zdView.contentView = imageView
-//        zdView.stickerViewDelegate = self
-//
-//        addShapeSticker(sticker: zdView, atIndex: 0)
-//        zdView.showEditingHandles()
-    }
-    func addShapeSticker(sticker:ZDStickerView,atIndex: Int? = nil) {
-//        sticker.contentView.wantsLayer = true
-//        sticker.contentView.layer?.masksToBounds = false
-//        sticker.stickerViewDelegate = self
-//       // self.designView.addSubview(sticker)
-//        self.dashboardView.addSubview(sticker)
-//        self.currentSelectedShape = sticker
-//       
-//        
-//        if atIndex != nil {
-//            self.stickerLayers.insert(sticker, at: atIndex!)
-//        }else {
-//            self.stickerLayers.insert(sticker, at: 0)
-//        }
-//        DispatchQueue.main.async {
-//            //let transform = sticker.transform
-//            //sticker.transform = transform
-//        }
-//       // self.changeUndoBtnStatus()
-//        
-//        DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
-//            
-//            // NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.currentTextSelectionChanged.rawValue), object: self.currentSelectedShape?.contentView)
-//        }
-    }
+
     func updateStikerLayers() {
         var index = 1
         for layer in stickerLayers {
@@ -1163,17 +1088,9 @@ class ViewController: NSViewController {
             layer.layer?.zPosition = CGFloat(999-index)
             index += 1
         }
-       // self.tableView.reloadData()
-        //self.backgroundImageView.layer?.zPosition = CGFloat(999-(layers.count+2))
-        
         let isContain = self.stickerLayers.contains { (view) -> Bool in
             return (view as? ZDStickerView)?.type() == .image
         }
-//        if isContain{
-//            NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.StatusStickerOpacityChanged.rawValue), object: nil, userInfo: ["status":true])
-//        }else{
-//            NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.StatusStickerOpacityChanged.rawValue), object: nil, userInfo: ["status":false])
-//        }
     }
     
     func addNewIcon(icon: NSImage) {
@@ -1207,24 +1124,29 @@ class ViewController: NSViewController {
         self.addStickerView(sticker: st)
         
         currentSticer = st
-        
-        
-//
-//        if let dView = notification.object as? FotoContentView {
-//
-//            let point = CGPoint.init(x: NSMidX(self.designView.frame)-100, y:200)
-//            self.addNewTextView(dView, leftConst: -1*(point.x-100.0), bottomConst: point.y-50.0,textStr: dView.txtView.stringValue)
-//            let sticker = StickerManager.getZDSticker(frame: dView.frame)
-//            sticker.center = point
-//
-//            //dView.translatesAutoresizingMaskIntoConstraints = true
-//            sticker.contentView = dView
-//            self.addShapeSticker(sticker: sticker)
-//        }
     }
+    
+    
+    func addFontStyleSticker(fontDetail:FontStyles){
+        let text = StickerTextField(frame: CGRect(x: 0, y: 0, width: 200, height: 50))
+        
+        text.text = fontDetail.textString ?? "Enter Text Here"
+        let st = StickerView(contentView: text)
+        text.fontName = fontDetail.familyName ?? "Arial Narrow"
+        text.fontSize = CGFloat(fontDetail.fontSize ?? 23.0)
+        text.fitText()
+        text.backgroundColor = .clear
+        text.foregroundColor = NSColor.init(hex: (fontDetail.colorString ?? "000000"))
+        st.center = CGPoint(x: dashboardView.logoView.frame.midX - (text.frame.size.width/2), y: dashboardView.logoView.frame.midY) 
+        st.delegate = self
+        
+        self.addStickerView(sticker: st)
+        
+        currentSticer = st
+    }
+    
+    
     func  addNewTextView(_ dView:FotoContentView,leftConst:CGFloat,bottomConst:CGFloat,isLoadingFromModel:Bool = false,fontName:String = "American Typewriter",familyName:String  =  "American Typewriter",style:String  = "Regular",fontSize:CGFloat = 17, textStr:String =  "", textColor:NSColor = .black,isNeedToChangeZPosition: Bool = true,sendNotification:Bool = false,oldLayerIndex:Int? = nil) -> Void {
-        
-        
         
         
         if(dView.txtView.id == nil) {
@@ -1265,7 +1187,6 @@ class ViewController: NSViewController {
     override func mouseDown(with event: NSEvent) {
         self.currentSelectedShape = nil
         self.currentSticer = nil
-        //NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.currentTextSelectionChanged.rawValue), object: nil)
     }
     func openPanel(isBg:Bool? = false){
       
@@ -1289,15 +1210,8 @@ class ViewController: NSViewController {
             
             if image.pngWrite(to: path){
                 if isBg == true{
-                   // self.importBgView.isHidden = true
-                   // self.bgImageView.image = image
-                    
                     self.dashboardView.logoBGView.imageScaling = .scaleNone
                     dashboardView.setFrontBGImage(image: image)
-                    //self.orignalBgImage = image
-                    //let img = self.orignalBgImage?.addNormalFilter(filter: filterTypes[0])
-                   
-                   // NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.BgViewDidChanged.rawValue), object: self.backgroundImageView)
                 }else{
                     self.addNewIcon(icon: image)
                 }
@@ -1313,110 +1227,37 @@ class ViewController: NSViewController {
     }
 }
 extension ViewController: NSTextFieldDelegate {
-    
-//    func controlTextDidChange(_ obj: Notification) {
-//        //self.tableView.reloadData()
-//    }
-//
-//    func controlTextDidBeginEditing(_ obj: Notification) {
-////        if let sticker = self.currentSelectedShape, let txtField =  obj.object as? NSTextField {
-////            //self.changeText(txtField.stringValue, sticker: sticker)
-////        }
-//    }
+
     func controlTextDidChange(_ obj: Notification) {
-        
-//        if let txtField =  obj.object as? NSTextField {
-//            print(txtField.stringValue)
-//           // NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.TextChanged.rawValue), object: nil, userInfo: ["text":txtField.stringValue])
-//
-//        }
+
     }
 
     func controlTextDidBeginEditing(_ obj: Notification) {
-//        if let txtField =  obj.object as? NSTextField {
-//            print(txtField.stringValue)
-//        }
+
     }
     func controlTextDidEndEditing(_ obj: Notification) {
-//        if let txtField =  obj.object as? NSTextField {
-//            print(txtField.stringValue)
-//
-//        }
-    }
-    
 
+    }
 }
-//extension ViewController: ZDStickerViewDelegate {
-//
-//    func stickerViewDidClose(_ sticker: ZDStickerView!) {
-//        //isAlertModelOpend = true
-//        var str = "Do you want to delete this Asset ?"
-////        if(sticker.type() == .image) {
-////            str = "Do you want to delete this Asset ?"
-////        }
-//        let isYes =  twoBtnAlert(question: str)
-//       // isAlertModelOpend = false
-//        if (isYes) {
-//            self.removeShapeSticker(sticker: sticker)
-//
-//        }
-//
-//    }
-//    func transformStickerView(_ sticker: ZDStickerView,_ transform: CGAffineTransform) {
-//        //let oldTrans = sticker.transform
-////        undoManagerLM.registerUndo(withTarget: self) { (targetSelf) in
-////            targetSelf.transformStickerView(sticker,oldTrans)
-////        }
-//       // sticker.transform = transform
-//       // self.changeUndoBtnStatus()
-//    }
-//    func resizeStickerView(_ sticker: ZDStickerView,_ frame: CGRect,dFrame : NSSize? = nil) {
-////        let oldFrame = sticker.frame
-////        let oldDFrame = self.designView.bounds.size
-////        undoManagerLM.registerUndo(withTarget: self) { (targetSelf) in
-////            targetSelf.resizeStickerView(sticker,oldFrame,dFrame: oldDFrame)
-////        }
-//        var nFrame = frame
-//         if let savedSize = dFrame, dFrame != NSSize.zero{
-//           let diffSize = CGSize(width: self.designView.frame.width/savedSize.width , height: self.designView.frame.height/savedSize.height)
-//           let scale = diffSize.height
-//           if (scale != 1) {
-//             nFrame = frame.scale(by: scale)
-//           }
-//         }
-//
-//        sticker.resizeFrame(nFrame)
-//
-//        //self.changeUndoBtnStatus()
-//    }
-//
-//
-//    func stickerViewDidBeginResizing(_ sticker: ZDStickerView!) {
-////        if let shape = sticker.contentView as? ShapeImageView {
-////            shape.shouldScalePath = true
-////        }
-//        resizeStickerView(sticker,sticker.frame)
-//    }
-//    func stickerViewDidBeginEditing(_ sticker: ZDStickerView!) {
-//
-//        if self.currentSelectedShape != sticker {
-//            self.currentSticer = nil
-//            self.currentSelectedShape = sticker
-//        }
-//    }
-//}
 
 
 extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource,NSCollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
         if editorType == .logo{
-            return 15
+            return 26
+        }else if editorType == .invitation || editorType == .poster || editorType == .flyer {
+            return 19
+        }else if editorType == .fbPost || editorType == .instaPost{
+            return 9
+        }else if editorType == .ytChannelArt{
+            return 10
         }
-        return 14
+        return 40
     }
     
     func resetCell(cell:ListItem){
         cell.tempImg.image = nil
+        cell.proImg.isHidden = true
     }
     
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
@@ -1425,14 +1266,24 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource,N
                 
                     resetCell(cell: item)
                     item.createLbl.isHidden = true
-                    var thumb_Name = "yt_thumb"
+                    var thumb_Name = "thumbnail"
                     if editorType == .logo{
                         thumb_Name = "logo_thumb"
+                    }else if (editorType == .flyer || editorType == .poster || editorType == .invitation){
+                        thumb_Name = "poster"
+                    }else if (editorType == .fbPost || editorType == .instaPost){
+                        thumb_Name = "socialpost"
+                    }else if editorType == .ytChannelArt{
+                        thumb_Name = "channelArt"
                     }
-                    if let path = Bundle.main.path(forResource: thumb_Name+String(indexPath.item), ofType:"png") {
-                        
-                        item.tempImg.image = NSImage.init(contentsOf: URL.init(fileURLWithPath: path))
-                    }
+                    let imgName = thumb_Name + String(indexPath.item)
+       
+                    item.tempImg.image = NSImage.init(named: imgName)
+                
+                if indexPath.item > 1  && !isProUser(){
+                    item.proImg.isHidden = false
+                }
+                
                     return item
             }
         return NSCollectionViewItem()
@@ -1443,6 +1294,11 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource,N
        
         if let indexPath = indexPaths.first{
            
+            if indexPath.item > 1 && !isProUser(){
+                self.presentAsSheet(sheetViewController)
+                return
+            }
+            
 
             if editorType == .logo {
                 FotoEventManager.shared.logEvent(name: .Templates, parameters: ["Name" : "Logo"])
@@ -1450,17 +1306,38 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource,N
             }else if editorType == .ytThumbnail{
                 FotoEventManager.shared.logEvent(name: .Templates, parameters: ["Name" : "YT Thumbnail"])
                 self.downSvgFromFirebase(name: "yt_thumbnails/thumb"+String(indexPath.item)+".svg")
+            }else if (editorType == .flyer){
+                FotoEventManager.shared.logEvent(name: .Templates, parameters: ["Name" : "Flyer"])
+                self.downSvgFromFirebase(name: "posters/poster"+String(indexPath.item)+".svg")
+            }else if (editorType == .poster){
+                FotoEventManager.shared.logEvent(name: .Templates, parameters: ["Name" : "Poster"])
+                self.downSvgFromFirebase(name: "posters/poster"+String(indexPath.item)+".svg")
+            }else if (editorType == .invitation){
+                FotoEventManager.shared.logEvent(name: .Templates, parameters: ["Name" : "Invitation"])
+                self.downSvgFromFirebase(name: "posters/poster"+String(indexPath.item)+".svg")
+            }else if (editorType == .fbPost){
+                FotoEventManager.shared.logEvent(name: .Templates, parameters: ["Name" : "FB Post"])
+                self.downSvgFromFirebase(name: "socialpost/socialpost"+String(indexPath.item)+".svg")
+            }else if (editorType == .instaPost){
+                FotoEventManager.shared.logEvent(name: .Templates, parameters: ["Name" : "Insta Post"])
+                self.downSvgFromFirebase(name: "socialpost/socialpost"+String(indexPath.item)+".svg")
+            }else if (editorType == .ytChannelArt){
+                FotoEventManager.shared.logEvent(name: .Templates, parameters: ["Name" : "Channel Art"])
+                self.downSvgFromFirebase(name: "channelArt/channelArt"+String(indexPath.item)+".svg")
             }
-
         }
     }
     func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
 
         
-        var width = ((collectionView.frame.width) / 4 ) - 20
+        let width = ((collectionView.frame.width) / 4 ) - 20
         
         if editorType == .logo{
-            var width = ((collectionView.frame.width) / 4 ) - 20
+            //var width = ((collectionView.frame.width) / 4 ) - 20
+            return CGSize(width: width, height: width)
+        }else if (editorType == .flyer || editorType == .poster || editorType == .invitation){
+            return CGSize(width: width, height: width*1.414)
+        }else if (editorType == .instaPost || editorType == .fbPost){
             return CGSize(width: width, height: width)
         }
         

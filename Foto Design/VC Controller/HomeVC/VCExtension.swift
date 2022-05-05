@@ -92,7 +92,7 @@ extension ViewController: SaveProtocol {
     func pdfClicked() {
         self.mainPopover?.close()
         self.selectedExt = "pdf"
-        self.createPdf()
+        //self.createPdf()
     }
     func jpgClicked() {
         self.mainPopover?.close()
@@ -118,31 +118,10 @@ extension ViewController{
             textView.txtView.isBorder = false
         }
     }
-    @objc func colorChanged(_ notification:Notification) -> Void {
-        
-        if let sticker = self.currentSelectedShape , let color = notification.object as? NSColor {
-            self.changeTextColor(color, sticker: sticker)
-        }
-    }
-    @objc func stickerColorChanged(_ notification:Notification) -> Void {
-        
-        
-        
-        if let color = notification.object as? NSColor {
-            applyColor(color: color)
-        }
-    }
     @objc func bgColorChanged(_ notification:Notification) -> Void {
         var angle = 0.0
         if let dict = notification.object as? [String:Any] {
             if let color = dict["color"] as? NSColor {
-//                    for  sublayer in self.designView.layer!.sublayers! {
-//                        if sublayer is CAGradientLayer{
-//                            sublayer.removeFromSuperlayer()
-//                        }
-//                    }
-                    //bgImageView.image = nil
-                   // designView.bgColor = color
                 self.dashboardView.setLogoBGColor(color: color)
             }
             if let lcolor = dict["leftColor"] as? NSColor, let rcolor = dict["rightColor"] as? NSColor{
@@ -151,88 +130,8 @@ extension ViewController{
                     angle = Double(gangle)
                 }
                 self.dashboardView.setLogoBgGradientColor(fromColor: lcolor, toColor: rcolor,angle: Float((angle ?? 0.0)))
-                
-//                let gradient  = CAGradientLayer()
-//                gradient.colors = [ lcolor.cgColor,rcolor.cgColor]
-//                let x: Double! = Double(angle) / 360.0
-//                let a = pow(sinf(Float(2.0 * Double.pi * ((x + 0.75) / 2.0))),2.0);
-//                let b = pow(sinf(Float(2*Double.pi*((x+0.0)/2))),2);
-//                let c = pow(sinf(Float(2*Double.pi*((x+0.25)/2))),2);
-//                let d = pow(sinf(Float(2*Double.pi*((x+0.5)/2))),2);
-//
-//                gradient.endPoint = CGPoint(x: CGFloat(c),y: CGFloat(d))
-//                gradient.startPoint = CGPoint(x: CGFloat(a),y:CGFloat(b))
-//
-//                gradient.locations = [ 0.0, 1.0]
-//                    for  sublayer in self.designView.layer!.sublayers! {
-//                        if sublayer is CAGradientLayer{
-//                            sublayer.removeFromSuperlayer()
-//                        }
-//                    }
-//                    bgImageView.image = nil
-//                    self.designView.bgColor = NSColor.clear
-//                    gradient.frame  = self.designView.bounds
-//                    self.designView.layer?.insertSublayer(gradient, at: 0)
-//                    self.designView.leftColor = lcolor
-//                    self.designView.rightColor = rcolor
-//                    self.designView.gradientAngle = Float(angle)
             }
         }
-    }
-    func changeTextColor(_ newColor: NSColor,sticker:ZDStickerView) {
-        guard  let textView = sticker.contentView as? FotoContentView else {
-            return
-        }
-        var oldColor:NSColor? = textView.txtView.textColor
-        if(oldColor == nil) {
-            oldColor = NSColor.black
-        }
-
-        if newColor.alphaComponent == 0.00{
-            textView.txtView.textColor = NSColor.clear
-        }else{
-            textView.txtView.textColor = newColor
-            textView.txtView.stringValue = textView.txtView.stringValue
-            textView.txtView.textAlign = textView.txtView.textAlign
-             NSColorPanel.shared.color = newColor
-        }
-    
-    }
-    
-    @objc func opacityChanged(_ notification:Notification) -> Void {
-        if let sticker = self.currentSelectedShape , let opacity = notification.object as? CGFloat {
-            self.opacityChanged(opacity, sticker: sticker)
-        }
-        
-    }
-    func opacityChanged(_ opacity:CGFloat,sticker: ZDStickerView) -> Void {
-        
-        sticker.contentView.alphaValue = opacity
-
-    }
-    @objc func stickerHeightChanged(_ notification:Notification) -> Void {
-        if let sticker = self.currentSelectedShape , let height = notification.object as? CGFloat {
-            var frame = sticker.frame
-            let nheight = frame.height + height
-            if nheight < self.designView.frame.height && nheight > 50 {
-                frame.size.height = nheight
-                sticker.resizeFrame(frame)
-            }
-            
-        }
-        
-    }
-    @objc func stickerWidthChanged(_ notification:Notification) -> Void {
-        if let sticker = self.currentSelectedShape , let height = notification.object as? CGFloat {
-            var frame = sticker.frame
-            let nheight = frame.width + height
-            if nheight < self.designView.frame.width  && nheight > 100{
-                frame.size.width = nheight
-                sticker.resizeFrame(frame)
-            }
-            
-        }
-        
     }
 }
 
@@ -241,14 +140,12 @@ extension ViewController{
     
     
     func printBtnClicked(){
-        
+        self.currentSticer = nil
         var images = [NSImage]()
         let scale:CGFloat = 2.5
-         let snapshot = self.dashboardView.logoView.snapshot()//{
-            //self.takeScreenShot(true, scale: scale){
+         let snapshot = self.dashboardView.logoView.snapshot()
         images.append(snapshot)
-      //  }
-    
+
         if images.count > 0{
             if let printView = self.convertImagesToSingleView(images, spaceMargin: 50){
                 

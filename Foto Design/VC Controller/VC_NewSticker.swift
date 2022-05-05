@@ -56,15 +56,17 @@ extension ViewController: StickerViewDelegate {
     
     func stickerViewdidClose(_ stickerView: StickerView) {
         print("deleted")
-        let str = "Do you want to delete this text ?"
+        if currentSticer == stickerView{
+            let str = "Do you want to delete this text ?"
 
-        let isYes =  twoBtnAlert(question: str)
-        if (isYes) {
-            if let currentSticer = self.currentSticer {
-                currentSticer.removeFromSuperview()
-                if let index = self.stickers.firstIndex(of: currentSticer) {
-                    self.stickers.remove(at: index)
-                    self.currentSticer = nil
+            let isYes =  twoBtnAlert(question: str)
+            if (isYes) {
+                if let currentSticer = self.currentSticer {
+                    currentSticer.removeFromSuperview()
+                    if let index = self.stickers.firstIndex(of: currentSticer) {
+                        self.stickers.remove(at: index)
+                        self.currentSticer = nil
+                    }
                 }
             }
         }

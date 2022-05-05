@@ -12,6 +12,8 @@ class CardListCell: NSCollectionViewItem {
 
 
     @IBOutlet weak var quoteImg: NSImageView!
+    @IBOutlet weak var proImg: NSImageView!
+    
     
     var deleteBtnPressed: ((NSButton)->Void)?
     var syncedBtnPressed: ((NSButton)->Void)?

@@ -34,6 +34,7 @@ PODS:
   - GoogleUtilities/Logger (7.3.1):
     - GoogleUtilities/Environment
   - GTMSessionFetcher/Core (1.5.0)
+  - Localize-Swift (2.0.0)
   - nanopb (2.30908.0):
     - nanopb/decode (= 2.30908.0)
     - nanopb/encode (= 2.30908.0)
@@ -50,6 +51,7 @@ DEPENDENCIES:
   - Alamofire
   - AppCenter
   - Firebase/Storage
+  - Localize-Swift (~> 2.0)
   - PocketSVG
   - SDWebImage
   - Zip
@@ -65,6 +67,7 @@ SPEC REPOS:
     - GoogleDataTransport
     - GoogleUtilities
     - GTMSessionFetcher
+    - Localize-Swift
     - nanopb
     - PocketSVG
     - PromisesObjC
@@ -81,12 +84,13 @@ SPEC CHECKSUMS:
   GoogleDataTransport: cd9db2180fcecd8da1b561aea31e3e56cf834aa7
   GoogleUtilities: e1d9ed4e544fc32a93e00e721400cbc3f377200d
   GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
+  Localize-Swift: c798ec9286494866f7068f85f7c71283ac5bdab4
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   PocketSVG: 5e0ff20c8a661586b2f2c295cd18b3e8f06de552
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   Zip: 414f59909701fda9a84ab774ebe0f5449b1082cc
 
-PODFILE CHECKSUM: aadf972cfce567fa8d42a12c9e2d5c41307b62f3
+PODFILE CHECKSUM: a1351ed4636fb81fbc49bb696d5d6e1904d3b2c8
 
 COCOAPODS: 1.10.1

@@ -30,9 +30,9 @@ class TextVC: NSViewController {
     //@IBOutlet weak var shadowColorPicker: NSColorWell!
     @IBOutlet weak var strokeSlider: NSSlider!
     @IBOutlet weak var opacitySlider: NSSlider!
-    @IBOutlet weak var heightSlider: NSSlider!
-    @IBOutlet weak var widthSlider: NSSlider!
-    
+
+    @IBOutlet weak var textStylesTView: NSTableView!
+    var textStyles:[FontStyles]?
     
     var fontFamilyNames = NSFontManager.shared.availableFontFamilies
     var filterFontFamilyNames = NSFontManager.shared.availableFontFamilies
@@ -44,6 +44,8 @@ class TextVC: NSViewController {
     var fontUsableNames = [String]()
     var filterFontUsableNames = [String]()
     
+    var editorType:DesignViewType = .none
+    
     
     var currentTextView:StickerTextField? = nil {
         didSet {
@@ -52,12 +54,44 @@ class TextVC: NSViewController {
     }
     var sticker: StickerView?
     
+    var selectedTab:TextOption = .none{
+        didSet{
+            
+            textStylesView.isHidden = true
+            textOptionsView.isHidden = true
+            
+            editOptionsBtn.bgColor = .white
+            textStylesBtn.bgColor = .white
+            if #available(macOS 10.14, *) {
+                textStylesBtn.contentTintColor = NSColor.init(named: "Primary_Color")!
+                editOptionsBtn.contentTintColor = NSColor.init(named: "Primary_Color")!
+            } else {
+                // Fallback on earlier versions
+            }
+            
+            
+            if selectedTab == .editing {
+                if #available(macOS 10.14, *) {
+                    editOptionsBtn.bgColor = NSColor.init(named: "Primary_Color")!
+                    editOptionsBtn.contentTintColor = .white
+                }
+                textOptionsView.isHidden = false
+            }else if selectedTab == .style {
+                if #available(macOS 10.14, *) {
+                    textStylesBtn.bgColor = NSColor.init(named: "Primary_Color")!
+                    textStylesBtn.contentTintColor = .white
+                }
+                textStylesView.isHidden = false
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
         txtField.delegate = self
         
+        selectedTab = .style
         
         for index in 1...300 {
             self.fontSizes.append(String(index))
@@ -67,9 +101,34 @@ class TextVC: NSViewController {
         NotificationCenter.default.addObserver(self,selector: #selector(changeCurrentTextView(_:)),name: NSNotification.Name(rawValue: NotificationKey.selectionChanged.rawValue),
                                                       object: nil)
         
+        NotificationCenter.default.addObserver(self,selector: #selector(loadStickers(_:)),name: NSNotification.Name(rawValue: NotificationKey.DesignTypeSelected.rawValue),
+                                                      object: nil)
+        
+        
+        
+        do {
+            let data = settingJson.data(using: .utf8)!
+            let model = try JSONDecoder().decode(TextStyles.self, from: data)
+            self.textStyles = model.templates
+            textStylesTView.reloadData()
+        }catch {
+            
+            print("can't load Fonts File.")
+        }
         
         updateUI()
     }
+    
+    @objc func loadStickers(_ notification:NSNotification) -> Void {
+        if let type = notification.object as? DesignViewType {
+            self.editorType = type
+            self.selectedTab = .style
+            self.textStylesTView.reloadData()
+        }else {
+           // self.currentTextView =  nil
+        }
+    }
+    
     
     func setFont() {
         if let sticker = self.sticker {
@@ -103,12 +162,14 @@ class TextVC: NSViewController {
     }
     
     @IBAction func optionsButtonPressed(_ sender: Any) {
-        textOptionsView.isHidden = false
-        textStylesView.isHidden = true
+//        textOptionsView.isHidden = false
+//        textStylesView.isHidden = true
+        selectedTab = .editing
     }
     @IBAction func stylesButtonPressed(_ sender: Any) {
-        textOptionsView.isHidden = true
-        textStylesView.isHidden = false
+//        textOptionsView.isHidden = true
+//        textStylesView.isHidden = false
+        selectedTab = .style
     }
     @IBAction func addTextButtonPressed(_ sender: Any) {
         self.addTextView()
@@ -151,6 +212,7 @@ class TextVC: NSViewController {
             self.sticker = zdView
             if let txtView = zdView.contentView as? StickerTextField{
                 self.currentTextView = txtView
+                selectedTab = .editing
             }
         }else {
             self.currentTextView =  nil
@@ -166,47 +228,29 @@ class TextVC: NSViewController {
         if let text = self.getTextField() {
             text.strokeWidth = CGFloat(sender.floatValue)
         }
-        
-//        var dict:[String:Any] = [String:Any]()
-//        //let width = Int(borderWidthTextField.stringValue) ?? 0
-//        dict["borderWidth"] = CGFloat(sender.floatValue)
-//        dict["borderColor"] = borderColorPicker.color
-//        NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.TextBorderDidChanged.rawValue), object: dict, userInfo: nil)
     }
     @IBAction func borderColorDidChanged(_ sender: NSColorWell) {
         if let text = self.getTextField() {
             text.strokeColor = sender.color
         }
-        
-        //if let txtView = self.currentTextView?.txtView {
+
             var dict:[String:Any] = [String:Any]()
-            //let width = Int(borderWidthTextField.stringValue) ?? 0
             dict["borderWidth"] = CGFloat(strokeSlider.floatValue)
             dict["borderColor"] = sender.color
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.TextBorderDidChanged.rawValue), object: dict, userInfo: nil)
-        //}
+
     }
     
     @IBAction func opacitySliderDidChanged(_ sender: NSSlider) {
         if let text = self.getTextField() {
             text.alphaValue = CGFloat(sender.floatValue)
         }
-        
-       // NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.OpacitySliderChanged.rawValue), object:CGFloat(sender.floatValue), userInfo: nil)
-    }
-    @IBAction func stickerHeightSliderDidChanged(_ sender: NSSlider) {
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.stickerHeightChanged.rawValue), object:CGFloat(sender.floatValue), userInfo: nil)
-    }
-    @IBAction func stickerWidthSliderDidChanged(_ sender: NSSlider) {
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.stickerWidthChanged.rawValue), object:CGFloat(sender.floatValue), userInfo: nil)
     }
     
     @IBAction func chnageColor(_ sender: NSColorWell) {
         if let text = self.getTextField() {
             text.foregroundColor = sender.color
         }
-        
-        //NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.ColorChanged.rawValue), object: sender.color, userInfo: nil)
     }
     
     
@@ -222,8 +266,6 @@ class TextVC: NSViewController {
             self.filterFontFamilySizes = self.fontSizes
             colorPicker.isEnabled = true
             borderColorPicker.isEnabled = true
-            heightSlider.isEnabled = true
-            widthSlider.isEnabled = true
             self.txtField.stringValue = currentTextView?.stringValue ?? ""
             self.fontCombobox.reloadData()
             self.styleCombobox.reloadData()
@@ -240,9 +282,7 @@ class TextVC: NSViewController {
                 self.strokeSlider.floatValue = Float(dView.borderW)
                 
                 let index = self.fontFamilyNames.firstIndex(of: dView.font?.familyName ?? "")
-                //self.changesMadeByMe = true
-                //self.fontCombobox.selectItem(at: index ?? 0)
-                //self.changesMadeByMe = false
+
                 if let fontStyles =  NSFontManager.shared.availableMembers(ofFontFamily: dView.font?.familyName ?? "") {
                     if(self.fontUsableNames.count > 0) {
                         self.fontUsableNames.removeAll()
@@ -275,7 +315,7 @@ class TextVC: NSViewController {
 
                     self.sizeCombobox.stringValue = String(Int(font.pointSize))
                 }
-                self.colorPicker.color = dView.textColor ?? NSColor.black
+                self.colorPicker.color = dView.foregroundColor ?? NSColor.black
                 self.borderColorPicker.color = dView.borderColour ?? NSColor.black
 
             }else {
@@ -283,9 +323,6 @@ class TextVC: NSViewController {
                 styleCombobox.isEnabled = false
                 sizeCombobox.isEnabled = false
                 strokeSlider.isEnabled = false
-                //self.fontCombobox.selectItem(at: 1)
-                //self.styleCombobox.selectItem(at: 1)
-                //self.sizeCombobox.selectItem(at: 13)
 
             }
         }else{
@@ -301,18 +338,10 @@ class TextVC: NSViewController {
             self.strokeSlider.isEnabled = false
             self.opacitySlider.floatValue = 0
             self.opacitySlider.isEnabled = false
-            heightSlider.isEnabled = false
-            widthSlider.isEnabled = false
             colorPicker.isEnabled = false
             borderColorPicker.isEnabled = false
             updateAlignementUI()
         }
-//        self.updateAlignementUI()
-//        self.updateBoldItalicUnderLineBtnUI()
-//        self.updateSliders()
-//        self.updateBorderUI()
-//        self.updateRotation()
-        
     }
 }
 extension TextVC: NSTextFieldDelegate {
@@ -567,4 +596,72 @@ extension TextVC: NSComboBoxDelegate {
 //            }
 //        }
 //    }
+}
+extension TextVC: NSTableViewDelegate, NSTableViewDataSource {
+    func numberOfRows(in tableView: NSTableView) -> Int {
+        if let count = textStyles{
+            return count.count
+        }
+        return 0//self.stickers.count
+    }
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        
+        guard let cell = tableView.makeView(withIdentifier: TextStyleTableCellView.cellIdentifier, owner: self) as? TextStyleTableCellView else {
+            fatalError("The dequeued cell is not an instance of TableViewCell.")
+        }
+        if let textStyle = self.textStyles?[row]{
+            cell.textLbl.stringValue = GeneralManager.shared.getEditorString(editor: self.editorType)
+            let font = NSFont.init(name: textStyle.familyName ?? "Ederson-Regular", size: 25)
+            cell.textLbl.font = font
+            cell.textLbl.textColor = NSColor.init(hex: (textStyle.colorString ?? "000000"))
+        }else{
+            cell.textLbl.stringValue = "Beauty Logo"
+            let font = NSFont.init(name: "Ederson-Regular", size: 25)
+            cell.textLbl.font = font
+        }
+        
+
+        return cell
+    }
+        func tableViewSelectionDidChange(_ notification: Notification) {
+            let row = self.textStylesTView.selectedRow
+            if let style = textStyles?[row]{
+                var txtSyle = style
+                txtSyle.textString = GeneralManager.shared.getEditorString(editor: self.editorType) //"Beauty Logo"
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.Text_Style_Sticker_Added.rawValue), object:txtSyle, userInfo: nil)
+            }
+            
+            
+        }
+    func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
+        return 60
+    }
+       
+    
+        
+}
+class TextStyleTableCellView: NSTableCellView {
+
+    @IBOutlet weak var textLbl: NSTextField!
+    @IBOutlet weak var thumbView: NSImageView!
+    @IBOutlet weak var box: NSBox!
+    static let cellIdentifier = NSUserInterfaceItemIdentifier(rawValue: "TextStyleTableCellView")
+    override func draw(_ dirtyRect: NSRect) {
+        super.draw(dirtyRect)
+
+        // Drawing code here.
+    }
+    
+}
+class LayerTableRowView: NSTableRowView {
+
+    override func drawSelection(in dirtyRect: NSRect) {
+        if selectionHighlightStyle != .none {
+            let selectionRect = bounds.insetBy(dx: 2.5, dy: 2.5)
+
+            let selectionPath = NSBezierPath(rect: selectionRect)
+            selectionPath.fill()
+            selectionPath.stroke()
+        }
+      }
 }

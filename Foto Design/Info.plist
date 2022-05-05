@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>ATSApplicationFontsPath</key>
+	<string>Assets/Fonts/</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -33,5 +35,17 @@
 	<string>Main</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string></string>
+		<string>AgencyFB-Reg.TTF</string>
+		<string>AsiyahScript.ttf</string>
+		<string>MinimaSSiBold.TTF</string>
+		<string>Mistral.TTF</string>
+		<string>SpicyRice-Regular.ttf</string>
+		<string>Vonique92.otf</string>
+		<string>Ariston.TTF</string>
+		<string>SegoeUIBlack.ttf</string>
+	</array>
 </dict>
 </plist>

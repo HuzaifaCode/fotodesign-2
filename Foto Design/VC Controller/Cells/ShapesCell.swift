@@ -12,7 +12,7 @@ class ShapesCell: NSCollectionViewItem {
 
 
     @IBOutlet weak var quoteImg: NSImageView!
-    
+    @IBOutlet weak var proImg: NSImageView!
     
     
     override func viewDidLoad() {
@@ -28,6 +28,7 @@ class ListItem: NSCollectionViewItem {
     static let itemIdentifier: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier(rawValue: "ListItem")
     
     @IBOutlet weak var tempImg: NSImageView!
+    @IBOutlet weak var proImg: NSImageView!
     @IBOutlet weak var createLbl: NSTextField!
     
     override func viewDidLoad() {

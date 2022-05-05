@@ -12,6 +12,7 @@ target 'Foto Design' do
   pod 'Alamofire'
   pod 'SDWebImage'
   pod 'AppCenter'
+  pod 'Localize-Swift', '~> 2.0'
   # Pods for TypoGraphy Editor
 
 end

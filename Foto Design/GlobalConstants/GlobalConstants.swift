@@ -22,12 +22,53 @@ let NOTIFICATION_CENTER = NotificationCenter.default
 let appDelegate = NSApp.delegate as! AppDelegate
 let userDefaults = UserDefaults.standard
 
+
+let Lifetime_Plan = "com.fotodesign.lifetimeplan"
+let Monthly_Plan = "com.fotodesign.monthly"
+let Weekly_Plan = "com.fotodesign.weekly"
+//let Yearly_Plan = "com.myapps.screenshots.yearly"
+
+let IS_SUBSCRIBED_USER = "creationDaty"
+let is_Lifetime_User = "isNeedToClearChache"
+
+
+let TERMS_OF_USE = "https://sites.google.com/view/myapps-tech/terms-of-use"
+let PRIVACY_POLICY = "https://sites.google.com/view/myapps-tech/privacy-policy"
+
+
+
+
 let MAIN_COLOR = "9B2F82"
 
 
 let IS_FREE_USERS = "isFreeUsers"
 let documentDiroctoryPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
 let ImportedStickerpath = documentDiroctoryPath.appending("/Stickers")
+
+
+
+func isProUser()->Bool{
+    
+    if appDelegate.isRecieptLoaded == true{
+        if appDelegate.is_subscribed == true{
+            return true
+        }
+        if appDelegate.is_Lifetime == true{
+            return true
+        }
+    }else{
+        if userDefaults.bool(forKey: is_Lifetime_User) == true{
+            return true
+        }
+        if userDefaults.bool(forKey: IS_SUBSCRIBED_USER) == true{
+            return true
+        }
+    }
+    
+    
+    return false
+}
+
 
 
 enum NotificationKey: String
@@ -39,9 +80,6 @@ enum NotificationKey: String
     case TextChanged = "TextChanged"
     case ColorChanged = "ColorChanged"
     case StickerColorChanged = "StickerColorChanged"
-    case OpacitySliderChanged = "OpacitySliderChanged"
-    case stickerHeightChanged = "stickerheightChanged"
-    case stickerWidthChanged = "stickerWidthChanged"
     case TextBorderDidChanged = "TextBorderDidChanged"
     case bgColorChanged = "bgColorChanged"
     case FontChanged = "FontChanged"
@@ -51,6 +89,11 @@ enum NotificationKey: String
     case importBackgroundSticker = "importBackgroundSticker"
     case cardSideSeleceted = "cardSideSeleceted"
     case DesignTypeSelected = "DesignTypeSelected"
+    case Refresh_Data = "refreshData"
+    case dismiss_Clicked = "dismiss_Clicked"
+    case ShowProScreen = "ShowProScreen"
+    case products_loaded = "productsloaded"
+    case Text_Style_Sticker_Added = "TextStyleStickerAdded"
 }
 
 func loadImageNamed(name: String) -> NSImage? {
@@ -75,6 +118,10 @@ enum Direction : Int {
 
 enum EditOption : Int {
     case importBg = 1, shape = 2, backgrounds = 3, text = 4
+}
+
+enum TextOption : Int {
+    case none = 1, style = 2, editing = 3
 }
 
 enum DesignViewType : CGFloat {
@@ -199,7 +246,15 @@ struct FeedbackEmail {
     }
 }
 
-
+func openAppWithUrl(url:String) {
+    
+    guard let url = URL(string : url) else {
+        //completion(false)
+        return
+    }
+    
+    NSWorkspace.shared.open(url)
+}
 
 class StickerManager:NSObject {
     

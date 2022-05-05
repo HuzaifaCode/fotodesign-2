@@ -131,6 +131,7 @@ enum MyAnalyticsEventsName : String {
     case DesignType = "Layout Selection",
     saveDesign = "Save Design",
     PosterTemplates = "PosterTemplates",
-    Templates = "Templates"
+    Templates = "Templates",
+    Create = "Create your Own"
 
 }

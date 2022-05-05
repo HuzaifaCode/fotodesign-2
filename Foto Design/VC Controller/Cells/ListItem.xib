@@ -22,8 +22,12 @@
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="card1" id="RBY-Nl-g1L"/>
                             </imageView>
                             <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jfE-5c-rbg">
-                                <rect key="frame" x="803" y="5" width="0.0" height="0.0"/>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="jPs-ox-x02"/>
+                                <rect key="frame" x="758" y="451" width="40" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="Igq-6c-OV7"/>
+                                    <constraint firstAttribute="height" constant="25" id="zYj-B1-cct"/>
+                                </constraints>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="pro_icon" id="jPs-ox-x02"/>
                             </imageView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ti3-og-X6o">
                                 <rect key="frame" x="28" y="233" width="752" height="21"/>
@@ -52,11 +56,11 @@
                             <constraint firstItem="ti3-og-X6o" firstAttribute="centerY" secondItem="d3j-xc-dqE" secondAttribute="centerY" id="Exo-Ii-24L"/>
                             <constraint firstAttribute="trailing" secondItem="zgp-g5-6fX" secondAttribute="trailing" id="FLr-5g-QZR"/>
                             <constraint firstItem="zgp-g5-6fX" firstAttribute="leading" secondItem="d3j-xc-dqE" secondAttribute="leading" id="Ict-lY-sdl"/>
-                            <constraint firstAttribute="bottom" secondItem="jfE-5c-rbg" secondAttribute="bottom" constant="5" id="S3C-LB-fnj"/>
                             <constraint firstItem="ti3-og-X6o" firstAttribute="leading" secondItem="d3j-xc-dqE" secondAttribute="leading" constant="30" id="bFz-6w-BVi"/>
+                            <constraint firstItem="jfE-5c-rbg" firstAttribute="top" secondItem="zgp-g5-6fX" secondAttribute="top" constant="10" id="fGc-Q9-Og4"/>
                             <constraint firstItem="zgp-g5-6fX" firstAttribute="top" secondItem="d3j-xc-dqE" secondAttribute="top" id="nk7-gs-Rf8"/>
-                            <constraint firstAttribute="trailing" secondItem="jfE-5c-rbg" secondAttribute="trailing" constant="5" id="odf-th-QpR"/>
                             <constraint firstAttribute="trailing" secondItem="Dmu-BD-JwY" secondAttribute="trailing" constant="5" id="vnY-Yz-wfL"/>
+                            <constraint firstItem="jfE-5c-rbg" firstAttribute="trailing" secondItem="zgp-g5-6fX" secondAttribute="trailing" constant="-10" id="yjY-MD-Qdl"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cRadius">
@@ -83,11 +87,13 @@
             </customView>
             <connections>
                 <outlet property="createLbl" destination="ti3-og-X6o" id="1sJ-SV-qcy"/>
+                <outlet property="proImg" destination="jfE-5c-rbg" id="e3i-vd-2AH"/>
                 <outlet property="tempImg" destination="zgp-g5-6fX" id="4Uu-IS-aeE"/>
             </connections>
         </collectionViewItem>
     </objects>
     <resources>
         <image name="card1" width="808" height="486"/>
+        <image name="pro_icon" width="60" height="34"/>
     </resources>
 </document>

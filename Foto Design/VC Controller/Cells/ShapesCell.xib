@@ -21,11 +21,21 @@
                                 <rect key="frame" x="5" y="5" width="808" height="486"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="card1" id="RBY-Nl-g1L"/>
                             </imageView>
+                            <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="54C-Eu-Ei5">
+                                <rect key="frame" x="783" y="471" width="25" height="15"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="25" id="AxY-j5-2hs"/>
+                                    <constraint firstAttribute="height" constant="15" id="l1L-mx-Hjx"/>
+                                </constraints>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="pro_icon" id="QlJ-f6-q7h"/>
+                            </imageView>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="zgp-g5-6fX" secondAttribute="bottom" constant="5" id="DMP-MK-W6E"/>
                             <constraint firstAttribute="trailing" secondItem="zgp-g5-6fX" secondAttribute="trailing" constant="5" id="FLr-5g-QZR"/>
                             <constraint firstItem="zgp-g5-6fX" firstAttribute="leading" secondItem="d3j-xc-dqE" secondAttribute="leading" constant="5" id="Ict-lY-sdl"/>
+                            <constraint firstItem="54C-Eu-Ei5" firstAttribute="trailing" secondItem="zgp-g5-6fX" secondAttribute="trailing" constant="-5" id="bdp-5R-eiK"/>
+                            <constraint firstItem="54C-Eu-Ei5" firstAttribute="top" secondItem="zgp-g5-6fX" secondAttribute="top" constant="5" id="iTV-Xb-38s"/>
                             <constraint firstItem="zgp-g5-6fX" firstAttribute="top" secondItem="d3j-xc-dqE" secondAttribute="top" constant="5" id="nk7-gs-Rf8"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
@@ -52,11 +62,13 @@
                 </constraints>
             </customView>
             <connections>
+                <outlet property="proImg" destination="54C-Eu-Ei5" id="sbb-9A-Udc"/>
                 <outlet property="quoteImg" destination="zgp-g5-6fX" id="SYM-Wg-Day"/>
             </connections>
         </collectionViewItem>
     </objects>
     <resources>
         <image name="card1" width="808" height="486"/>
+        <image name="pro_icon" width="60" height="34"/>
     </resources>
 </document>

@@ -55,6 +55,13 @@ class CardsListVC: NSViewController {
         }
     }
     
+    lazy var sheetViewController: NSViewController = {
+        return self.storyboard!.instantiateController(withIdentifier: "SubscriptionVC")
+        as! NSViewController
+    }()
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
@@ -64,8 +71,17 @@ class CardsListVC: NSViewController {
         NotificationCenter.default.addObserver(self,selector: #selector(loadBackgrounds(_:)),name: NSNotification.Name(rawValue: NotificationKey.DesignTypeSelected.rawValue),
                                                       object: nil)
         
+        NOTIFICATION_CENTER.addObserver(self,
+                  selector: #selector(refreshData),
+                  name:NSNotification.Name( NotificationKey.Refresh_Data.rawValue),object: nil)
+        
        // loadData()
     }
+    
+    @objc func refreshData(){
+        self.bgCollectionView.reloadData()
+    }
+    
     
     @objc func loadBackgrounds(_ notification:NSNotification) -> Void {
         if let type = notification.object as? DesignViewType {
@@ -177,11 +193,16 @@ extension CardsListVC:NSCollectionViewDelegate,NSCollectionViewDataSource,NSColl
         }
         return 0
     }
+    func resetCell(cell:CardListCell){
+        cell.proImg.isHidden = true
+    }
     
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
         guard let cell =   collectionView.makeItem(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "CardListCell"), for: indexPath) as? CardListCell else {
             fatalError("The dequeued cell is not an instance of DetailCell.")
         }
+        
+        self.resetCell(cell: cell)
         if let bg = backgroundsArray?[indexPath.item]{
             
             cell.quoteImg.sd_setImage(with: URL.init(string:bg.previewURL),placeholderImage: NSImage(named: "postsBg0"), options: .highPriority, progress: nil, completed: { (image, error, type, url) in
@@ -193,6 +214,13 @@ extension CardsListVC:NSCollectionViewDelegate,NSCollectionViewDataSource,NSColl
         }
         
         cell.quoteImg.imageScaling = .scaleAxesIndependently
+        
+        
+        
+        if indexPath.item >= 5  && !isProUser(){
+            cell.proImg.isHidden = false
+        }
+        
         
         return cell
     }
@@ -209,6 +237,13 @@ extension CardsListVC:NSCollectionViewDelegate,NSCollectionViewDataSource,NSColl
     }
     func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
         guard let indexPath = indexPaths.first else {return}
+        
+        
+        if indexPath.item >= 5 && !isProUser(){
+            self.presentAsSheet(sheetViewController)
+            return
+        }
+        
         
         if let bg = backgroundsArray?[indexPath.item].largeImageURL{
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.BusinessCardSelected.rawValue), object: nil, userInfo: ["url":bg])

@@ -19,6 +19,11 @@ class ShapesListVC: NSViewController {
     
     var editorType:DesignViewType = .none
     
+    lazy var sheetViewController: NSViewController = {
+        return self.storyboard!.instantiateController(withIdentifier: "SubscriptionVC")
+        as! NSViewController
+    }()
+    
     
     var stickerSelection: StickerSelection = .logo {
         didSet{
@@ -47,11 +52,20 @@ class ShapesListVC: NSViewController {
         NotificationCenter.default.addObserver(self,selector: #selector(changeCurrentTextView(_:)),name: NSNotification.Name(rawValue: NotificationKey.selectionChanged.rawValue),
                                                       object: nil)
         
+        NOTIFICATION_CENTER.addObserver(self,
+                  selector: #selector(refreshData),
+                  name:NSNotification.Name( NotificationKey.Refresh_Data.rawValue),object: nil)
+        
     }
     
+    @objc func refreshData(){
+        self.stickerCollectionView.reloadData()
+    }
+    
+    
     @objc func changeCurrentTextView(_ notification:NSNotification) -> Void {
-        if let zdView = notification.object as? StickerView {
-            self.sticker = zdView
+        if let sView = notification.object as? StickerView {
+            self.sticker = sView
         }else {
             self.sticker =  nil
         }
@@ -89,7 +103,6 @@ class ShapesListVC: NSViewController {
                 shape_View.fillColor = sender.color
             }
         }
-       // NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.StickerColorChanged.rawValue), object: sender.color, userInfo: nil)
     }
     
 }
@@ -107,10 +120,15 @@ extension ShapesListVC:NSCollectionViewDelegate,NSCollectionViewDataSource,NSCol
         return 154
     }
     
+    func resetCell(cell:ShapesCell){
+        cell.proImg.isHidden = true
+    }
+    
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
         guard let cell =   collectionView.makeItem(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "ShapesCell"), for: indexPath) as? ShapesCell else {
             fatalError("The dequeued cell is not an instance of DetailCell.")
         }
+        self.resetCell(cell: cell)
         if stickerSelection == .logo {
             if let img = loadImageNamed(name: "logo_icon" + String(indexPath.item)){
                 cell.quoteImg.image = img
@@ -129,6 +147,12 @@ extension ShapesListVC:NSCollectionViewDelegate,NSCollectionViewDataSource,NSCol
             }
         }
         cell.quoteImg.imageScaling = .scaleProportionallyUpOrDown
+        
+        if indexPath.item >= 5  && !isProUser(){
+            cell.proImg.isHidden = false
+        }
+        
+        
         return cell
     }
     func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
@@ -139,6 +163,13 @@ extension ShapesListVC:NSCollectionViewDelegate,NSCollectionViewDataSource,NSCol
     }
     func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
         guard let indexPath = indexPaths.first else {return}
+        
+        
+        if indexPath.item >= 5 && !isProUser(){
+            self.presentAsSheet(sheetViewController)
+            return
+        }
+        
         
         var iconName = "logo_icon" + String(indexPath.item)
         if stickerSelection == .logo {
