@@ -63,6 +63,7 @@ class ViewController: NSViewController {
     
     @IBOutlet weak var editingView: NSView!
     
+    var svgData:Data?
     
     var stickers: [StickerView] = []
     var currentSticer: StickerView? = nil {
@@ -75,32 +76,16 @@ class ViewController: NSViewController {
             if let sticker = currentSticer {
                 sticker.isEditinMode = true
                 if let textView = sticker.contentView as? StickerTextField {
-//                    textVC?.sticker = currentSticer
-//                    self.mainMenuState = .text
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.selectionChanged.rawValue), object: self.currentSticer)
                     
                     self.currentEditOption = .text
                 }else {
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKey.selectionChanged.rawValue), object: self.currentSticer)
                     self.currentEditOption = .shape
-//                    self.logoVC?.sticker = currentSticer
-//                    self.mainMenuState = .logo
                 }
-//                opacitySlider.floatValue = Float(sticker.contentView.alphaValue)
-//                btnOpacity.isHidden = false
-//                btnDelete.isHidden = false
-//                btnDuplicate.isHidden = false
-//                opacitySlider.isHidden = false
-//                btnDelete.alphaValue = 1
             }else {
-               // btnOpacity.isHidden = true
-               // btnDelete.isHidden = true
-               // btnDuplicate.isHidden = true
-//                opacitySlider.isHidden = true
-//                opacitySliderWidth.constant = 0
-//                self.mainMenuState = .bg
+
             }
-           // self.layersTableView.reloadData()
         }
     }
     
@@ -132,26 +117,22 @@ class ViewController: NSViewController {
             self.mainSelectionViiew = .editing
             self.templatestView.isHidden = true
             if editorType == .poster {
-               // FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "Poster"])
                 dashboardView.adjustSize(template: Constatnts.poster)
                 self.templateHeadingLbl.stringValue = "Poster Templates"
                 self.templatestView.isHidden = false
                 self.templatesCollectionView.reloadData()
             }else if editorType == .flyer {
-               // FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "Flyer"])
+
                 dashboardView.adjustSize(template: Constatnts.poster)
                 self.templateHeadingLbl.stringValue = "Flyer Templates"
                 self.templatestView.isHidden = false
                 self.templatesCollectionView.reloadData()
             }else if editorType == .invitation {
-                //FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "Inviation"])
                 dashboardView.adjustSize(template: Constatnts.poster)
                 self.templateHeadingLbl.stringValue = "Invitation Templates"
                 self.templatestView.isHidden = false
                 self.templatesCollectionView.reloadData()
-                    // setDesignViewSize(aspectRatio: (0.7072/1))
             }else if editorType == .logo {
-                //FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "Logo"])
                 setDesignViewSize(aspectRatio: (1/1))
                 dashboardView.adjustSize(template: Constatnts.logo)
                 self.templateHeadingLbl.stringValue = "Logo Templates"
@@ -169,9 +150,6 @@ class ViewController: NSViewController {
 //                designViewHeightConstraint.constant = 200
 //                setDesignViewSize(aspectRatio: (2.701/1))
             }else if editorType == .ytThumbnail {
-                FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "YT Thumbnail"])
-                //designViewHeightConstraint.constant = 350
-               // setDesignViewSize(aspectRatio: (1.7777/1))
                 dashboardView.adjustSize(template: Constatnts.thumbnail)
                 self.templateHeadingLbl.stringValue = "YT Video Thumbnails"
                 self.templatestView.isHidden = false
@@ -179,17 +157,13 @@ class ViewController: NSViewController {
                 //loadLocalSvg()
             }else if editorType == .googleCover {
                 FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "Google Cover"])
-//                designViewHeightConstraint.constant = 360
-//                setDesignViewSize(aspectRatio: (1.7714/1))
                 dashboardView.adjustSize(template: Constatnts.googleCover)
             }else if editorType == .fbPost {
-                FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "FB Post"])
                 dashboardView.adjustSize(template: Constatnts.fbPost)
                 self.templateHeadingLbl.stringValue = "FB Post Templates"
                 self.templatestView.isHidden = false
                 self.templatesCollectionView.reloadData()
             }else if editorType == .instaPost {
-                FotoEventManager.shared.logEvent(name: .DesignType, parameters: ["Name" : "Insta Post"])
                 dashboardView.adjustSize(template: Constatnts.logo)
                 self.templateHeadingLbl.stringValue = "Insta Post Templates"
                 self.templatestView.isHidden = false
@@ -382,28 +356,7 @@ class ViewController: NSViewController {
     
     @IBAction func createBtnClicked(_ sender: Any) {
         
-        if editorType == .logo {
-            FotoEventManager.shared.logEvent(name: .Create, parameters: ["Name" : "Logo"])
-            
-        }else if editorType == .ytThumbnail{
-            FotoEventManager.shared.logEvent(name: .Create, parameters: ["Name" : "YT Thumbnail"])
-          
-        }else if (editorType == .flyer){
-            FotoEventManager.shared.logEvent(name: .Create, parameters: ["Name" : "Flyer"])
-            
-        }else if (editorType == .poster){
-            FotoEventManager.shared.logEvent(name: .Create, parameters: ["Name" : "Poster"])
-            
-        }else if (editorType == .invitation){
-            FotoEventManager.shared.logEvent(name: .Create, parameters: ["Name" : "Invitation"])
-           
-        }else if (editorType == .fbPost){
-            FotoEventManager.shared.logEvent(name: .Create, parameters: ["Name" : "FB Post"])
-            
-        }else if (editorType == .instaPost){
-            FotoEventManager.shared.logEvent(name: .Create, parameters: ["Name" : "Insta Post"])
-            
-        }
+        FotoEventManager.shared.addEvent(editorType: editorType, eventType: .Create)
         
         
         self.templatestView.isHidden = true
@@ -711,13 +664,15 @@ class ViewController: NSViewController {
             
             guard let self = self else { return }
             
-            islandRef.getData(maxSize: 1 * 2024 * 1024) { data, error in
+            islandRef.getData(maxSize: 3 * 2024 * 1024) { data, error in
               if let error = error {
                 // Uh-oh, an error occurred!
+                self.hideHud()
               } else {
                 if let dat = data{
                     self.hideHud()
                     self.templatestView.isHidden = true
+                    self.svgData = dat
                     self.loadSvgFromData(data: dat)
                 }
               }
@@ -777,6 +732,7 @@ class ViewController: NSViewController {
         self.stickers.removeAll()
         self.dashboardView.logoBGView.image = nil
         
+        self.svgData = nil
         
     }
     @IBAction func socialPostClicked(_ sender: Any) {
@@ -1060,7 +1016,9 @@ class ViewController: NSViewController {
             }
             self.stickers.removeAll()
             self.dashboardView.logoBGView.image = nil
-            
+            if let svg = self.svgData{
+                self.loadSvgFromData(data: svg)
+            }
         }
     }
     func showHudbuyProd(completion: @escaping (Bool) -> Void){
@@ -1299,30 +1257,23 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource,N
                 return
             }
             
+            FotoEventManager.shared.addEvent(editorType: editorType, eventType: .Templates)
 
             if editorType == .logo {
-                FotoEventManager.shared.logEvent(name: .Templates, parameters: ["Name" : "Logo"])
                 self.downSvgFromFirebase(name: "logos/logo"+String(indexPath.item)+".svg")
             }else if editorType == .ytThumbnail{
-                FotoEventManager.shared.logEvent(name: .Templates, parameters: ["Name" : "YT Thumbnail"])
-                self.downSvgFromFirebase(name: "yt_thumbnails/thumb"+String(indexPath.item)+".svg")
+                self.downSvgFromFirebase(name: "yt_thumbnails/thumbnail"+String(indexPath.item)+".svg")
             }else if (editorType == .flyer){
-                FotoEventManager.shared.logEvent(name: .Templates, parameters: ["Name" : "Flyer"])
                 self.downSvgFromFirebase(name: "posters/poster"+String(indexPath.item)+".svg")
             }else if (editorType == .poster){
-                FotoEventManager.shared.logEvent(name: .Templates, parameters: ["Name" : "Poster"])
                 self.downSvgFromFirebase(name: "posters/poster"+String(indexPath.item)+".svg")
             }else if (editorType == .invitation){
-                FotoEventManager.shared.logEvent(name: .Templates, parameters: ["Name" : "Invitation"])
                 self.downSvgFromFirebase(name: "posters/poster"+String(indexPath.item)+".svg")
             }else if (editorType == .fbPost){
-                FotoEventManager.shared.logEvent(name: .Templates, parameters: ["Name" : "FB Post"])
                 self.downSvgFromFirebase(name: "socialpost/socialpost"+String(indexPath.item)+".svg")
             }else if (editorType == .instaPost){
-                FotoEventManager.shared.logEvent(name: .Templates, parameters: ["Name" : "Insta Post"])
                 self.downSvgFromFirebase(name: "socialpost/socialpost"+String(indexPath.item)+".svg")
             }else if (editorType == .ytChannelArt){
-                FotoEventManager.shared.logEvent(name: .Templates, parameters: ["Name" : "Channel Art"])
                 self.downSvgFromFirebase(name: "channelArt/channelArt"+String(indexPath.item)+".svg")
             }
         }

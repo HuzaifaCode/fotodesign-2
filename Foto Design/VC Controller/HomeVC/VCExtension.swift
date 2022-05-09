@@ -35,36 +35,14 @@ extension ViewController {
         return popover
     }
     
+    
     func saveClicked(){
         
-        if editorType == .poster {
-            FotoEventManager.shared.logEvent(name: .saveDesign, parameters: ["Name" : "Poster"])
-        }else if editorType == .flyer {
-            FotoEventManager.shared.logEvent(name: .saveDesign, parameters: ["Name" : "Flyer"])
-        }else if editorType == .invitation {
-            FotoEventManager.shared.logEvent(name: .saveDesign, parameters: ["Name" : "Inviation"])
-        }else if editorType == .logo {
-            FotoEventManager.shared.logEvent(name: .saveDesign, parameters: ["Name" : "Logo"])
-        }else if editorType == .ytChannelArt {
-            FotoEventManager.shared.logEvent(name: .saveDesign, parameters: ["Name" : "Channel Art"])
-        }else if editorType == .fbCover {
-            FotoEventManager.shared.logEvent(name: .saveDesign, parameters: ["Name" : "FB Cover"])
-        }else if editorType == .ytThumbnail {
-            FotoEventManager.shared.logEvent(name: .saveDesign, parameters: ["Name" : "YT Thumbnail"])
-        }else if editorType == .googleCover {
-            FotoEventManager.shared.logEvent(name: .saveDesign, parameters: ["Name" : "Google Cover"])
-        }else if editorType == .fbPost {
-            FotoEventManager.shared.logEvent(name: .saveDesign, parameters: ["Name" : "FB Post"])
-        }else if editorType == .instaPost {
-            FotoEventManager.shared.logEvent(name: .saveDesign, parameters: ["Name" : "Insta Post"])
-        }else if editorType == .pintrastGraphic {
-            FotoEventManager.shared.logEvent(name: .saveDesign, parameters: ["Name" : "Pintrast"])
-        }else if editorType == .fbAd {
-            FotoEventManager.shared.logEvent(name: .saveDesign, parameters: ["Name" : "FB Add"])
+        if let svg = self.svgData {
+            FotoEventManager.shared.addEvent(editorType: editorType, eventType: .templateSave)
+        }else{
+            FotoEventManager.shared.addEvent(editorType: editorType, eventType: .saveDesign)
         }
-        
-        
-        
         DispatchQueue.main.async {[weak self] in
             guard let self = self else {return}
             self.showHudbuyProd(){[weak self](isSaved) in

@@ -124,13 +124,41 @@ class FotoEventManager {
         }
     }
     
+    func addEvent(editorType:DesignViewType,eventType:MyAnalyticsEventsName){
+        if editorType == .poster {
+            self.logEvent(name: eventType, parameters: ["Name" : "Poster"])
+        }else if editorType == .flyer {
+            self.logEvent(name: eventType, parameters: ["Name" : "Flyer"])
+        }else if editorType == .invitation {
+            self.logEvent(name: eventType, parameters: ["Name" : "Inviation"])
+        }else if editorType == .logo {
+            self.logEvent(name: eventType, parameters: ["Name" : "Logo"])
+        }else if editorType == .ytChannelArt {
+            self.logEvent(name: eventType, parameters: ["Name" : "Channel Art"])
+        }else if editorType == .fbCover {
+            self.logEvent(name: eventType, parameters: ["Name" : "FB Cover"])
+        }else if editorType == .ytThumbnail {
+            self.logEvent(name: eventType, parameters: ["Name" : "YT Thumbnail"])
+        }else if editorType == .googleCover {
+            self.logEvent(name: eventType, parameters: ["Name" : "Google Cover"])
+        }else if editorType == .fbPost {
+            self.logEvent(name: eventType, parameters: ["Name" : "FB Post"])
+        }else if editorType == .instaPost {
+            self.logEvent(name: eventType, parameters: ["Name" : "Insta Post"])
+        }else if editorType == .pintrastGraphic {
+            self.logEvent(name: eventType, parameters: ["Name" : "Pintrast"])
+        }else if editorType == .fbAd {
+            self.logEvent(name: eventType, parameters: ["Name" : "FB Add"])
+        }
+    }
+    
 }
 
 
 enum MyAnalyticsEventsName : String {
     case DesignType = "Layout Selection",
     saveDesign = "Save Design",
-    PosterTemplates = "PosterTemplates",
+    templateSave = "Template Save",
     Templates = "Templates",
     Create = "Create your Own"
 

@@ -580,7 +580,6 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="aHT-eJ-f8Y" firstAttribute="leading" secondItem="si6-cE-zy9" secondAttribute="trailing" id="0Mc-Aj-Ime"/>
-                                    <constraint firstAttribute="height" constant="660" id="1kv-U5-pnd"/>
                                     <constraint firstItem="aHT-eJ-f8Y" firstAttribute="leading" secondItem="HuY-rE-XEc" secondAttribute="trailing" id="2Ew-B1-shd"/>
                                     <constraint firstItem="si6-cE-zy9" firstAttribute="top" secondItem="bbn-Jo-Q6J" secondAttribute="top" id="ICl-54-mS3"/>
                                     <constraint firstItem="wWP-iy-Ed0" firstAttribute="top" secondItem="aHT-eJ-f8Y" secondAttribute="bottom" id="MFl-6d-Gy7"/>
@@ -1037,7 +1036,7 @@
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                                                <color key="value" name="ThemeWhite"/>
+                                                <color key="value" name="Bg_Color"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </customView>
@@ -1216,6 +1215,7 @@
                             <constraint firstItem="xeZ-2T-mq5" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="8Gn-O3-VbB"/>
                             <constraint firstItem="QHY-9e-612" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="8a0-wA-CQa"/>
                             <constraint firstAttribute="bottom" secondItem="yPn-uV-a02" secondAttribute="bottom" id="IdG-mb-saE"/>
+                            <constraint firstAttribute="bottom" secondItem="bbn-Jo-Q6J" secondAttribute="bottom" id="Mbh-QE-Hxs"/>
                             <constraint firstItem="bbn-Jo-Q6J" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="OFC-VU-FtM"/>
                             <constraint firstAttribute="bottom" secondItem="QHY-9e-612" secondAttribute="bottom" id="OsD-50-peM"/>
                             <constraint firstAttribute="trailing" secondItem="yPn-uV-a02" secondAttribute="trailing" id="PJD-mH-Pro"/>
@@ -1271,10 +1271,10 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="osn-Ts-4Xj">
-                                <rect key="frame" x="0.0" y="0.0" width="198" height="920"/>
+                                <rect key="frame" x="0.0" y="0.0" width="198" height="918"/>
                                 <subviews>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="33K-mf-DnE">
-                                        <rect key="frame" x="20" y="875" width="90" height="35"/>
+                                        <rect key="frame" x="20" y="873" width="90" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="JPK-HW-dX1"/>
                                             <constraint firstAttribute="width" constant="90" id="NcQ-1Z-WLW"/>
@@ -1294,7 +1294,7 @@
                                         </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ptG-Hs-ZLf">
-                                        <rect key="frame" x="115" y="875" width="85" height="35"/>
+                                        <rect key="frame" x="115" y="873" width="85" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="CHK-px-OKm"/>
                                             <constraint firstAttribute="width" constant="85" id="Jhj-2x-DAa"/>
@@ -1314,10 +1314,10 @@
                                         </connections>
                                     </button>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="Bq6-Aw-vRS">
-                                        <rect key="frame" x="20" y="10" width="158" height="865"/>
+                                        <rect key="frame" x="20" y="10" width="158" height="863"/>
                                         <subviews>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="1qP-9E-e5P">
-                                                <rect key="frame" x="0.0" y="700" width="158" height="155"/>
+                                                <rect key="frame" x="0.0" y="698" width="158" height="155"/>
                                                 <subviews>
                                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Vo1-cA-tg1">
                                                         <rect key="frame" x="10" y="105" width="138" height="40"/>
@@ -1398,10 +1398,10 @@
                                                 </userDefinedRuntimeAttributes>
                                             </customView>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="SMw-II-fa4">
-                                                <rect key="frame" x="5" y="0.0" width="148" height="695"/>
+                                                <rect key="frame" x="5" y="0.0" width="148" height="693"/>
                                                 <subviews>
                                                     <comboBox focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CaU-CS-TZf" customClass="CustomCombobox" customModule="Foto_Design" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="661" width="151" height="26"/>
+                                                        <rect key="frame" x="0.0" y="659" width="151" height="26"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="20" id="PmF-FA-Wwa"/>
                                                         </constraints>
@@ -1421,7 +1421,7 @@
                                                         </connections>
                                                     </comboBox>
                                                     <comboBox focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qCu-MA-qXl" customClass="CustomCombobox" customModule="Foto_Design" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="616" width="103" height="26"/>
+                                                        <rect key="frame" x="0.0" y="614" width="103" height="26"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="20" id="EiN-lu-b32"/>
                                                             <constraint firstAttribute="width" constant="100" id="R5H-Gb-erc"/>
@@ -1442,7 +1442,7 @@
                                                         </connections>
                                                     </comboBox>
                                                     <comboBox focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CXr-Dy-vRp" customClass="CustomCombobox" customModule="Foto_Design" customModuleProvider="target">
-                                                        <rect key="frame" x="120" y="616" width="31" height="26"/>
+                                                        <rect key="frame" x="120" y="614" width="31" height="26"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="20" id="uIe-6h-Llx"/>
                                                         </constraints>
@@ -1462,7 +1462,7 @@
                                                         </connections>
                                                     </comboBox>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Dej-BQ-Yvf">
-                                                        <rect key="frame" x="3" y="584" width="66" height="16"/>
+                                                        <rect key="frame" x="3" y="582" width="66" height="16"/>
                                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Text Color" id="TZg-0a-Qxx">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -1470,7 +1470,7 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cva-Hm-DEy">
-                                                        <rect key="frame" x="3" y="513" width="85" height="16"/>
+                                                        <rect key="frame" x="3" y="511" width="85" height="16"/>
                                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Border Width" id="tAH-Vs-Zdk">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -1478,7 +1478,7 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cYA-5l-gEY">
-                                                        <rect key="frame" x="143" y="585" width="76" height="15"/>
+                                                        <rect key="frame" x="143" y="583" width="76" height="15"/>
                                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Border Color" id="1UV-0n-w8y">
                                                             <font key="font" metaFont="cellTitle"/>
                                                             <color key="textColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -1486,7 +1486,7 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <colorWell focusRingType="none" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WJT-wW-kSf" customClass="CustomNSColorWell" customModule="Foto_Design" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="544" width="130" height="35"/>
+                                                        <rect key="frame" x="0.0" y="542" width="130" height="35"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="35" id="71n-Cw-4vf"/>
                                                             <constraint firstAttribute="width" constant="130" id="OaF-Pm-iyR"/>
@@ -1497,7 +1497,7 @@
                                                         </connections>
                                                     </colorWell>
                                                     <colorWell translatesAutoresizingMaskIntoConstraints="NO" id="bs3-j6-Hhj">
-                                                        <rect key="frame" x="145" y="544" width="130" height="35"/>
+                                                        <rect key="frame" x="145" y="542" width="130" height="35"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="35" id="Jb1-NV-XA8"/>
                                                             <constraint firstAttribute="width" constant="130" id="hPG-xy-eA3"/>
@@ -1508,7 +1508,7 @@
                                                         </connections>
                                                     </colorWell>
                                                     <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3ny-N6-pzx">
-                                                        <rect key="frame" x="3" y="480" width="142" height="25"/>
+                                                        <rect key="frame" x="3" y="478" width="142" height="25"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="17" id="vb3-Qv-VCY"/>
                                                         </constraints>
@@ -1533,7 +1533,7 @@
                                                         </connections>
                                                     </slider>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eY6-b0-HiS">
-                                                        <rect key="frame" x="3" y="461" width="89" height="20"/>
+                                                        <rect key="frame" x="3" y="459" width="89" height="20"/>
                                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Text Alignment" id="Mii-By-h6w">
                                                             <font key="font" metaFont="cellTitle"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.79668243839999997" colorSpace="custom" customColorSpace="calibratedRGB"/>
@@ -1541,7 +1541,7 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="1" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jg7-HJ-bt1">
-                                                        <rect key="frame" x="10" y="421" width="150" height="35"/>
+                                                        <rect key="frame" x="10" y="419" width="150" height="35"/>
                                                         <subviews>
                                                             <button translatesAutoresizingMaskIntoConstraints="NO" id="wMn-TT-hCp">
                                                                 <rect key="frame" x="0.0" y="0.0" width="49" height="35"/>
@@ -1626,7 +1626,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </stackView>
                                                     <button hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xIk-YD-hgp">
-                                                        <rect key="frame" x="170" y="421" width="35" height="35"/>
+                                                        <rect key="frame" x="170" y="419" width="35" height="35"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="35" id="Gs8-ZR-2Sf"/>
                                                             <constraint firstAttribute="height" constant="35" id="NY1-L6-5vD">
@@ -1646,7 +1646,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </button>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4Tw-iL-FtY">
-                                                        <rect key="frame" x="8" y="390" width="51" height="16"/>
+                                                        <rect key="frame" x="8" y="388" width="51" height="16"/>
                                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Opacity" id="BZO-yR-Tf8">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -1654,7 +1654,7 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Eos-0Z-NvG">
-                                                        <rect key="frame" x="8" y="359" width="132" height="28"/>
+                                                        <rect key="frame" x="8" y="357" width="132" height="28"/>
                                                         <sliderCell key="cell" alignment="left" maxValue="1" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="jAr-EF-FMZ" customClass="CustomSliderCell" customModule="Foto_Design" customModuleProvider="target">
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="color" keyPath="activeColor">
@@ -1734,16 +1734,16 @@
                                         </userDefinedRuntimeAttributes>
                                     </customView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="RiX-vH-8Gb">
-                                        <rect key="frame" x="20" y="10" width="158" height="865"/>
+                                        <rect key="frame" x="20" y="10" width="158" height="863"/>
                                         <subviews>
                                             <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="49" horizontalPageScroll="10" verticalLineScroll="49" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o8L-Bc-L3R">
-                                                <rect key="frame" x="0.0" y="5" width="158" height="850"/>
+                                                <rect key="frame" x="0.0" y="5" width="158" height="848"/>
                                                 <clipView key="contentView" drawsBackground="NO" id="SVY-jf-x8a">
-                                                    <rect key="frame" x="0.0" y="0.0" width="158" height="850"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="158" height="848"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="inset" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="49" rowSizeStyle="automatic" viewBased="YES" id="hZk-Rp-V5a">
-                                                            <rect key="frame" x="0.0" y="0.0" width="158" height="850"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="158" height="848"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <size key="intercellSpacing" width="5" height="0.0"/>
                                                             <color key="backgroundColor" name="White_Color"/>
@@ -2915,7 +2915,7 @@
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <textView editable="NO" selectable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" baseWritingDirection="leftToRight" findStyle="bar" spellingCorrection="YES" smartInsertDelete="YES" id="GZl-bj-hLH">
-                                                            <rect key="frame" x="0.0" y="-842" width="478" height="83"/>
+                                                            <rect key="frame" x="0.0" y="-862" width="478" height="83"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                             <size key="minSize" width="478" height="63"/>
@@ -3155,21 +3155,18 @@ STEP 3 - Any unused portion of the free one week initial period will be forfeite
         <image name="yt_channel_art" width="500" height="500"/>
         <image name="yt_thumbnail" width="500" height="500"/>
         <namedColor name="Bg_Color">
-            <color red="0.11764705882352941" green="0.11764705882352941" blue="0.11764705882352941" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.11800000071525574" green="0.11800000071525574" blue="0.11800000071525574" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Editor_Bg">
-            <color red="0.84705882352941175" green="0.84705882352941175" blue="0.84705882352941175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.84700000286102295" green="0.84700000286102295" blue="0.84700000286102295" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Gray_Theme">
             <color red="0.32899999618530273" green="0.32400000095367432" blue="0.4779999852180481" alpha="0.33000001311302185" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Primary_Color">
-            <color red="0.99215686274509807" green="0.67843137254901964" blue="0.16470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.99199998378753662" green="0.67799997329711914" blue="0.16500000655651093" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="ThemeLightgray">
-            <color red="0.32899999618530273" green="0.32400000095367432" blue="0.4779999852180481" alpha="0.33000001311302185" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="ThemeWhite">
             <color red="0.32899999618530273" green="0.32400000095367432" blue="0.4779999852180481" alpha="0.33000001311302185" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="White_Color">

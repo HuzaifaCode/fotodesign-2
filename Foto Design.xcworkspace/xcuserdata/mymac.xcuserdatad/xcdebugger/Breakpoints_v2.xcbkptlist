@@ -14,10 +14,10 @@
             filePath = "Foto Design/VC Controller/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "850"
-            endingLineNumber = "850"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "806"
+            endingLineNumber = "806"
+            landmarkName = "handleTap(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -62,10 +62,10 @@
             filePath = "Foto Design/VC Controller/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1179"
-            endingLineNumber = "1179"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "1137"
+            endingLineNumber = "1137"
+            landmarkName = "removeShapeSticker(sticker:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
